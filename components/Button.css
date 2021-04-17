@@ -1,0 +1,16 @@
+.btn{
+    padding: 8px;
+    border-radius: 5px;
+    font-weight: 500;
+    border: none;
+    outline: none;
+    margin: 5px;
+}
+.btn-save{
+    background-color: var(--gold);
+    color: white;
+}
+.btn-cancel{
+    background-color: var(--lightGrey);
+    padding: 8px 25px;
+}
