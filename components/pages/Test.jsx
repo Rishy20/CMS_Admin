@@ -1,6 +1,6 @@
 import React from 'react';
 import Title from '../Title';
-import Formbox from "../Formbox";
+import Formbox from "../FormBox";
 
 //Inputs in the form
 const inputs=[
@@ -16,12 +16,13 @@ const inputs=[
         placeholder:"Enter your last name",
         id:"lname"
     }
+
 ]
 function Test(){
     return (
         <div>
-            <Title text="Test"/>
-            <Formbox title="Test Information" input={inputs}/>
+            <Title text="Test" />
+            <Formbox title="Test Information" input={inputs} />
         </div>
     )
 }

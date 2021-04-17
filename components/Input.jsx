@@ -5,7 +5,7 @@ function Input(props){
 
     return(
         <div>
-            <label className="form-label" for={props.id}>{props.label}</label>
+            <label className="form-label" htmlFor={props.id}>{props.label}</label>
             <input className="input-box" type={props.type} id={props.id} placeholder={props.placeholder}/>
         </div>
 

@@ -1,11 +1,11 @@
 import React from "react";
-import './Formbox.css'
+import './FormBox.css'
 import Button from "./Button";
 import Input from './Input'
 import Grid from '@material-ui/core/Grid'
 
-//Formbox in admin menu
-function Formbox(props){
+//FormBox in admin menu
+function FormBox(props){
     const inputs= props.input;
     return(
         <div className='formbox'>
@@ -13,7 +13,7 @@ function Formbox(props){
                 <h3 className="form-title">{props.title}</h3>
                 <span className="top-btn">
                     <Button name={"Save Changes"} type={"save"}/>
-                    <Button name={"Cancel"} type={"cancel"}/>
+                    <Button name={"Cancel"} type={"cancel"} />
                 </span>
             </div>
 
@@ -23,7 +23,7 @@ function Formbox(props){
                     {   //Map input array to input components
                         inputs.map(input=>{
                             return <Grid item xs={12} md={6} >
-                                <Input label= {input.label} type={input.text} placeholder={input.placeholder}  id={input.id}/>
+                                <Input label= {input.label} type={input.text} placeholder={input.placeholder}  id={input.id} key={input.id}/>
                             </Grid>
                         })
                     }
@@ -34,4 +34,4 @@ function Formbox(props){
         </div>
     )
 }
-export default Formbox;
+export default FormBox;
