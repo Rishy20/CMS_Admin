@@ -26811,7 +26811,7 @@ try {
         }
       }, /*#__PURE__*/_reactDefault.default.createElement(_ButtonDefault.default, {
         name: "Save Changes",
-        type: "save",
+        btnStyle: "btn-save",
         __self: this,
         __source: {
           fileName: _jsxFileName,
@@ -26820,7 +26820,7 @@ try {
         }
       }), /*#__PURE__*/_reactDefault.default.createElement(_ButtonDefault.default, {
         name: "Cancel",
-        type: "cancel",
+        btnStyle: "btn-cancel",
         __self: this,
         __source: {
           fileName: _jsxFileName,
@@ -26901,12 +26901,12 @@ try {
   function Button(props) {
     return (
       /*#__PURE__*/_reactDefault.default.createElement("button", {
-        className: `btn ${props.type.toLowerCase() === "save" ? 'btn-save' : 'btn-cancel'}`,
+        className: `btn ${props.btnStyle}`,
         __self: this,
         __source: {
           fileName: _jsxFileName,
           lineNumber: 8,
-          columnNumber: 9
+          columnNumber: 5
         }
       }, props.name)
     );

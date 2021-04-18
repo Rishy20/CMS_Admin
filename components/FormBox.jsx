@@ -12,8 +12,8 @@ function FormBox(props){
             <div className="form-top">
                 <h3 className="form-title">{props.title}</h3>
                 <span className="top-btn">
-                    <Button name={"Save Changes"} type={"save"}/>
-                    <Button name={"Cancel"} type={"cancel"} />
+                    <Button name={"Save Changes"} btnStyle={"btn-save"}/>
+                    <Button name={"Cancel"} btnStyle={"btn-cancel"} />
                 </span>
             </div>
 
