@@ -1,6 +1,13 @@
-@import url("http://fonts.cdnfonts.com/css/billion-dreams");
+@font-face {
+    font-family: 'Billion Dreams';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Billion Dreams'),
+    url('https://fonts.cdnfonts.com/s/40599/BillionDreams_PERSONAL.woff')
+    format('woff');
+}
 
-.navbar {
+.navBar {
     background-color: var(--blue);
     position: fixed;
     top: 0;

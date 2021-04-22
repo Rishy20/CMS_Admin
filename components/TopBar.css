@@ -1,4 +1,4 @@
-.topbar{
+.topBar{
     background-color: white;
     height: 56px;
     position: fixed;
@@ -10,10 +10,10 @@
     transition-duration: var(--animDuration);
 }
 
-.topbarExtended {
+.topBarExtended {
     left: 56px;
 }
 
-.topbarGrid {
+.topBarGrid {
     height: 56px;
 }

@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {BrowserRouter as Router} from "react-router-dom";
-import Navbar from './components/Navbar'
+import NavBar from './components/NavBar'
 import './App.css'
 import Dashboard from "./components/pages/dashboard";
-import Topbar from "./components/Topbar";
+import TopBar from "./components/TopBar";
 
 function App() {
     const [collapsed, setCollapsed] = useState(false);
@@ -13,8 +13,8 @@ function App() {
     return (
         <div className='App'>
             <Router>
-                <Navbar collapsed={collapsed}/>
-                <Topbar collapsed={collapsed} setCollapsed={onSetCollapsed}/>
+                <NavBar collapsed={collapsed}/>
+                <TopBar collapsed={collapsed} setCollapsed={onSetCollapsed}/>
 
                 {/* Main Content Area */}
                 <div

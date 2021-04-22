@@ -1,15 +1,15 @@
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import {Grid} from "@material-ui/core";
-import "./Navbar.css"
+import "./NavBar.css"
 import NavButtons from "./NavButtons";
 
-//Admin Navbar
-function Navbar(props){
+//Admin NavBar
+function NavBar(props){
     return(
         <div
             className={
-                `navbar 
+                `navBar 
                 ${props.collapsed ? "collapsed" : "extended"}`
             }
         >
@@ -31,4 +31,4 @@ function Navbar(props){
         </div>
     )
 }
-export default Navbar;
+export default NavBar;

@@ -1,18 +1,18 @@
 import React from 'react'
-import './Topbar.css'
+import './TopBar.css'
 import {Grid, IconButton} from "@material-ui/core";
 import {KeyboardArrowLeft, Menu} from "@material-ui/icons";
 
-//Admin Topbar
-function Topbar(props){
+//Admin TopBar
+function TopBar(props){
     return(
         <div
             className={
-                `topbar
-                ${props.collapsed && "topbarExtended"}`
+                `topBar
+                ${props.collapsed && "topBarExtended"}`
             }
         >
-            <Grid container alignItems="center" className="topbarGrid">
+            <Grid container alignItems="center" className="topBarGrid">
                 <IconButton onClick={props.setCollapsed}>
                     {props.collapsed ? <Menu/> : <KeyboardArrowLeft />}
                 </IconButton>
@@ -20,4 +20,4 @@ function Topbar(props){
         </div>
     )
 }
-export default Topbar;
+export default TopBar;
