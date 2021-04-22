@@ -26274,11 +26274,11 @@ try {
   var _componentsNavbar = require('./components/Navbar');
   var _componentsNavbarDefault = _parcelHelpers.interopDefault(_componentsNavbar);
   require('./App.css');
-  var _componentsPagesDashboard = require("./components/pages/dashboard");
-  var _componentsPagesDashboardDefault = _parcelHelpers.interopDefault(_componentsPagesDashboard);
+  require("./components/pages/dashboard");
   var _componentsTopbar = require("./components/Topbar");
   var _componentsTopbarDefault = _parcelHelpers.interopDefault(_componentsTopbar);
-  require("./components/pages/Test");
+  var _componentsPagesTest = require("./components/pages/Test");
+  var _componentsPagesTestDefault = _parcelHelpers.interopDefault(_componentsPagesTest);
   var _jsxFileName = "C:\\Users\\Mohammed Rishard\\Desktop\\cms_admin\\App.jsx";
   function App() {
     return (
@@ -26312,7 +26312,7 @@ try {
           lineNumber: 14,
           columnNumber: 9
         }
-      }, /*#__PURE__*/_reactDefault.default.createElement(_componentsPagesDashboardDefault.default, {
+      }, /*#__PURE__*/_reactDefault.default.createElement(_componentsPagesTestDefault.default, {
         __self: this,
         __source: {
           fileName: _jsxFileName,
@@ -26701,28 +26701,81 @@ try {
   var _reactDefault = _parcelHelpers.interopDefault(_react);
   var _Title = require('../Title');
   var _TitleDefault = _parcelHelpers.interopDefault(_Title);
-  var _FormBox = require("../FormBox");
-  var _FormBoxDefault = _parcelHelpers.interopDefault(_FormBox);
-  var _jsxFileName = "C:\\Users\\Mohammed Rishard\\Desktop\\cms_admin\\components\\pages\\Test.jsx";
-  // Inputs in the form
+  var _Formbox = require("../Formbox");
+  var _FormboxDefault = _parcelHelpers.interopDefault(_Formbox);
+  var _jsxFileName = "C:\\Users\\Mohammed Rishard\\Desktop\\cms_admin\\components\\pages\\Test.jsx", _s = $RefreshSig$();
+  // Inputs stored as an array so they can be mapped to Input component
   const inputs = [{
     label: "First Name",
     type: "text",
-    placeholder: "Enter your first name",
-    id: "fname"
+    name: "fname"
   }, {
     label: "Last Name",
     type: "text",
-    placeholder: "Enter your last name",
-    id: "lname"
+    name: "lname"
+  }, {
+    label: "Email",
+    type: "email",
+    name: "email"
+  }, {
+    label: "Contact",
+    type: "tel",
+    name: "contact"
+  }, {
+    label: "Gender",
+    type: "select",
+    name: "gender",
+    values: ["Male", "Female", "Other"]
+  }, {
+    label: "Age",
+    type: "text",
+    name: "age",
+    maxLength: 3
+  }, {
+    label: "Address",
+    type: "text",
+    name: "address"
+  }, {
+    label: "NIC",
+    type: "text",
+    name: "nic",
+    maxLength: 12
   }];
+  // Buttons to be displayed in the form
+  const buttons = [{
+    name: "Save ",
+    style: "btn-save",
+    type: "Submit"
+  }, {
+    name: "Cancel",
+    style: "btn-cancel"
+  }];
+  // Input box names used in the form so that they can be sent to useForm hook to maintain the state
+  const names = {
+    fname: '',
+    lname: '',
+    gender: '',
+    email: '',
+    contact: '',
+    address: '',
+    age: '',
+    nic: ''
+  };
+  // Form Submit Url
+  const url = "http://localhost:3000/api/v1/researchers";
   function Test() {
+    _s();
+    const [isSubmitted, setIsSubmitted] = _react.useState(false);
+    function submitForm() {
+      setIsSubmitted(true);
+      console.log("Form Submitted");
+    }
     return (
       /*#__PURE__*/_reactDefault.default.createElement("div", {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 23,
+          lineNumber: 86,
           columnNumber: 9
         }
       }, /*#__PURE__*/_reactDefault.default.createElement(_TitleDefault.default, {
@@ -26730,21 +26783,26 @@ try {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 24,
+          lineNumber: 87,
           columnNumber: 13
         }
-      }), /*#__PURE__*/_reactDefault.default.createElement(_FormBoxDefault.default, {
+      }), /*#__PURE__*/_reactDefault.default.createElement(_FormboxDefault.default, {
         title: "Test Information",
         input: inputs,
+        buttons: buttons,
+        names: names,
+        callback: submitForm,
+        url: url,
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 25,
+          lineNumber: 88,
           columnNumber: 13
         }
       }))
     );
   }
+  _s(Test, "Yntwp1aMTvjf3xqFDrpnxrabHbs=");
   _c = Test;
   exports.default = Test;
   var _c;
@@ -26755,7 +26813,7 @@ try {
   window.$RefreshSig$ = prevRefreshSig;
 }
 
-},{"react":"3b2NM","../Title":"1TraR","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f","../FormBox":"7rGPf"}],"7rGPf":[function(require,module,exports) {
+},{"react":"3b2NM","../Title":"1TraR","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f","../Formbox":"5lTYR"}],"5lTYR":[function(require,module,exports) {
 var helpers = require("../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -26765,24 +26823,29 @@ try {
   _parcelHelpers.defineInteropFlag(exports);
   var _react = require("react");
   var _reactDefault = _parcelHelpers.interopDefault(_react);
-  require('./FormBox.css');
-  var _Button = require("./Button");
-  var _ButtonDefault = _parcelHelpers.interopDefault(_Button);
-  var _Input = require('./Input');
-  var _InputDefault = _parcelHelpers.interopDefault(_Input);
-  var _materialUiCoreGrid = require('@material-ui/core/Grid');
-  var _materialUiCoreGridDefault = _parcelHelpers.interopDefault(_materialUiCoreGrid);
-  var _jsxFileName = "C:\\Users\\Mohammed Rishard\\Desktop\\cms_admin\\components\\FormBox.jsx";
-  // FormBox in admin menu
-  function FormBox(props) {
+  require('./Formbox.css');
+  require("./Button");
+  require('./Input');
+  require('@material-ui/core/Grid');
+  var _Form = require("./Form");
+  var _FormDefault = _parcelHelpers.interopDefault(_Form);
+  require("./useForm");
+  require("./validateInfo");
+  var _jsxFileName = "C:\\Users\\Mohammed Rishard\\Desktop\\cms_admin\\components\\Formbox.jsx";
+  // Formbox in admin menu
+  function Formbox(props) {
     const inputs = props.input;
+    const names = props.names;
+    const callback = props.callback;
+    const buttons = props.buttons;
+    const url = props.url;
     return (
       /*#__PURE__*/_reactDefault.default.createElement("div", {
         className: "formbox",
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 11,
+          lineNumber: 19,
           columnNumber: 9
         }
       }, /*#__PURE__*/_reactDefault.default.createElement("div", {
@@ -26790,7 +26853,7 @@ try {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 12,
+          lineNumber: 20,
           columnNumber: 13
         }
       }, /*#__PURE__*/_reactDefault.default.createElement("h3", {
@@ -26798,7 +26861,7 @@ try {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 13,
+          lineNumber: 21,
           columnNumber: 17
         }
       }, props.title), /*#__PURE__*/_reactDefault.default.createElement("span", {
@@ -26806,86 +26869,44 @@ try {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 14,
+          lineNumber: 22,
           columnNumber: 17
         }
-      }, /*#__PURE__*/_reactDefault.default.createElement(_ButtonDefault.default, {
-        name: "Save Changes",
-        btnStyle: "btn-save",
-        __self: this,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 15,
-          columnNumber: 21
-        }
-      }), /*#__PURE__*/_reactDefault.default.createElement(_ButtonDefault.default, {
-        name: "Cancel",
-        btnStyle: "btn-cancel",
-        __self: this,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 16,
-          columnNumber: 21
-        }
-      }))), /*#__PURE__*/_reactDefault.default.createElement("div", {
+      })), /*#__PURE__*/_reactDefault.default.createElement("div", {
         className: "form-body",
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 20,
+          lineNumber: 28,
           columnNumber: 13
         }
-      }, /*#__PURE__*/_reactDefault.default.createElement(_materialUiCoreGridDefault.default, {
-        container: true,
-        spacing: 2,
-        justify: "center",
+      }, /*#__PURE__*/_reactDefault.default.createElement(_FormDefault.default, {
+        inputs: inputs,
+        names: names,
+        callback: callback,
+        btns: buttons,
+        url: url,
+        btnstyle: "top",
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 22,
+          lineNumber: 30,
           columnNumber: 17
         }
-      }, // Map input array to input components
-      inputs.map(input => {
-        return (
-          /*#__PURE__*/_reactDefault.default.createElement(_materialUiCoreGridDefault.default, {
-            item: true,
-            xs: 12,
-            md: 6,
-            __self: this,
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 25,
-              columnNumber: 36
-            }
-          }, /*#__PURE__*/_reactDefault.default.createElement(_InputDefault.default, {
-            label: input.label,
-            type: input.text,
-            placeholder: input.placeholder,
-            id: input.id,
-            key: input.id,
-            __self: this,
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 26,
-              columnNumber: 33
-            }
-          }))
-        );
-      }))))
+      })))
     );
   }
-  _c = FormBox;
-  exports.default = FormBox;
+  _c = Formbox;
+  exports.default = Formbox;
   var _c;
-  $RefreshReg$(_c, "FormBox");
+  $RefreshReg$(_c, "Formbox");
   helpers.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
 
-},{"react":"3b2NM","./FormBox.css":"29rna","./Button":"71aUR","./Input":"1iKev","@material-ui/core/Grid":"5T6Yd","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f"}],"29rna":[function() {},{}],"71aUR":[function(require,module,exports) {
+},{"react":"3b2NM","./Formbox.css":"pMdSR","./Button":"71aUR","./Input":"1iKev","@material-ui/core/Grid":"5T6Yd","./Form":"4Z09s","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f","./useForm":"2YF3b","./validateInfo":"6nekK"}],"pMdSR":[function() {},{}],"71aUR":[function(require,module,exports) {
 var helpers = require("../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -26902,11 +26923,13 @@ try {
     return (
       /*#__PURE__*/_reactDefault.default.createElement("button", {
         className: `btn ${props.btnStyle}`,
+        onClick: props.onclick,
+        type: props.type,
         __self: this,
         __source: {
           fileName: _jsxFileName,
           lineNumber: 8,
-          columnNumber: 5
+          columnNumber: 9
         }
       }, props.name)
     );
@@ -26940,30 +26963,42 @@ try {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 7,
+          lineNumber: 9,
           columnNumber: 9
         }
       }, /*#__PURE__*/_reactDefault.default.createElement("label", {
         className: "form-label",
-        htmlFor: props.id,
+        htmlFor: props.name,
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 8,
+          lineNumber: 10,
           columnNumber: 13
         }
       }, props.label), /*#__PURE__*/_reactDefault.default.createElement("input", {
         className: "input-box",
+        value: props.value,
         type: props.type,
-        id: props.id,
+        name: props.name,
+        id: props.name,
         placeholder: props.placeholder,
+        onChange: props.onChange,
+        maxLength: props.maxLength,
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 9,
+          lineNumber: 11,
           columnNumber: 13
         }
-      }))
+      }), /*#__PURE__*/_reactDefault.default.createElement("p", {
+        className: "error",
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 13,
+          columnNumber: 13
+        }
+      }, props.error))
     );
   }
   _c = Input;
@@ -36174,6 +36209,457 @@ function requirePropFactory(componentNameInError) {
   return requireProp;
 }
 exports.default = requirePropFactory;
+
+},{"@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}],"4Z09s":[function(require,module,exports) {
+var helpers = require("../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+try {
+  var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+  _parcelHelpers.defineInteropFlag(exports);
+  var _react = require("react");
+  var _reactDefault = _parcelHelpers.interopDefault(_react);
+  var _materialUiCoreGrid = require("@material-ui/core/Grid");
+  var _materialUiCoreGridDefault = _parcelHelpers.interopDefault(_materialUiCoreGrid);
+  var _Select = require("./Select");
+  var _SelectDefault = _parcelHelpers.interopDefault(_Select);
+  var _Input = require("./Input");
+  var _InputDefault = _parcelHelpers.interopDefault(_Input);
+  var _useForm = require("./useForm");
+  var _useFormDefault = _parcelHelpers.interopDefault(_useForm);
+  var _validateInfo = require("./validateInfo");
+  var _validateInfoDefault = _parcelHelpers.interopDefault(_validateInfo);
+  var _Button = require("./Button");
+  var _ButtonDefault = _parcelHelpers.interopDefault(_Button);
+  var _jsxFileName = "C:\\Users\\Mohammed Rishard\\Desktop\\cms_admin\\components\\Form.jsx", _s = $RefreshSig$();
+  const btnStyle = {
+    marginTop: 30,
+    marginBottom: 10,
+    width: "100%",
+    textAlign: "right"
+  };
+  const btnTop = {
+    position: "absolute",
+    top: 146,
+    right: 35
+  };
+  function Form(props) {
+    _s();
+    const url = props.url;
+    const inputs = props.inputs;
+    const names = props.names;
+    const callback = props.callback;
+    const buttons = props.btns;
+    // Import methods from useForm hook
+    const {handleChange, handleSubmit, values, errors} = _useFormDefault.default(callback, _validateInfoDefault.default, names, url);
+    return (
+      /*#__PURE__*/_reactDefault.default.createElement("div", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 32,
+          columnNumber: 9
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("form", {
+        onSubmit: handleSubmit,
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 33,
+          columnNumber: 13
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement(_materialUiCoreGridDefault.default, {
+        container: true,
+        spacing: 2,
+        justify: "center",
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 34,
+          columnNumber: 17
+        }
+      }, // Map input array to input components
+      inputs.map(input => {
+        if (input.type === "select") {
+          return (
+            /*#__PURE__*/_reactDefault.default.createElement(_materialUiCoreGridDefault.default, {
+              item: true,
+              xs: 12,
+              md: 6,
+              key: input.name,
+              __self: this,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 39,
+                columnNumber: 40
+              }
+            }, /*#__PURE__*/_reactDefault.default.createElement(_SelectDefault.default, {
+              name: input.name,
+              label: input.label,
+              values: input.values,
+              value: values[input.name],
+              onChange: handleChange,
+              error: errors[input.name] ? errors[input.name] : '',
+              __self: this,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 40,
+                columnNumber: 37
+              }
+            }))
+          );
+        } else {
+          return (
+            /*#__PURE__*/_reactDefault.default.createElement(_materialUiCoreGridDefault.default, {
+              item: true,
+              xs: 12,
+              md: 6,
+              key: input.name,
+              __self: this,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 44,
+                columnNumber: 40
+              }
+            }, /*#__PURE__*/_reactDefault.default.createElement(_InputDefault.default, {
+              label: input.label,
+              value: values[input.name],
+              type: input.type,
+              id: input.name,
+              name: input.name,
+              onChange: handleChange,
+              placeholder: input.placeholder,
+              error: errors[input.name] ? errors[input.name] : '',
+              maxLength: input.maxLength,
+              __self: this,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 45,
+                columnNumber: 37
+              }
+            }))
+          );
+        }
+      })), /*#__PURE__*/_reactDefault.default.createElement("div", {
+        style: props.btnstyle === 'top' ? btnTop : btnStyle,
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 53,
+          columnNumber: 17
+        }
+      }, buttons.map(btn => {
+        return (
+          /*#__PURE__*/_reactDefault.default.createElement(_ButtonDefault.default, {
+            btnStyle: btn.style,
+            name: btn.name,
+            type: btn.type,
+            key: btn.name,
+            __self: this,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 56,
+              columnNumber: 36
+            }
+          })
+        );
+      }))))
+    );
+  }
+  _s(Form, "HPrg+7k323PN1KBPI4/2C6Telpo=", false, function () {
+    return [_useFormDefault.default];
+  });
+  _c = Form;
+  exports.default = Form;
+  var _c;
+  $RefreshReg$(_c, "Form");
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+
+},{"react":"3b2NM","@material-ui/core/Grid":"5T6Yd","./Select":"3K0C2","./Input":"1iKev","./useForm":"2YF3b","./validateInfo":"6nekK","./Button":"71aUR","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f"}],"3K0C2":[function(require,module,exports) {
+var helpers = require("../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+try {
+  var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+  _parcelHelpers.defineInteropFlag(exports);
+  var _react = require("react");
+  var _reactDefault = _parcelHelpers.interopDefault(_react);
+  require('./Select.css');
+  var _jsxFileName = "C:\\Users\\Mohammed Rishard\\Desktop\\cms_admin\\components\\Select.jsx";
+  function Select(props) {
+    return (
+      /*#__PURE__*/_reactDefault.default.createElement("div", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 5,
+          columnNumber: 9
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("label", {
+        className: "form-label",
+        htmlFor: props.name,
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 6,
+          columnNumber: 13
+        }
+      }, props.label), /*#__PURE__*/_reactDefault.default.createElement("select", {
+        className: "form-select",
+        name: props.name,
+        id: props.name,
+        value: props.value,
+        onChange: props.onChange,
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 7,
+          columnNumber: 13
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("option", {
+        disabled: true,
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 8,
+          columnNumber: 17
+        }
+      }), props.values.map(value => {
+        return (
+          /*#__PURE__*/_reactDefault.default.createElement("option", {
+            value: value,
+            key: value,
+            __self: this,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 10,
+              columnNumber: 28
+            }
+          }, value)
+        );
+      })), /*#__PURE__*/_reactDefault.default.createElement("p", {
+        className: "error",
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 13,
+          columnNumber: 13
+        }
+      }, props.error))
+    );
+  }
+  exports.default = Select;
+  _c = Select;
+  var _c;
+  $RefreshReg$(_c, "Select");
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+
+},{"react":"3b2NM","./Select.css":"2e9un","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f"}],"2e9un":[function() {},{}],"2YF3b":[function(require,module,exports) {
+var helpers = require("../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+try {
+  var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+  _parcelHelpers.defineInteropFlag(exports);
+  var _react = require("react");
+  var _s = $RefreshSig$();
+  function useForm(callback, validate, val, url) {
+    _s();
+    // Hook to store states of values
+    const [values, setValues] = _react.useState({
+      ...val
+    });
+    // Hook to store errors
+    const [errors, setErrors] = _react.useState({});
+    // Hook to store submitting status
+    const [isSubmitting, setIsSubmitting] = _react.useState(false);
+    // This function executes on onChange event of the input box
+    const handleChange = e => {
+      const {name, value} = e.target;
+      setValues({
+        ...values,
+        [name]: value
+      });
+    };
+    // This function is executed on form submission
+    const handleSubmit = e => {
+      e.preventDefault();
+      // Sets errors if there are errors
+      setErrors(validate(values));
+      setIsSubmitting(true);
+    };
+    _react.useEffect(() => {
+      // Checks if there are no errors and the form is in IsSubmitting state
+      if (Object.keys(errors).length === 0 && isSubmitting) {
+        // Callback the submitForm method
+        callback(values);
+        // //Submit the form
+        if (url) {
+          submitForm();
+        }
+      }
+    }, [errors]);
+    // This function handles the POST api call to submit the form data
+    const submitForm = () => {
+      fetch(url, {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify(values)
+      }).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err));
+    };
+    return {
+      handleChange,
+      handleSubmit,
+      values,
+      errors
+    };
+  }
+  _s(useForm, "GewZPzu0DjCL/1ZXfX/+n2rg3b8=");
+  exports.default = useForm;
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+
+},{"react":"3b2NM","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f"}],"6nekK":[function(require,module,exports) {
+var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+_parcelHelpers.defineInteropFlag(exports);
+function validateInfo(values) {
+  let errors = {};
+  // Validate First name
+  if (values.hasOwnProperty("fname")) {
+    if (!values.fname.trim()) {
+      errors.fname = "Please enter a First name";
+    }
+  }
+  // Validate Last name
+  if (values.hasOwnProperty("lname")) {
+    if (!values.lname.trim()) {
+      errors.lname = "Please enter a Last name";
+    }
+  }
+  // Validate email
+  if (values.hasOwnProperty("email")) {
+    if (!values.email) {
+      errors.email = 'Please enter an email';
+    } else if (!(/\S+@\S+\.\S+/).test(values.email)) {
+      errors.email = 'Email address is invalid';
+    }
+  }
+  // Validate Gender
+  if (values.hasOwnProperty("gender")) {
+    if (!values.gender.trim()) {
+      errors.gender = "Please select a gender";
+    }
+  }
+  // Validate Contact Number
+  if (values.hasOwnProperty("contact")) {
+    if (!values.contact.trim()) {
+      errors.contact = "Please enter a Contact Number";
+    } else if (!(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im).test(values.contact)) {
+      errors.contact = "Please enter a valid Contact Number";
+    }
+  }
+  // Validate Address
+  if (values.hasOwnProperty("address")) {
+    if (!values.address.trim()) {
+      errors.address = "Please enter your address";
+    }
+  }
+  // Validate Age
+  if (values.hasOwnProperty("age")) {
+    if (!values.age.trim()) {
+      errors.age = "Please enter your age";
+    } else if ((/[^0-9]/).test(values.age) || values.age <= 0 || values.age > 120) {
+      errors.age = "Please enter a valid age";
+    }
+  }
+  // Validate NIC
+  if (values.hasOwnProperty("nic")) {
+    if (!values.nic.trim()) {
+      errors.nic = "Please enter your NIC number";
+    } else if (!(/^([0-9]{9}[x|X|v|V]|[0-9]{12})$/i).test(values.nic)) {
+      errors.nic = "Please enter a valid NIC number";
+    }
+  }
+  // Validate Password
+  if (values.hasOwnProperty("password")) {
+    if (!values.password) {
+      errors.password = 'Please enter a password';
+    } else if (values.password.length < 8) {
+      errors.password = 'Password needs to be 8 characters or more';
+    }
+  }
+  // Validate Confirm Password
+  if (values.hasOwnProperty("confirmPassword")) {
+    if (!values.confirmPassword) {
+      errors.confirmPassword = 'Password is required';
+    } else if (values.confirmPassword !== values.password) {
+      errors.confirmPassword = 'Passwords do not match';
+    }
+  }
+  // Validate Card holder's name
+  if (values.hasOwnProperty("chname")) {
+    if (!values.chname.trim()) {
+      errors.chname = "Please enter Card holder's name";
+    }
+  }
+  // Validate Card number
+  if (values.hasOwnProperty("cnum")) {
+    if (!values.cnum.trim()) {
+      errors.cnum = "Please enter a Card number";
+    } else if (!(/^[0-9]{4}\s*[0-9]{4}\s*[0-9]{4}\s*[0-9]{4}\s*$/).test(values.cnum)) {
+      errors.cnum = "Please enter a valid Card number";
+    }
+  }
+  // Validate Card Expiry date
+  if (values.hasOwnProperty("expiry")) {
+    if (!values.expiry.trim()) {
+      errors.expiry = "Please enter a expiry date";
+    } else if (!(/^[0-9]{2}[/][0-9]{2}$/).test(values.expiry)) {
+      errors.expiry = "Please enter a valid expiry date in the format mm/yy";
+    } else {
+      let date = values.expiry.split("/");
+      let now = new Date();
+      let currentMonth = now.getMonth() + 1;
+      let currentYear = parseInt(now.getFullYear().toString().substr(-2));
+      const month = parseInt(date[0]);
+      const year = parseInt(date[1]);
+      // currentYear = parseInt(currentYear);
+      if (month === 0 || month > 12 || year === 0 || year > currentYear + 10) {
+        errors.expiry = "Please enter a valid expiry date";
+      }
+      if (year === currentYear && month <= currentMonth || year < currentYear) {
+        errors.expiry = "Your card has already expired. Please try again with another card";
+      }
+    }
+  }
+  // Validate Card cvc code
+  if (values.hasOwnProperty("cvc")) {
+    if (!values.cvc.trim()) {
+      errors.cvc = "Please enter a cvc code";
+    } else if (!(/^[0-9]{3}$/).test(values.cvc)) {
+      errors.cvc = "Please enter a valid cvc code";
+    }
+  }
+  return errors;
+}
+exports.default = validateInfo;
 
 },{"@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}]},["1j6wU","3L2qK","5Qvcc"], "5Qvcc", "parcelRequiref388")
 
