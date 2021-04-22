@@ -15,7 +15,7 @@ const navButtons = [
     {text: "Agenda", icon: <Event />, path: "/agenda"},
 ]
 
-const NavButtons = () => (
+const NavButtons = (props) => (
     <List component="nav">
         {navButtons.map(navButton => (
             <NavButton
@@ -23,6 +23,7 @@ const NavButtons = () => (
                 text={navButton.text}
                 icon={navButton.icon}
                 path={navButton.path}
+                collapsed={props.collapsed}
             />
         ))}
     </List>

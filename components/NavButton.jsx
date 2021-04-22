@@ -8,16 +8,33 @@ const useStyles = makeStyles({
     iconRoot: {
         paddingInlineStart: 20,
         paddingInlineEnd: 20,
-        color: "white"
+        color: "white",
+        transition: "ease-in",
+        transitionDuration: "250ms"
     },
     textPrimary: {
         fontWeight: "bold",
-        color: "white"
+        color: "white",
+        transition: "ease-in",
+        transitionDuration: "250ms"
+    }
+})
+
+const useStylesCollapsed = makeStyles({
+    iconRoot: {
+        color: "white",
+        transition: "ease-in",
+        transitionDuration: "250ms"
+    },
+    textPrimary: {
+        color: "white",
+        transition: "ease-in",
+        transitionDuration: "250ms"
     }
 })
 
 const NavButton = (props) => {
-    const styles = useStyles();
+    const styles = props.collapsed ? useStylesCollapsed() : useStyles();
 
     return (
         <ListItem

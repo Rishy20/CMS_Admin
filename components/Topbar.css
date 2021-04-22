@@ -1,7 +1,19 @@
 .topbar{
     background-color: white;
-    height: 55px;
+    height: 56px;
     position: fixed;
     left: 230px;
     right: 0;
+    padding: 0;
+    margin: 0;
+    transition: ease-in;
+    transition-duration: var(--animDuration);
+}
+
+.topbarExtended {
+    left: 56px;
+}
+
+.topbarGrid {
+    height: 56px;
 }

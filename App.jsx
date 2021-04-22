@@ -1,23 +1,32 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {BrowserRouter as Router} from "react-router-dom";
 import Navbar from './components/Navbar'
 import './App.css'
 import Dashboard from "./components/pages/dashboard";
 import Topbar from "./components/Topbar";
-import Test from "./components/pages/Test";
 
-function App(){
-return(
-    <div className='App'>
-        <Router>
-            <Navbar/>
-            <Topbar/>
-            {/*Main Content Area*/}
-            <div className='main'>
-                <Dashboard/>
-            </div>
-        </Router>
-    </div>
-)
+function App() {
+    const [collapsed, setCollapsed] = useState(false);
+
+    const onSetCollapsed = () => setCollapsed(!collapsed)
+
+    return (
+        <div className='App'>
+            <Router>
+                <Navbar collapsed={collapsed}/>
+                <Topbar collapsed={collapsed} setCollapsed={onSetCollapsed}/>
+
+                {/* Main Content Area */}
+                <div
+                    className={
+                        `main
+                        ${collapsed && "mainExtended"}`
+                    }
+                >
+                    <Dashboard/>
+                </div>
+            </Router>
+        </div>
+    )
 }
 export default App;
