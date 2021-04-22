@@ -6,13 +6,13 @@ import NavButton from "./NavButton";
 
 // Navigation buttons list
 const navButtons = [
-    {text: "Dashboard", icon: <Dashboard />},
-    {text: "Reviewers", icon: <RateReview />},
-    {text: "Editors", icon: <Edit />},
-    {text: "Registrations", icon: <PersonAdd />},
-    {text: "Templates", icon: <InsertDriveFile />},
-    {text: "Submissions", icon: <CloudUpload />},
-    {text: "Agenda", icon: <Event />},
+    {text: "Dashboard", icon: <Dashboard />, path: "/"},
+    {text: "Reviewers", icon: <RateReview />, path: "/reviewers"},
+    {text: "Editors", icon: <Edit />, path: "/editors"},
+    {text: "Registrations", icon: <PersonAdd />, path: "/registrations"},
+    {text: "Templates", icon: <InsertDriveFile />, path: "/templates"},
+    {text: "Submissions", icon: <CloudUpload />, path: "/submissions"},
+    {text: "Agenda", icon: <Event />, path: "/agenda"},
 ]
 
 const NavButtons = () => (
@@ -22,6 +22,7 @@ const NavButtons = () => (
                 key={navButton.text}
                 text={navButton.text}
                 icon={navButton.icon}
+                path={navButton.path}
             />
         ))}
     </List>

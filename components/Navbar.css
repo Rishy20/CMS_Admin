@@ -1,9 +1,5 @@
 @import url("http://fonts.cdnfonts.com/css/billion-dreams");
 
-body {
-    color: white;
-}
-
 .navbar{
     background-color: var(--blue);
     width: 230px;
@@ -18,4 +14,6 @@ body {
     font-family: "Billion Dreams", sans-serif;
     font-size: 2.5em;
     padding: 16px;
+    text-decoration: none;
+    color: white;
 }

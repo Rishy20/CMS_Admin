@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 import {Grid} from "@material-ui/core";
 import "./Navbar.css"
 import NavButtons from "./NavButtons";
@@ -9,7 +10,7 @@ function Navbar(){
         <div className="navbar">
             {/* Logo */}
             <Grid container justify="center">
-                <h1 className="logo">CMS</h1>
+                <Link to='/' className="logo">CMS</Link>
             </Grid>
 
             {/* Navigation Buttons */}
