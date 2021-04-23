@@ -4,7 +4,7 @@ import {Badge, Grid, IconButton, InputBase, makeStyles, Paper} from "@material-u
 import {
     AccountCircle,
     ArrowDropDown,
-    Fullscreen,
+    Fullscreen, FullscreenExit,
     KeyboardArrowLeft,
     Menu,
     Notifications,
@@ -92,8 +92,11 @@ function TopBar(props) {
 
                 {/* Fullscreen button */}
                 <Grid item>
-                    <IconButton className={styles.iconButton}>
-                        <Fullscreen />
+                    <IconButton
+                        className={styles.iconButton}
+                        onClick={props.setFullscreen}
+                    >
+                        {props.fullscreen ? <FullscreenExit /> : <Fullscreen />}
                     </IconButton>
                 </Grid>
 
