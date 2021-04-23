@@ -8,13 +8,25 @@
     margin: 0;
     transition: ease-in;
     transition-duration: var(--animDuration);
+    display: flex;
 }
 
 .topBarExtended {
     left: 56px;
 }
 
-.topBarGrid {
+.topBarGridLeft {
     height: 56px;
-    padding-inline: 8px;
+    padding-inline-start: 4px;
+}
+
+.topBarGridRight {
+    height: 56px;
+    padding-inline-end: 4px;
+}
+
+.firstName{
+    font-size: 16px;
+    font-weight: 500;
+    padding-inline-start: 4px;
 }

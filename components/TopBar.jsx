@@ -1,13 +1,22 @@
 import React from 'react'
 import './TopBar.css'
-import {Grid, IconButton, InputBase, makeStyles, Paper} from "@material-ui/core";
-import {KeyboardArrowLeft, Menu, Search} from "@material-ui/icons";
+import {Badge, Grid, IconButton, InputBase, makeStyles, Paper} from "@material-ui/core";
+import {
+    AccountCircle,
+    ArrowDropDown,
+    Fullscreen,
+    KeyboardArrowLeft,
+    Menu,
+    Notifications,
+    Search
+} from "@material-ui/icons";
 
 const useStyles = makeStyles({
-    menuButton: {
-        padding: "8px"
+    iconButton: {
+        padding: "8px",
+        marginInline: "4px"
     },
-    searchButton: {
+    searchIcon: {
         padding: "4px",
         marginInline: "8px"
     },
@@ -16,6 +25,13 @@ const useStyles = makeStyles({
         borderRadius: "16px",
         backgroundColor: "#F8F8FB",
         marginInlineStart: "8px"
+    },
+    accountButton: {
+        paddingInline: "4px",
+        paddingBlock: "2px",
+        marginInlineStart: "16px",
+        marginInlineEnd: "8px",
+        borderRadius: "32px"
     }
 })
 
@@ -30,13 +46,17 @@ function TopBar(props) {
                 ${props.collapsed && "topBarExtended"}`
             }
         >
-            {/* TopBar content */}
-            <Grid container alignItems="center" className="topBarGrid">
+            {/* TopBar content (left) */}
+            <Grid
+                container alignItems="center"
+                className="topBarGridLeft"
+                justify="flex-start"
+            >
 
                 {/* NavBar collapse/extend button */}
                 <Grid item>
                     <IconButton
-                        className={styles.menuButton}
+                        className={styles.iconButton}
                         onClick={props.setCollapsed}
                     >
                         {props.collapsed ? <Menu/> : <KeyboardArrowLeft />}
@@ -48,7 +68,7 @@ function TopBar(props) {
                     <Paper component="form" className={styles.searchForm}>
                         <IconButton
                             type="submit"
-                            className={styles.searchButton}
+                            className={styles.searchIcon}
                         >
                             <Search />
                         </IconButton>
@@ -60,6 +80,42 @@ function TopBar(props) {
                         >
                         </InputBase>
                     </Paper>
+                </Grid>
+            </Grid>
+
+            {/* TopBar content (right) */}
+            <Grid
+                container alignItems="center"
+                className="topBarGridRight"
+                justify="flex-end"
+            >
+
+                {/* Fullscreen button */}
+                <Grid item>
+                    <IconButton className={styles.iconButton}>
+                        <Fullscreen />
+                    </IconButton>
+                </Grid>
+
+                {/* Notifications button */}
+                <Grid item>
+                    <IconButton className={styles.iconButton}>
+                        <Badge
+                            badgeContent={props.notifications}
+                            color="secondary"
+                        >
+                            <Notifications />
+                        </Badge>
+                    </IconButton>
+                </Grid>
+
+                {/* Account button */}
+                <Grid item>
+                    <IconButton className={styles.accountButton}>
+                        <AccountCircle fontSize="large"/>
+                        <p className="firstName">{props.firstName}</p>
+                        <ArrowDropDown />
+                    </IconButton>
                 </Grid>
             </Grid>
         </div>
