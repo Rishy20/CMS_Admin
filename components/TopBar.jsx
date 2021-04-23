@@ -1,16 +1,15 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './TopBar.css'
-import {Badge, Grid, IconButton, InputBase, makeStyles, Paper} from "@material-ui/core";
 import {
-    AccountCircle,
-    ArrowDropDown,
-    Fullscreen, FullscreenExit,
-    KeyboardArrowLeft,
-    Menu,
-    Notifications,
-    Search
+    Badge, Grid, IconButton, InputBase, makeStyles, Paper
+} from "@material-ui/core";
+import {
+    AccountCircle, ArrowDropDown, Fullscreen, FullscreenExit,
+    KeyboardArrowLeft, Menu, Notifications, Search
 } from "@material-ui/icons";
+import PopUpMenu from "./PopUpMenu";
 
+// Styles for Material UI components
 const useStyles = makeStyles({
     iconButton: {
         padding: "8px",
@@ -38,6 +37,17 @@ const useStyles = makeStyles({
 //Admin TopBar
 function TopBar(props) {
     const styles = useStyles();
+
+    // States
+    const [accMenuOpen, setAccMenuOpen] = useState(false);
+    const [accBtnAnchor, setAccBtnAnchor] = useState(null);
+
+    // Set state method wrappers
+    const accMenuClose = () => setAccMenuOpen(false);
+    const accMenuClick = event => {
+        setAccBtnAnchor(event.currentTarget);
+        setAccMenuOpen(!accMenuOpen);
+    };
 
     return (
         <div
@@ -114,11 +124,20 @@ function TopBar(props) {
 
                 {/* Account button */}
                 <Grid item>
-                    <IconButton className={styles.accountButton}>
+                    <IconButton
+                        className={styles.accountButton}
+                        onClick={accMenuClick}
+                    >
                         <AccountCircle fontSize="large"/>
                         <p className="firstName">{props.firstName}</p>
                         <ArrowDropDown />
                     </IconButton>
+
+                    <PopUpMenu
+                        anchorEl={accBtnAnchor}
+                        open={accMenuOpen}
+                        onClose={accMenuClose}
+                    />
                 </Grid>
             </Grid>
         </div>
