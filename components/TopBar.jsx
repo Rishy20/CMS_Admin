@@ -1,10 +1,11 @@
 import React, {useState} from 'react'
 import './TopBar.css'
 import {
+    Avatar,
     Badge, Grid, IconButton, InputBase, makeStyles, Paper
 } from "@material-ui/core";
 import {
-    AccountCircle, ArrowDropDown, Fullscreen, FullscreenExit,
+    ArrowDropDown, Fullscreen, FullscreenExit,
     KeyboardArrowLeft, Menu, Notifications, Search
 } from "@material-ui/icons";
 import PopUpMenu from "./PopUpMenu";
@@ -127,8 +128,11 @@ function TopBar(props) {
                     <IconButton
                         className={styles.accountButton}
                         onClick={accMenuClick}
+                        disableRipple
                     >
-                        <AccountCircle fontSize="large"/>
+                        <Avatar src={props.profilePic}>
+                            {props.firstName[0]}
+                        </Avatar>
                         <p className="firstName">{props.firstName}</p>
                         <ArrowDropDown />
                     </IconButton>

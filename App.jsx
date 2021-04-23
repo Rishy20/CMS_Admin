@@ -10,8 +10,9 @@ function App() {
     const [collapsed, setCollapsed] = useState(false);
     const [search, setSearch] = useState("");
     const [fullscreen, setFullscreen] = useState(false);
-    const [notifications] = useState(0);
-    const [firstName] = useState("");
+    const [notifications, setNotifications] = useState(0);
+    const [firstName, setFirstName] = useState("");
+    const [profilePic, setProfilePicture] = useState("");
 
     // Set state method wrappers
     const onSetCollapsed = () => setCollapsed(!collapsed);
@@ -46,6 +47,7 @@ function App() {
                     setFullscreen={onSetFullscreen}
                     notifications={notifications}
                     firstName={firstName}
+                    profilePic={profilePic}
                 />
 
                 {/* Main Content Area */}
