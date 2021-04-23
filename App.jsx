@@ -7,14 +7,21 @@ import TopBar from "./components/TopBar";
 
 function App() {
     const [collapsed, setCollapsed] = useState(false);
+    const [search, setSearch] = useState("");
 
-    const onSetCollapsed = () => setCollapsed(!collapsed)
+    const onSetCollapsed = () => setCollapsed(!collapsed);
+    const onSetSearch = event => setSearch(event.target.value);
 
     return (
         <div className='App'>
             <Router>
                 <NavBar collapsed={collapsed}/>
-                <TopBar collapsed={collapsed} setCollapsed={onSetCollapsed}/>
+                <TopBar
+                    collapsed={collapsed}
+                    setCollapsed={onSetCollapsed}
+                    search={search}
+                    setSearch={onSetSearch}
+                />
 
                 {/* Main Content Area */}
                 <div
