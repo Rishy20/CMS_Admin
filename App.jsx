@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {BrowserRouter as Router} from "react-router-dom";
 import NavBar from './components/NavBar'
 import './App.css'
-import Dashboard from "./components/pages/dashboard";
+import Dashboard from "./components/pages/Dashboard";
 import TopBar from "./components/TopBar";
 
 function App() {
