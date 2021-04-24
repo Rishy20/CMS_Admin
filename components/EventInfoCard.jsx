@@ -14,6 +14,7 @@ const useStyles = makeStyles({
     },
     days: {
         fontWeight: "bold",
+        marginBlockStart: "-12px"
     },
     toGo: {
         fontSize: "1.5em",
@@ -22,8 +23,8 @@ const useStyles = makeStyles({
         marginBlockStart: "-8px"
     },
     infoText: {
-        marginBlockStart: "20px",
-        marginBlockEnd: "16px"
+        marginBlockStart: "12px",
+        marginBlockEnd: "8px"
     },
     container: {
         padding: 0
@@ -41,7 +42,7 @@ const EventInfoCard = () => {
     const [time, setTime] = useState("8:00 am - 6.00 pm");
 
     return (
-        <Card variant="outlined">
+        <Card variant="outlined" style={{height: "100%"}}>
             <Container className={styles.container}>
                 <Typography
                     variant="h1"

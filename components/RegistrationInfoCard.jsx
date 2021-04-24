@@ -10,11 +10,14 @@ const useStyles = makeStyles({
     },
     title: {
         fontSize: "1.3em",
-        marginTop: "-12px"
+        marginTop: "-8px"
+    },
+    container: {
+        marginBlock: "20px"
     }
 })
 
-const RegistrationInfoCard = props => {
+const RegistrationInfoCard = () => {
     const styles = useStyles();
 
     // States
@@ -23,12 +26,12 @@ const RegistrationInfoCard = props => {
     const [totalRegistrations, setTotalRegistrations] = useState(0);
 
     return (
-    <Card variant="outlined" style={{padding: "16px"}}>
+    <Card variant="outlined" style={{padding: "16px", height: "100%"}}>
         <Grid container alignItems="center" justify="center">
             <Grid item md="5">
 
                 {/* Total Revenue */}
-                <Container style={{marginBlock: "24px"}}>
+                <Container className={styles.container}>
                     <Typography
                         variant="h6"
                         align="center"
@@ -47,7 +50,7 @@ const RegistrationInfoCard = props => {
                 </Container>
 
                 {/* Total Registrations */}
-                <Container style={{marginBlock: "24px"}}>
+                <Container className={styles.container}>
                     <Typography
                         variant="h6"
                         align="center"
@@ -67,11 +70,17 @@ const RegistrationInfoCard = props => {
             </Grid>
 
             {/* Registrations Chart */}
-            <Grid item md="7">
-                <Chart data={chartData} height={224}>
+            <Grid item md="7" justify="center">
+                <Chart
+                    data={chartData}
+                    height={220}
+                >
                     <ArgumentAxis />
                     <ValueAxis />
-                    <SplineSeries valueField="registrations" argumentField="day" />
+                    <SplineSeries
+                        valueField="registrations"
+                        argumentField="day"
+                    />
                 </Chart>
             </Grid>
         </Grid>
