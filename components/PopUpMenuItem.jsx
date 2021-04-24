@@ -8,6 +8,7 @@ const PopUpMenuItem = React.forwardRef((props, ref) => (
         component={NavLink}
         to={props.path}
         onClick={props.onClick}
+        divider={props.divider}
     >
         <ListItemIcon>{props.icon}</ListItemIcon>
         <ListItemText primary={props.text} />
