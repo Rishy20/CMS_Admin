@@ -35,11 +35,11 @@ const EventInfoCard = () => {
     const styles = useStyles();
 
     // States
-    const [eventTitle, setEventTitle] = useState("ICAF 2021");
-    const [remainingDays, setRemainingDays] = useState(10);
-    const [date, setDate] = useState("28th June 2021");
-    const [location, setLocation] = useState("SLIIT Auditorium");
-    const [time, setTime] = useState("8:00 am - 6.00 pm");
+    const [eventTitle, setEventTitle] = useState("");
+    const [remainingDays, setRemainingDays] = useState(0);
+    const [date, setDate] = useState("");
+    const [location, setLocation] = useState("");
+    const [time, setTime] = useState("");
 
     return (
         <Card variant="outlined" style={{height: "100%"}}>

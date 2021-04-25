@@ -28,7 +28,7 @@ const RegistrationInfoCard = () => {
     return (
     <Card variant="outlined" style={{padding: "16px", height: "100%"}}>
         <Grid container alignItems="center" justify="center">
-            <Grid item md="5">
+            <Grid item md={5}>
 
                 {/* Total Revenue */}
                 <Container className={styles.container}>
@@ -70,7 +70,7 @@ const RegistrationInfoCard = () => {
             </Grid>
 
             {/* Registrations Chart */}
-            <Grid item md="7" justify="center">
+            <Grid item md={7}>
                 <Chart
                     data={chartData}
                     height={220}
