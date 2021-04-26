@@ -4,6 +4,7 @@ import {Grid} from "@material-ui/core";
 import RegistrationInfoCard from "../RegistrationInfoCard"
 import EventInfoCard from "../EventInfoCard";
 import TotalValueCard from "../TotalValueCard";
+import OverviewCard from "../OverviewCard";
 
 //Admin Dashboard Page
 const Dashboard = () => {
@@ -13,6 +14,36 @@ const Dashboard = () => {
     const [totalPresenters, setTotalPresenters] = useState(0);
     const [totalResearchers, setTotalResearchers] = useState(0);
 
+    // Overview card states
+    const [submissionInfo, setSubmissionInfo] = useState({
+        total: 0,
+        pending: 0,
+        accepted: 0,
+        rejected: 0,
+        chartData: []
+    });
+    const [reviewersInfo, setReviewerInfo] = useState({
+        total: 0,
+        pending: 0,
+        accepted: 0,
+        rejected: 0,
+        chartData: []
+    });
+    const [researchPropInfo, setResearchPropInfo] = useState({
+        total: 0,
+        pending: 0,
+        accepted: 0,
+        rejected: 0,
+        chartData: []
+    });
+    const [workshopPropInfo, setWorkshopPropInfo] = useState({
+        total: 0,
+        pending: 0,
+        accepted: 0,
+        rejected: 0,
+        chartData: []
+    });
+
     return (
         <>
             <div>
@@ -21,16 +52,21 @@ const Dashboard = () => {
 
             <Grid
                 container
-                spacing={2}
+                spacing={3}
                 xs={12}
-                style={{paddingInlineEnd: "8px"}}
             >
+
+                {/* Registration Info Card */}
                 <Grid item md={8}>
                     <RegistrationInfoCard />
                 </Grid>
+
+                {/* Event Info Card */}
                 <Grid item md={4}>
                     <EventInfoCard />
                 </Grid>
+
+                {/* Total Pending Edits/Attendees etc. Cards */}
                 <Grid item md={3}>
                     <TotalValueCard
                         title="Pending Edit Approvals"
@@ -61,6 +97,32 @@ const Dashboard = () => {
                         value={totalResearchers}
                         styles="totalResearchers"
                         path="/registrations"
+                    />
+                </Grid>
+
+                {/* Overview Cards */}
+                <Grid item xs={6}>
+                    <OverviewCard
+                        title="Submissions Overview"
+                        submissions={submissionInfo}
+                    />
+                </Grid>
+                <Grid item xs={6}>
+                    <OverviewCard
+                        title="Reviewers Overview"
+                        submissions={reviewersInfo}
+                    />
+                </Grid>
+                <Grid item xs={6}>
+                    <OverviewCard
+                        title="Research Proposals Overview"
+                        submissions={researchPropInfo}
+                    />
+                </Grid>
+                <Grid item xs={6}>
+                    <OverviewCard
+                        title="Workshop Proposals Overview"
+                        submissions={workshopPropInfo}
                     />
                 </Grid>
             </Grid>
