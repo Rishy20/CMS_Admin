@@ -3,6 +3,7 @@
     height: 56px;
     position: fixed;
     left: 230px;
+    z-index: 2;
     right: 0;
     padding: 0;
     margin: 0;

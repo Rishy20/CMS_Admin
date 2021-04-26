@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Card, Container, Grid, makeStyles, Typography} from "@material-ui/core";
-import {ArgumentAxis, Chart, ValueAxis, SplineSeries
-} from "@devexpress/dx-react-chart-material-ui";
+import {ArgumentAxis, Chart, ValueAxis, SplineSeries} from "@devexpress/dx-react-chart-material-ui";
+import {Animation} from "@devexpress/dx-react-chart";
 
 // Styles for Material UI components
 const useStyles = makeStyles({
@@ -77,10 +77,13 @@ const RegistrationInfoCard = () => {
                 >
                     <ArgumentAxis />
                     <ValueAxis />
+
                     <SplineSeries
                         valueField="registrations"
                         argumentField="day"
                     />
+
+                    <Animation />
                 </Chart>
             </Grid>
         </Grid>

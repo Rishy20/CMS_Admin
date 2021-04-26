@@ -4,17 +4,18 @@
 }
 
 .pendingEdits {
-    background-color: #f44336;
+    /*background-color: #f44336;*/
+    background: linear-gradient(to top right, #f44336, #ffa19c);
 }
 
 .totalAttendees {
-    background-color: #ff9800;
+    background: linear-gradient(to top right, #ff9800, #ffcf33);
 }
 
 .totalPresenters {
-    background-color: #2196f3;
+    background: linear-gradient(to top right, #2196f3, #33eaff);
 }
 
 .totalResearchers {
-    background-color: #4caf50;
+    background: linear-gradient(to top right, #4caf50, #91ff35);
 }
