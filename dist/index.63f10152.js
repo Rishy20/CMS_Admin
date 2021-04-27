@@ -1053,7 +1053,7 @@ try {
   var _reactDom = require("react-dom");
   var _App = require("./App");
   var _AppDefault = _parcelHelpers.interopDefault(_App);
-  var _jsxFileName = "C:\\Users\\Mohammed Rishard\\Desktop\\cms_admin\\index.jsx";
+  var _jsxFileName = "C:\\Users\\User\\WebstormProjects\\CMS_Admin\\index.jsx";
   _reactDom.render(/*#__PURE__*/_reactDefault.default.createElement(_AppDefault.default, {
     __self: undefined,
     __source: {
@@ -26274,12 +26274,12 @@ try {
   var _componentsNavbar = require('./components/Navbar');
   var _componentsNavbarDefault = _parcelHelpers.interopDefault(_componentsNavbar);
   require('./App.css');
-  var _componentsPagesDashboard = require("./components/pages/dashboard");
-  var _componentsPagesDashboardDefault = _parcelHelpers.interopDefault(_componentsPagesDashboard);
+  require("./components/pages/dashboard");
   var _componentsTopbar = require("./components/Topbar");
   var _componentsTopbarDefault = _parcelHelpers.interopDefault(_componentsTopbar);
-  require("./components/pages/Test");
-  var _jsxFileName = "C:\\Users\\Mohammed Rishard\\Desktop\\cms_admin\\App.jsx";
+  var _componentsPagesTest = require("./components/pages/Test");
+  var _componentsPagesTestDefault = _parcelHelpers.interopDefault(_componentsPagesTest);
+  var _jsxFileName = "C:\\Users\\User\\WebstormProjects\\CMS_Admin\\App.jsx";
   function App() {
     return (
       /*#__PURE__*/_reactDefault.default.createElement("div", {
@@ -26312,11 +26312,11 @@ try {
           lineNumber: 14,
           columnNumber: 9
         }
-      }, /*#__PURE__*/_reactDefault.default.createElement(_componentsPagesDashboardDefault.default, {
+      }, /*#__PURE__*/_reactDefault.default.createElement(_componentsPagesTestDefault.default, {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 15,
+          lineNumber: 16,
           columnNumber: 13
         }
       })))
@@ -26332,7 +26332,7 @@ try {
   window.$RefreshSig$ = prevRefreshSig;
 }
 
-},{"react":"3b2NM","./components/Navbar":"476io","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","./node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f","./App.css":"236Ri","./components/pages/dashboard":"43aoC","./components/Topbar":"1en4I","./components/pages/Test":"kN7mi"}],"476io":[function(require,module,exports) {
+},{"react":"3b2NM","./components/Navbar":"476io","./App.css":"236Ri","./components/pages/dashboard":"43aoC","./components/Topbar":"1en4I","./components/pages/Test":"kN7mi","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","./node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f"}],"476io":[function(require,module,exports) {
 var helpers = require("../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -26343,7 +26343,7 @@ try {
   var _react = require("react");
   var _reactDefault = _parcelHelpers.interopDefault(_react);
   require('./Navbar.css');
-  var _jsxFileName = "C:\\Users\\Mohammed Rishard\\Desktop\\cms_admin\\components\\Navbar.jsx";
+  var _jsxFileName = "C:\\Users\\User\\WebstormProjects\\CMS_Admin\\components\\Navbar.jsx";
   // Admin Navbar
   function Navbar() {
     return (
@@ -26368,7 +26368,7 @@ try {
   window.$RefreshSig$ = prevRefreshSig;
 }
 
-},{"react":"3b2NM","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f","./Navbar.css":"1N7C6"}],"5gA8y":[function(require,module,exports) {
+},{"react":"3b2NM","./Navbar.css":"1N7C6","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f"}],"1N7C6":[function() {},{}],"5gA8y":[function(require,module,exports) {
 "use strict";
 
 exports.interopDefault = function (a) {
@@ -26567,7 +26567,7 @@ function registerExportsForReactRefresh(module) {
   }
 }
 
-},{"react-refresh/runtime":"592mh"}],"1N7C6":[function() {},{}],"236Ri":[function() {},{}],"43aoC":[function(require,module,exports) {
+},{"react-refresh/runtime":"592mh"}],"236Ri":[function() {},{}],"43aoC":[function(require,module,exports) {
 var helpers = require("../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -26579,7 +26579,7 @@ try {
   var _reactDefault = _parcelHelpers.interopDefault(_react);
   var _Title = require('../Title');
   var _TitleDefault = _parcelHelpers.interopDefault(_Title);
-  var _jsxFileName = "C:\\Users\\Mohammed Rishard\\Desktop\\cms_admin\\components\\pages\\dashboard.jsx";
+  var _jsxFileName = "C:\\Users\\User\\WebstormProjects\\CMS_Admin\\components\\pages\\dashboard.jsx";
   // Admin Dashboard Page
   function Dashboard() {
     return (
@@ -26611,7 +26611,7 @@ try {
   window.$RefreshSig$ = prevRefreshSig;
 }
 
-},{"../Title":"1TraR","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","react":"3b2NM","../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f"}],"1TraR":[function(require,module,exports) {
+},{"react":"3b2NM","../Title":"1TraR","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f"}],"1TraR":[function(require,module,exports) {
 var helpers = require("../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -26621,7 +26621,7 @@ try {
   _parcelHelpers.defineInteropFlag(exports);
   var _react = require('react');
   var _reactDefault = _parcelHelpers.interopDefault(_react);
-  var _jsxFileName = "C:\\Users\\Mohammed Rishard\\Desktop\\cms_admin\\components\\Title.jsx";
+  var _jsxFileName = "C:\\Users\\User\\WebstormProjects\\CMS_Admin\\components\\Title.jsx";
   const style = {
     fontSize: 26,
     fontWeight: 600,
@@ -26664,7 +26664,7 @@ try {
   var _react = require('react');
   var _reactDefault = _parcelHelpers.interopDefault(_react);
   require('./Topbar.css');
-  var _jsxFileName = "C:\\Users\\Mohammed Rishard\\Desktop\\cms_admin\\components\\Topbar.jsx";
+  var _jsxFileName = "C:\\Users\\User\\WebstormProjects\\CMS_Admin\\components\\Topbar.jsx";
   // Admin Topbar
   function Topbar() {
     return (
@@ -26703,7 +26703,7 @@ try {
   var _TitleDefault = _parcelHelpers.interopDefault(_Title);
   var _FormBox = require("../FormBox");
   var _FormBoxDefault = _parcelHelpers.interopDefault(_FormBox);
-  var _jsxFileName = "C:\\Users\\Mohammed Rishard\\Desktop\\cms_admin\\components\\pages\\Test.jsx";
+  var _jsxFileName = "C:\\Users\\User\\WebstormProjects\\CMS_Admin\\components\\pages\\Test.jsx";
   // Inputs in the form
   const inputs = [{
     label: "First Name",
@@ -26755,7 +26755,7 @@ try {
   window.$RefreshSig$ = prevRefreshSig;
 }
 
-},{"react":"3b2NM","../Title":"1TraR","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f","../FormBox":"7rGPf"}],"7rGPf":[function(require,module,exports) {
+},{"react":"3b2NM","../Title":"1TraR","../FormBox":"7rGPf","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f"}],"7rGPf":[function(require,module,exports) {
 var helpers = require("../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -26772,7 +26772,7 @@ try {
   var _InputDefault = _parcelHelpers.interopDefault(_Input);
   var _materialUiCoreGrid = require('@material-ui/core/Grid');
   var _materialUiCoreGridDefault = _parcelHelpers.interopDefault(_materialUiCoreGrid);
-  var _jsxFileName = "C:\\Users\\Mohammed Rishard\\Desktop\\cms_admin\\components\\FormBox.jsx";
+  var _jsxFileName = "C:\\Users\\User\\WebstormProjects\\CMS_Admin\\components\\FormBox.jsx";
   // FormBox in admin menu
   function FormBox(props) {
     const inputs = props.input;
@@ -26896,7 +26896,7 @@ try {
   var _react = require('react');
   var _reactDefault = _parcelHelpers.interopDefault(_react);
   require('./Button.css');
-  var _jsxFileName = "C:\\Users\\Mohammed Rishard\\Desktop\\cms_admin\\components\\Button.jsx";
+  var _jsxFileName = "C:\\Users\\User\\WebstormProjects\\CMS_Admin\\components\\Button.jsx";
   // Save and Cancel Button
   function Button(props) {
     return (
@@ -26932,7 +26932,7 @@ try {
   var _react = require('react');
   var _reactDefault = _parcelHelpers.interopDefault(_react);
   require('./Input.css');
-  var _jsxFileName = "C:\\Users\\Mohammed Rishard\\Desktop\\cms_admin\\components\\Input.jsx";
+  var _jsxFileName = "C:\\Users\\User\\WebstormProjects\\CMS_Admin\\components\\Input.jsx";
   // Input box with label
   function Input(props) {
     return (

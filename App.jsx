@@ -12,7 +12,8 @@ return(
         <Topbar />
         {/*Main Content Area*/}
         <div className='main'>
-            <Dashboard/>
+            {/*<Dashboard/>*/}
+            <Test/>
         </div>
     </div>
 )
