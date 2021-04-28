@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Title from '../Title';
 import Formbox from "../FormBox";
 
@@ -7,53 +7,88 @@ const inputs=[
     {
         label:"First Name",
         type:"text",
-        placeholder:"Enter your first name",
-        id:"fname"
+        name:"fname"
     },
     {
         label:"Last Name",
         type:"text",
-        placeholder:"Enter your last name",
-        id:"lname"
-    },
-    {
-        label:"Gender",
-        type:"radio",
-        value:"Male",
-        id:"gender"
+        name:"lname"
     },
     {
         label:"Email",
         type:"email",
-        placeholder:"Enter your Email",
-        id:"email"
+        name:"email"
     },
     {
-        label:"Password",
-        type:"password",
-        placeholder:"Enter your Password",
-        id:"password"
+        label:"Contact",
+        type:"tel",
+        name:"contact"
     },
     {
-        label:"Contact Number",
+        label:"Gender",
+        type:"select",
+        name:"gender",
+        values:["Male","Female","Other"]
+    },
+    {
+        label:"Age",
         type:"text",
-        placeholder:"Enter your Contact Number",
-        id:"contact"
+        name:"age",
+        maxLength:3
     },
     {
-        label:"City",
+        label:"Address",
         type:"text",
-        placeholder:"Enter your city",
-        id:"city"
-    }
+        name:"address"
+    },
+    {
+        label:"NIC",
+        type:"text",
+        name:"nic",
+        maxLength: 12
+    },
 
 ]
 
+
+//Buttons to be displayed in the form
+const buttons = [
+    {
+        name:"Save ",
+        style:"btn-save",
+        type:"Submit"
+    },
+    {
+        name:"Cancel",
+        style:"btn-cancel",
+    },
+]
+
+//Input box names used in the form so that they can be sent to useForm hook to maintain the state
+const names={
+    fname:'',
+    lname:'',
+    gender:'',
+    email:'',
+    contact:'',
+    address:'',
+    age:'',
+    nic:'',
+}
+//Form Submit Url
+const url = "http://localhost:3000/api/v1/editors";
 function addEditor(){
+    const[isSubmitted,setIsSubmitted] = useState(false);
+
+    function submitForm(){
+        setIsSubmitted(true);
+        // console.log("Form Submitted")
+    }
+
     return (
         <div>
-            <Title text="Editor" />
-            <Formbox title="Add Editor" input={inputs} />
+            <Title text="Editors"/>
+            <Formbox title="Editor Information" input={inputs} buttons={buttons} names={names} callback={submitForm} url={url}/>
         </div>
     )
 }
