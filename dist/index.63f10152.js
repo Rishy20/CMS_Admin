@@ -36555,6 +36555,48 @@ function validateInfo(values) {
       errors.lname = "Please enter a Last name";
     }
   }
+  // validate Event name
+  if (values.hasOwnProperty("ename")) {
+    if (!values.ename.trim()) {
+      errors.ename = "Please enter an Event name";
+    }
+  }
+  // validate Conductor
+  if (values.hasOwnProperty("conductor")) {
+    if (!values.conductor.trim()) {
+      errors.conductor = "Please enter a conductor";
+    }
+  }
+  // validate venue
+  if (values.hasOwnProperty("venue")) {
+    if (!values.venue.trim()) {
+      errors.venue = "Please enter the venue";
+    }
+  }
+  // validate start time
+  if (values.hasOwnProperty("start")) {
+    if (!values.start.trim()) {
+      errors.start = "Please enter the starting time";
+    }
+  }
+  // validate end time
+  if (values.hasOwnProperty("end")) {
+    if (!values.end.trim()) {
+      errors.end = "Please enter the ending time";
+    }
+  }
+  // validate Description
+  if (values.hasOwnProperty("description")) {
+    if (!values.description.trim()) {
+      errors.description = "Please enter a description";
+    }
+  }
+  // validate status
+  if (values.hasOwnProperty("status")) {
+    if (!values.status.trim()) {
+      errors.status = "Please select the status";
+    }
+  }
   // Validate email
   if (values.hasOwnProperty("email")) {
     if (!values.email) {
@@ -36918,6 +36960,21 @@ try {
     label: "End Time",
     type: "time",
     name: "end"
+  }, {
+    label: "Status",
+    type: "select",
+    name: "status",
+    values: ["Pending", "approved"]
+    // {
+    // label:"Pending",
+    // type:"radio",
+    // name:"pending"
+    // },
+    // {
+    // label:"Approved",
+    // type:"radio",
+    // name:"pending"
+    // }
   }];
   const buttons = [{
     name: "Save ",
@@ -36933,7 +36990,8 @@ try {
     conductor: '',
     venue: '',
     start: '',
-    end: ''
+    end: '',
+    status: ''
   };
   const url = "http://localhost:3000/api/v1/researchers";
   function CreateEvent() {
@@ -36948,7 +37006,7 @@ try {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 72,
+          lineNumber: 89,
           columnNumber: 9
         }
       }, /*#__PURE__*/_reactDefault.default.createElement(_TitleDefault.default, {
@@ -36956,7 +37014,7 @@ try {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 73,
+          lineNumber: 90,
           columnNumber: 13
         }
       }), /*#__PURE__*/_reactDefault.default.createElement(_FormboxDefault.default, {
@@ -36969,7 +37027,7 @@ try {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 74,
+          lineNumber: 91,
           columnNumber: 13
         }
       }))

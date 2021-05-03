@@ -33,7 +33,23 @@ const inputs=[
         label:"End Time",
         type:"time",
         name:"end",
+    },
+    {
+        label:"Status",
+        type:"select",
+        name:"status",
+        values:["Pending", "approved"]
     }
+    // {
+    //     label:"Pending",
+    //     type:"radio",
+    //     name:"pending"
+    // },
+    // {
+    //     label:"Approved",
+    //     type:"radio",
+    //     name:"pending"
+    // }
 
 ]
 
@@ -57,6 +73,7 @@ const names={
     venue:'',
     start:'',
     end:'',
+    status:'',
 }
 
 const url = "http://localhost:3000/api/v1/researchers";

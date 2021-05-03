@@ -14,6 +14,48 @@ export default function validateInfo(values){
             errors.lname = "Please enter a Last name";
         }
     }
+    //validate Event name
+    if(values.hasOwnProperty("ename")) {
+        if (!values.ename.trim()) {
+            errors.ename = "Please enter an Event name";
+        }
+    }
+    //validate Conductor
+    if(values.hasOwnProperty("conductor")) {
+        if (!values.conductor.trim()) {
+            errors.conductor = "Please enter a conductor";
+        }
+    }
+    //validate venue
+    if(values.hasOwnProperty("venue")) {
+        if (!values.venue.trim()) {
+            errors.venue = "Please enter the venue";
+        }
+    }
+    //validate start time
+    if(values.hasOwnProperty("start")) {
+        if (!values.start.trim()) {
+            errors.start = "Please enter the starting time";
+        }
+    }
+    //validate end time
+    if(values.hasOwnProperty("end")) {
+        if (!values.end.trim()) {
+            errors.end = "Please enter the ending time";
+        }
+    }
+    //validate Description
+    if(values.hasOwnProperty("description")) {
+        if (!values.description.trim()) {
+            errors.description = "Please enter a description";
+        }
+    }
+    //validate status
+    if(values.hasOwnProperty("status")) {
+        if (!values.status.trim()) {
+            errors.status = "Please select the status";
+        }
+    }
     //Validate email
     if(values.hasOwnProperty("email")) {
         if (!values.email) {
