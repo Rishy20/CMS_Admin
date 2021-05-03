@@ -77,7 +77,7 @@ const names={
 }
 //Form Submit Url
 const url = "http://localhost:3000/api/v1/editors";
-function addEditor(){
+function AddEditor(){
     const[isSubmitted,setIsSubmitted] = useState(false);
 
     function submitForm(){
@@ -93,4 +93,4 @@ function addEditor(){
     )
 }
 
-export default addEditor;
+export default AddEditor;
