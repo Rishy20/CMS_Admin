@@ -26279,8 +26279,9 @@ try {
   var _componentsTopbarDefault = _parcelHelpers.interopDefault(_componentsTopbar);
   require("./components/pages/Test");
   require("./components/pages/AddEditor");
-  var _componentsPagesCreateEvent = require("./components/pages/CreateEvent");
-  var _componentsPagesCreateEventDefault = _parcelHelpers.interopDefault(_componentsPagesCreateEvent);
+  require("./components/pages/CreateEvent");
+  var _componentsPagesTickets = require("./components/pages/Tickets");
+  var _componentsPagesTicketsDefault = _parcelHelpers.interopDefault(_componentsPagesTickets);
   var _jsxFileName = "C:\\Users\\User\\WebstormProjects\\CMS_Admin\\App.jsx";
   function App() {
     return (
@@ -26289,21 +26290,21 @@ try {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 12,
+          lineNumber: 13,
           columnNumber: 5
         }
       }, /*#__PURE__*/_reactDefault.default.createElement(_componentsNavbarDefault.default, {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 13,
+          lineNumber: 14,
           columnNumber: 9
         }
       }), /*#__PURE__*/_reactDefault.default.createElement(_componentsTopbarDefault.default, {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 14,
+          lineNumber: 15,
           columnNumber: 9
         }
       }), /*#__PURE__*/_reactDefault.default.createElement("div", {
@@ -26311,15 +26312,15 @@ try {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 16,
+          lineNumber: 17,
           columnNumber: 9
         }
-      }, /*#__PURE__*/_reactDefault.default.createElement(_componentsPagesCreateEventDefault.default, {
+      }, /*#__PURE__*/_reactDefault.default.createElement(_componentsPagesTicketsDefault.default, {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 19,
-          columnNumber: 13
+          lineNumber: 21,
+          columnNumber: 12
         }
       })))
     );
@@ -26334,7 +26335,7 @@ try {
   window.$RefreshSig$ = prevRefreshSig;
 }
 
-},{"react":"3b2NM","./components/Navbar":"476io","./App.css":"236Ri","./components/pages/dashboard":"43aoC","./components/Topbar":"1en4I","./components/pages/Test":"kN7mi","./components/pages/AddEditor":"4xhNR","./components/pages/CreateEvent":"6aWp4","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","./node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f"}],"476io":[function(require,module,exports) {
+},{"react":"3b2NM","./components/Navbar":"476io","./App.css":"236Ri","./components/pages/dashboard":"43aoC","./components/Topbar":"1en4I","./components/pages/Test":"kN7mi","./components/pages/AddEditor":"4xhNR","./components/pages/CreateEvent":"6aWp4","./components/pages/Tickets":"4jg9X","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","./node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f"}],"476io":[function(require,module,exports) {
 var helpers = require("../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -36597,6 +36598,24 @@ function validateInfo(values) {
       errors.status = "Please select the status";
     }
   }
+  // validate ticket type
+  if (values.hasOwnProperty("type")) {
+    if (!values.type.trim()) {
+      errors.type = "Please select the type";
+    }
+  }
+  // validate price
+  if (values.hasOwnProperty("price")) {
+    if (!values.price.trim()) {
+      errors.price = "Please select the price";
+    }
+  }
+  // validate status
+  if (values.hasOwnProperty("qty")) {
+    if (!values.qty.trim()) {
+      errors.qty = "Please enter the quantity";
+    }
+  }
   // Validate email
   if (values.hasOwnProperty("email")) {
     if (!values.email) {
@@ -37038,6 +37057,104 @@ try {
   exports.default = CreateEvent;
   var _c;
   $RefreshReg$(_c, "CreateEvent");
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+
+},{"react":"3b2NM","../Title":"1TraR","../Formbox":"5lTYR","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f"}],"4jg9X":[function(require,module,exports) {
+var helpers = require("../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+try {
+  var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+  _parcelHelpers.defineInteropFlag(exports);
+  var _react = require('react');
+  var _reactDefault = _parcelHelpers.interopDefault(_react);
+  var _Title = require('../Title');
+  var _TitleDefault = _parcelHelpers.interopDefault(_Title);
+  var _Formbox = require("../Formbox");
+  var _FormboxDefault = _parcelHelpers.interopDefault(_Formbox);
+  var _jsxFileName = "C:\\Users\\User\\WebstormProjects\\CMS_Admin\\components\\pages\\Tickets.jsx", _s = $RefreshSig$();
+  const inputs = [{
+    label: "Ticket Type",
+    type: "select",
+    name: "type",
+    values: ["Day Pass", "Conference Pass", "VIP Pass", "Elite Pass"]
+  }, {
+    label: "Price",
+    type: "text",
+    name: "price"
+  }, {
+    label: "Description",
+    type: "text",
+    name: "description"
+  }, {
+    label: "Quantity",
+    type: "text",
+    name: "qty"
+  }];
+  const buttons = [{
+    name: "Save ",
+    style: "btn-save",
+    type: "Submit"
+  }, {
+    name: "Cancel",
+    style: "btn-cancel"
+  }];
+  const names = {
+    type: '',
+    description: '',
+    price: '',
+    qty: ''
+  };
+  const url = "http://localhost:3000/api/v1/researchers";
+  function Tickets() {
+    _s();
+    const [isSubmitted, setIsSubmitted] = _react.useState(false);
+    function submitForm() {
+      setIsSubmitted(true);
+      console.log("Form Submitted");
+    }
+    return (
+      /*#__PURE__*/_reactDefault.default.createElement("div", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 55,
+          columnNumber: 9
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement(_TitleDefault.default, {
+        text: "Tickets",
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 56,
+          columnNumber: 13
+        }
+      }), /*#__PURE__*/_reactDefault.default.createElement(_FormboxDefault.default, {
+        title: "Tickets Information",
+        input: inputs,
+        buttons: buttons,
+        names: names,
+        callback: submitForm,
+        url: url,
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 57,
+          columnNumber: 13
+        }
+      }))
+    );
+  }
+  _s(Tickets, "Yntwp1aMTvjf3xqFDrpnxrabHbs=");
+  _c = Tickets;
+  exports.default = Tickets;
+  var _c;
+  $RefreshReg$(_c, "Tickets");
   helpers.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;

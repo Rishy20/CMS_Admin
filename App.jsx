@@ -6,6 +6,7 @@ import Topbar from "./components/Topbar";
 import Test from "./components/pages/Test";
 import AddEditor from "./components/pages/AddEditor"
 import CreateEvent from "./components/pages/CreateEvent";
+import Tickets from "./components/pages/Tickets"
 
 function App(){
 return(
@@ -16,7 +17,8 @@ return(
         <div className='main'>
             {/*<Dashboard/>*/}
            {/*<AddEditor/>*/}
-            <CreateEvent/>
+           {/* <CreateEvent/>*/}
+           <Tickets/>
         </div>
     </div>
 )

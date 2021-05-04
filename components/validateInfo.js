@@ -56,6 +56,24 @@ export default function validateInfo(values){
             errors.status = "Please select the status";
         }
     }
+    //validate ticket type
+    if(values.hasOwnProperty("type")) {
+        if (!values.type.trim()) {
+            errors.type = "Please select the type";
+        }
+    }
+    //validate price
+    if(values.hasOwnProperty("price")) {
+        if (!values.price.trim()) {
+            errors.price = "Please select the price";
+        }
+    }
+    //validate status
+    if(values.hasOwnProperty("qty")) {
+        if (!values.qty.trim()) {
+            errors.qty = "Please enter the quantity";
+        }
+    }
     //Validate email
     if(values.hasOwnProperty("email")) {
         if (!values.email) {
