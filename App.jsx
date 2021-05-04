@@ -4,6 +4,7 @@ import './App.css'
 import Dashboard from "./components/pages/dashboard";
 import Topbar from "./components/Topbar";
 import Test from "./components/pages/Test";
+import AddReviewer from "./components/pages/AddReviewer";
 
 function App(){
 return(
@@ -12,7 +13,7 @@ return(
         <Topbar />
         {/*Main Content Area*/}
         <div className='main'>
-            <Test/>
+            <AddReviewer/>
         </div>
     </div>
 )

@@ -3,7 +3,6 @@ import Title from '../Title';
 import Formbox from "../Formbox";
 
 
-
 //Inputs stored as an array so they can be mapped to Input component
 const inputs=[
     {
@@ -26,30 +25,30 @@ const inputs=[
         type:"tel",
         name:"contact"
     },
+
+
     {
-        label:"Gender",
+        label:"Password",
+        type:"password",
+        name:"password",
+
+    },
+    {
+        label:"Confirm Password",
+        type:"password",
+        name:"confirmPassword",
+
+    },
+    {
+        label:"Country",
         type:"select",
-        name:"gender",
-        values:["Male","Female","Other"]
+        name:"country",
+        values:["Sri Lanaka","India","USA"]
+
     },
-    {
-        label:"Age",
-        type:"text",
-        name:"age",
-        maxLength:3
-    },
-    {
-        label:"Address",
-        type:"text",
-        name:"address"
-    },
-    {
-        label:"NIC",
-        type:"text",
-        name:"nic",
-        maxLength: 12
-    },
+
 ]
+
 //Buttons to be displayed in the form
 const buttons = [
     {
@@ -66,29 +65,29 @@ const buttons = [
 const names={
     fname:'',
     lname:'',
-    gender:'',
     email:'',
     contact:'',
-    address:'',
-    age:'',
-    nic:'',
+    password:'',
+    country:'',
+    confirmPassword:'',
+
 }
 //Form Submit Url
-const url = "http://localhost:3000/api/v1/researchers";
-function Test(){
+const url = "http://localhost:3000/api/v1/reviewer";
+
+function AddReviewer(){
     const[isSubmitted,setIsSubmitted] = useState(false);
 
     function submitForm(){
         setIsSubmitted(true);
         console.log("Form Submitted")
     }
-
     return (
         <div>
-            <Title text="Test"/>
-            <Formbox title="Test Information" input={inputs} buttons={buttons} names={names} callback={submitForm} url={url}/>
+            <Title text="add reviewer"/>
+            <Formbox title="Reviewer Information" input={inputs} buttons={buttons} names={names} callback={submitForm} url={url}/>
         </div>
     )
 }
 
-export default Test;
+export default AddReviewer;
