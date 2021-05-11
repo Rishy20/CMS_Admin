@@ -36608,6 +36608,8 @@ function validateInfo(values) {
   if (values.hasOwnProperty("price")) {
     if (!values.price.trim()) {
       errors.price = "Please select the price";
+    } else if ((/^[0-9\b]+$/).test(values.price)) {
+      errors.price = 'Please enter a valid price';
     }
   }
   // validate status
@@ -37079,13 +37081,13 @@ try {
   var _FormboxDefault = _parcelHelpers.interopDefault(_Formbox);
   var _jsxFileName = "C:\\Users\\User\\WebstormProjects\\CMS_Admin\\components\\pages\\Tickets.jsx", _s = $RefreshSig$();
   const inputs = [{
-    label: "Ticket Type",
+    label: "Name",
     type: "select",
     name: "type",
     values: ["Day Pass", "Conference Pass", "VIP Pass", "Elite Pass"]
   }, {
     label: "Price",
-    type: "text",
+    type: "number",
     name: "price"
   }, {
     label: "Description",
@@ -37093,7 +37095,7 @@ try {
     name: "description"
   }, {
     label: "Quantity",
-    type: "text",
+    type: "number",
     name: "qty"
   }];
   const buttons = [{

@@ -4,14 +4,14 @@ import Formbox from "../Formbox";
 
 const inputs=[
     {
-        label:"Ticket Type",
+        label:"Name",
         type:"select",
         name:"type",
         values:["Day Pass", "Conference Pass", "VIP Pass", "Elite Pass"]
     },
     {
         label:"Price",
-        type:"text",
+        type:"number",
         name:"price",
     },
     {
@@ -21,7 +21,7 @@ const inputs=[
     },
     {
         label:"Quantity",
-        type:"text",
+        type:"number",
         name:"qty",
     }
 ]
