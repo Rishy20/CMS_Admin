@@ -1,3 +1,7 @@
+.navButton {
+    white-space: nowrap;
+}
+
 .selected {
     background: linear-gradient(var(--gold), var(--gold));
 }
