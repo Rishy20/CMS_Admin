@@ -10,10 +10,17 @@
     --gold:#E2BC7F;
     --grey:#585858cf;
     --lightGrey:#F8F8FB;
+    --animDuration: 250ms;
 }
 
 /*Main Content*/
 .main{
     padding-top: 75px;
     padding-left: 255px;
+    transition: ease-in;
+    transition-duration: var(--animDuration);
+}
+
+.mainExtended {
+    padding-left: 81px;
 }
