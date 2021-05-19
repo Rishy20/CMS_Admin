@@ -17,10 +17,12 @@
 .main{
     padding-top: 75px;
     padding-left: 255px;
+    padding-bottom: 24px;
     transition: ease-in;
-    transition-duration: var(--animDuration);
+    transition-delay: 0ms; 
 }
 
 .mainExtended {
     padding-left: 81px;
+    transition-delay: var(--animDuration);
 }

@@ -1,0 +1,9 @@
+.eventTitle {
+    background-color: var(--gold);
+}
+
+.background {
+    height: 28px;
+    background-color: var(--gold);
+    clip-path: polygon(100% 0, 0 100%, 0 0);
+}
