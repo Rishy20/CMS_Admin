@@ -17,7 +17,6 @@ const btnTop={
     top: 146,
     right: 35
 }
-
 function Form(props){
     const url = props.url;
     const inputs = props.inputs;
