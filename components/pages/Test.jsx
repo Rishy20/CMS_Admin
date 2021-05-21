@@ -1,7 +1,37 @@
-import React, {useState} from 'react';
-import Title from '../Title';
-import Formbox from "../Formbox";
+import React, {useEffect, useState} from "react";
+import {Switch, Route, useHistory, Redirect} from "react-router-dom";
+import Tables from "../Tables";
+import FormHolder from "../FormHolder";
 
+const url = "http://localhost:3000/api/v1/researchers";
+
+const columns=[
+    {
+        name:"First Name",
+        id:"fname",
+        type:"text"
+    },
+    {
+        name:"Last Name",
+        id:"lname",
+        type:"text"
+    },
+    {
+        name:"Gender",
+        id:"gender",
+        type:"text"
+    },
+    {
+        name:"Email",
+        id:"email",
+        type:"text"
+    },
+    {
+        name:"Actions",
+        id:"action",
+        type:"actions"
+    }
+]
 
 //Inputs stored as an array so they can be mapped to Input component
 const inputs=[
@@ -72,21 +102,56 @@ const names={
     age:'',
     nic:'',
 }
-//Form Submit Url
-const url = "http://localhost:3000/api/v1/researchers";
-function Test(){
-    const[isSubmitted,setIsSubmitted] = useState(false);
 
-    function submitForm(){
-        setIsSubmitted(true);
-        console.log("Form Submitted")
+
+
+const Test = () => {
+
+
+    // State for the current product in edit
+    const [editData, setEditData] = useState(null);
+
+    const history = useHistory();
+
+    const toLink = () => {
+        history.push("/test");
     }
 
     return (
         <div>
-            <Title text="Test"/>
-            <Formbox title="Test Information" input={inputs} buttons={buttons} names={names} callback={submitForm} url={url}/>
+
+                <Route exact path="/test">
+                    <Tables url={url} title={"All Researchers"} columns={columns} type={"test"} setEditData={setEditData}/>
+                </Route>
+                {/*Add Path*/}
+                <Route path="/test/add">
+                    <FormHolder
+                        title={"Add Test"}
+                        formTitle={"Test Information"}
+                        inputs={inputs}
+                        buttons={buttons}
+                        names={names}
+                        callback={toLink}
+                        url={url}
+                        method={"POST"}
+                    />
+                </Route>
+                {/*Edit Path*/}
+                <Route path="/test/edit">
+                    <FormHolder
+                        title={"Edit Test"}
+                        formTitle={"Test Information"}
+                        inputs={inputs}
+                        buttons={buttons}
+                        names={editData}
+                        callback={toLink}
+                        url={`${url}/${editData?editData._id:""}`}
+                        method={"PUT"}
+                    />
+                </Route>
+
         </div>
+
     )
 }
 

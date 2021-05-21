@@ -23,9 +23,11 @@ function Form(props){
     const names = props.names;
     const callback = props.callback;
     const buttons = props.btns;
+    const method = props.method;
+    console.log(method);
 
     //Import methods from useForm hook
-    const {handleChange, handleSubmit, values, errors } = useForm(callback,validate,names,url);
+    const {handleChange, handleSubmit, values, errors } = useForm(callback,validate,names,url,method);
 
     return(
         <div>
