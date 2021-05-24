@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Title from "../Title";
 import {
     Avatar,
@@ -10,6 +10,7 @@ import {
     Typography
 } from "@material-ui/core";
 import TabPanel from "../TabPanel";
+import ProfileForm from "../ProfileForm";
 
 const useStyles = makeStyles({
     cardContainer: {
@@ -36,19 +37,31 @@ const useStyles = makeStyles({
     }
 })
 
-const UserProfile = () => {
+const UserProfile = ({userUrl}) => {
     const styles = useStyles();
 
-    // Account data states
-    const [email, setEmail] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [role, setRole] = useState("");
-    const [phone, setPhone] = useState("");
-    const [profilePic, setProfilePic] = useState("");
     // Tab state
     const [tab, setTab] = useState(0);
 
+    // Account data states
+    const [role, setRole] = useState("admin");
+    const [user, setUser] = useState({
+        fname: "",
+        lname: "",
+        email: "",
+        contact: "",
+        img: ""
+    });
+
+    // Fetch and set user data
+    useEffect(() => {
+        fetch(userUrl)
+            .then(raw => raw.json())
+            .then(data => setUser(data))
+            .catch(err => console.log(err));
+    }, [userUrl]);
+
+    // Handle changing tab
     const changeTab = (event, tab) => setTab(tab);
 
     return (
@@ -74,14 +87,14 @@ const UserProfile = () => {
                         <CardHeader
                             avatar={
                                 <Avatar
-                                    src={profilePic}
+                                    src={user.img}
                                     className={styles.profilePicLeft}
                                 >
-                                    {firstName[0]}
+                                    {user.fname[0]}
                                 </Avatar>
                             }
 
-                            title={`${firstName[0]}. ${lastName}`}
+                            title={`${user.fname} ${user.lname}`}
                             titleTypographyProps={{
                                 variant: "h5",
                             }}
@@ -89,6 +102,7 @@ const UserProfile = () => {
                             subheader={role}
                             subheaderTypographyProps={{
                                 variant: "subtitle2",
+                                style: {textTransform: "capitalize"}
                             }}
                         />
 
@@ -108,7 +122,7 @@ const UserProfile = () => {
                                         color="textSecondary"
                                         align="right"
                                     >
-                                        {email}
+                                        {user.email}
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={3}>
@@ -124,7 +138,7 @@ const UserProfile = () => {
                                         color="textSecondary"
                                         align="right"
                                     >
-                                        {phone}
+                                        {user.contact}
                                     </Typography>
                                 </Grid>
                             </Grid>
@@ -164,7 +178,7 @@ const UserProfile = () => {
                     >
                         {/* Tab Switches */}
                         <TabPanel value={tab} index={0}>
-                            Personal Information
+                            <ProfileForm title="Personal Information" user={user} userUrl={userUrl} />
                         </TabPanel>
                         <TabPanel value={tab} index={1}>
                             Account Information

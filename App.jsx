@@ -1,11 +1,22 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {BrowserRouter as Router} from "react-router-dom";
 import NavBar from './components/NavBar'
 import './App.css'
 import TopBar from "./components/TopBar";
 import MainContent from "./components/MainContent";
 
+// Temporary hardcoded variables
+const role = "admin";
+const userId = "60abc5bdbde2d08e5c1721dd";
+
 function App() {
+    // Set API URL according to the role of the logged-in user
+    const [userUrl, setUserUrl] = useState("");
+
+    useEffect(() => {
+        setUserUrl(`http://localhost:3000/api/v1/${role}s/${userId}`);
+    }, [role]);
+
     // States
     const [collapsed, setCollapsed] = useState(false);
     const [search, setSearch] = useState("");
@@ -51,7 +62,7 @@ function App() {
                 />
 
                 {/* Main Content Area */}
-                <MainContent collapsed={collapsed} />
+                <MainContent userUrl={userUrl} collapsed={collapsed} />
             </Router>
         </div>
     )
