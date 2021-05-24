@@ -37,29 +37,11 @@ const useStyles = makeStyles({
     }
 })
 
-const UserProfile = ({userUrl}) => {
+const UserProfile = ({userUrl, user, setUser}) => {
     const styles = useStyles();
 
     // Tab state
     const [tab, setTab] = useState(0);
-
-    // Account data states
-    const [role, setRole] = useState("admin");
-    const [user, setUser] = useState({
-        fname: "",
-        lname: "",
-        email: "",
-        contact: "",
-        img: ""
-    });
-
-    // Fetch and set user data
-    useEffect(() => {
-        fetch(userUrl)
-            .then(raw => raw.json())
-            .then(data => setUser(data))
-            .catch(err => console.log(err));
-    }, [userUrl]);
 
     // Handle changing tab
     const changeTab = (event, tab) => setTab(tab);
@@ -99,7 +81,7 @@ const UserProfile = ({userUrl}) => {
                                 variant: "h5",
                             }}
 
-                            subheader={role}
+                            subheader={user.role}
                             subheaderTypographyProps={{
                                 variant: "subtitle2",
                                 style: {textTransform: "capitalize"}
@@ -178,7 +160,12 @@ const UserProfile = ({userUrl}) => {
                     >
                         {/* Tab Switches */}
                         <TabPanel value={tab} index={0}>
-                            <ProfileForm title="Personal Information" user={user} userUrl={userUrl} />
+                            <ProfileForm
+                                title="Personal Information"
+                                user={user}
+                                setUser={setUser}
+                                userUrl={userUrl}
+                            />
                         </TabPanel>
                         <TabPanel value={tab} index={1}>
                             Account Information

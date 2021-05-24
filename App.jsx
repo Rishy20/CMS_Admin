@@ -17,13 +17,29 @@ function App() {
         setUserUrl(`http://localhost:3000/api/v1/${role}s/${userId}`);
     }, [role]);
 
+    // Account data states
+    const [user, setUser] = useState({
+        role: "",
+        fname: "",
+        lname: "",
+        email: "",
+        contact: "",
+        img: ""
+    });
+
+    // Fetch and set user data
+    useEffect(() => {
+        fetch(userUrl)
+            .then(raw => raw.json())
+            .then(data => setUser({role, ...data}))
+            .catch(err => console.log(err));
+    }, [userUrl]);
+
     // States
     const [collapsed, setCollapsed] = useState(false);
     const [search, setSearch] = useState("");
     const [fullscreen, setFullscreen] = useState(false);
     const [notifications, setNotifications] = useState(0);
-    const [firstName, setFirstName] = useState("");
-    const [profilePic, setProfilePicture] = useState("");
 
     // Set state method wrappers
     const onSetCollapsed = () => setCollapsed(!collapsed);
@@ -57,12 +73,11 @@ function App() {
                     fullscreen={fullscreen}
                     setFullscreen={onSetFullscreen}
                     notifications={notifications}
-                    firstName={firstName}
-                    profilePic={profilePic}
+                    user={user}
                 />
 
                 {/* Main Content Area */}
-                <MainContent userUrl={userUrl} collapsed={collapsed} />
+                <MainContent collapsed={collapsed} userUrl={userUrl} user={user} setUser={setUser} />
             </Router>
         </div>
     )

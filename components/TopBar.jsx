@@ -36,7 +36,7 @@ const useStyles = makeStyles({
 })
 
 //Admin TopBar
-function TopBar(props) {
+const TopBar = props => {
     const styles = useStyles();
 
     // States
@@ -130,10 +130,10 @@ function TopBar(props) {
                         onClick={accMenuClick}
                         disableRipple
                     >
-                        <Avatar src={props.profilePic}>
-                            {props.firstName[0]}
+                        <Avatar src={props.user.img}>
+                            {props.user.fname[0]}
                         </Avatar>
-                        <p className="firstName">{props.firstName}</p>
+                        <p className="firstName">{props.user.fname}</p>
                         <ArrowDropDown />
                     </IconButton>
 
