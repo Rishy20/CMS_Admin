@@ -20,7 +20,8 @@ function App() {
         lname: "",
         email: "",
         contact: "",
-        img: ""
+        avatar: "",
+        avatarTxt: " "
     });
 
     // Application-wide UI states
@@ -43,6 +44,11 @@ function App() {
             .then(data => setUser({role, ...data}))
             .catch(err => console.log(err));
     }, [userUrl]);
+
+    // Set avatar fallback text if it doesn't already exist
+    useEffect(() => {
+        !user.avatarTxt && setUser({...user, avatarTxt: `${user.fname[0]}${user.lname[0]}`});
+    }, [user]);
 
     // setState method wrappers to be passed to child components
     const onSetCollapsed = () => setCollapsed(!collapsed);

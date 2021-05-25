@@ -130,8 +130,8 @@ const TopBar = props => {
                         onClick={accMenuClick}
                         disableRipple
                     >
-                        <Avatar src={props.user.img}>
-                            {props.user.fname[0]}
+                        <Avatar src={props.user.avatar}>
+                            {props.user.avatarTxt}
                         </Avatar>
                         <p className="firstName">{props.user.fname}</p>
                         <ArrowDropDown />

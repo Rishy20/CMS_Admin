@@ -14,6 +14,7 @@ import Input from "./Input";
 import Grid from "@material-ui/core/Grid";
 import Button from "./Button";
 import {Close, Done} from "@material-ui/icons";
+import AvatarSelector from "./AvatarSelector";
 
 const useStyles = makeStyles({
     title: {
@@ -69,6 +70,7 @@ const ProfileForm = props => {
 
     // Form states
     const [values, setValues] = useState({...user});
+    const [avatar, setAvatar] = useState(null);
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitSuccess, setSubmitSuccess] = useState(false);
@@ -87,7 +89,22 @@ const ProfileForm = props => {
     const handleChange = event => {
         const {name, value} = event.target;
         setValues({...values, [name]: value});
+        console.log(values);
     };
+
+    // Handle adding an image
+    const handleAddImg = img => {
+        if (img.file) {
+            const {file} = img;
+            setAvatar(file);
+            // Generate file name and set it to values state
+            const filename = `${user._id}.` + file.name.split(".").pop();
+            setValues({...values, avatar: filename});
+        } else {
+            setValues({...values, avatar: user.avatar});
+            setAvatar(null);
+        }
+    }
 
     // Handle form submit
     const handleSubmit = event => {
@@ -102,19 +119,24 @@ const ProfileForm = props => {
                 if (userUrl) {
                     submitForm();
                 }
+            } else {
+                setIsSubmitting(false);
             }
         },[isSubmitting]
     );
 
     // Submit form and handle the results
     const submitForm = () => {
+        // Create a new form data object
+        const data = new FormData();
+        // Add input values and the avatar
+        data.append("values", JSON.stringify(values));
+        data.append("avatar", avatar);
+
+        // Send PUT request to update user data and upload the avatar
         fetch(userUrl,{
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
             method: "PUT",
-            body: JSON.stringify(values)
+            body: data
         }).then(res => res.json())
             .then(data => {
                 handleSubmitResult(data);
@@ -147,6 +169,7 @@ const ProfileForm = props => {
         setEdit(!edit);
         setSubmitSuccess(false);
         setValues({...user});
+        setAvatar(null);
     }
 
     return (
@@ -162,12 +185,27 @@ const ProfileForm = props => {
 
             {/* Form body */}
             <form onSubmit={handleSubmit} className={styles.form}>
+                {/* Avatar selector */}
+                <Grid container spacing={6}>
+                    <Grid item xs={4}>
+                        <label
+                            htmlFor="avatar"
+                            className={styles.label}
+                        >
+                            Avatar
+                        </label>
+                    </Grid>
+                    <Grid item xs={7}>
+                        <AvatarSelector callback={handleAddImg} user={user} edit={edit} />
+                    </Grid>
+                </Grid>
+
                 {/* Form inputs */}
                 {
                     personalInfo.map(input => (
                         <Grid container alignItems="center" spacing={6} key={input.name}>
                             {/* Input label */}
-                            <Grid item xs={4} >
+                            <Grid item xs={4}>
                                 <label
                                     htmlFor={input.name}
                                     className={styles.label}
@@ -215,7 +253,7 @@ const ProfileForm = props => {
             <Snackbar
                 anchorOrigin={{vertical: "bottom", horizontal: "center"}}
                 TransitionComponent={SlideTransition}
-                open={submitError} autoHideDuration={5000}
+                open={submitError.length > 0} autoHideDuration={5000}
                 onClose={() => setSubmitError("")}
             >
                 <SnackbarContent

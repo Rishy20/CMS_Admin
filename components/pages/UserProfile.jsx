@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import Title from "../Title";
 import {
     Avatar,
@@ -20,9 +20,9 @@ const useStyles = makeStyles({
         borderRadius: "16px"
     },
     profilePicLeft: {
-        width: "80px",
-        height: "80px",
-        fontSize: "48px"
+        width: "2em",
+        height: "2em",
+        fontSize: "3em"
     },
     infoLabel: {
         fontWeight: "500",
@@ -69,10 +69,10 @@ const UserProfile = ({userUrl, user, setUser}) => {
                         <CardHeader
                             avatar={
                                 <Avatar
-                                    src={user.img}
+                                    src={user.avatar}
                                     className={styles.profilePicLeft}
                                 >
-                                    {user.fname[0]}
+                                    {user.avatarTxt}
                                 </Avatar>
                             }
 
