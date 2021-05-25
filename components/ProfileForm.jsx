@@ -75,7 +75,7 @@ const ProfileForm = props => {
     const [submitError, setSubmitError] = useState("");
     const [edit, setEdit] = useState(false);
 
-    // Reset submit success
+    // Reset submit success state
     useEffect(() => setSubmitSuccess(false), []);
 
     // Handle user data autofill
@@ -83,17 +83,20 @@ const ProfileForm = props => {
         setValues({...user});
     }, [user])
 
+    // Handle form input changes
     const handleChange = event => {
         const {name, value} = event.target;
         setValues({...values, [name]: value});
     };
 
+    // Handle form submit
     const handleSubmit = event => {
         event.preventDefault();
         setErrors(validate(values));
         setIsSubmitting(true);
     }
 
+    // Validate and submit form if no errors were found
     useEffect(() => {
             if(Object.keys(errors).length === 0 && isSubmitting ) {
                 if (userUrl) {
@@ -103,6 +106,7 @@ const ProfileForm = props => {
         },[isSubmitting]
     );
 
+    // Submit form and handle the results
     const submitForm = () => {
         fetch(userUrl,{
             headers: {
@@ -123,6 +127,7 @@ const ProfileForm = props => {
             });
     }
 
+    // Check the submit results and set states accordingly
     const handleSubmitResult = data => {
         if (data.status === "Success") {
             setSubmitError("");
@@ -136,7 +141,7 @@ const ProfileForm = props => {
         }
     }
 
-    // Handle setting edit mode
+    // Handle setting the edit mode
     const handleSetEdit = event => {
         event.preventDefault();
         setEdit(!edit);
@@ -157,9 +162,11 @@ const ProfileForm = props => {
 
             {/* Form body */}
             <form onSubmit={handleSubmit} className={styles.form}>
+                {/* Form inputs */}
                 {
                     personalInfo.map(input => (
                         <Grid container alignItems="center" spacing={6} key={input.name}>
+                            {/* Input label */}
                             <Grid item xs={4} >
                                 <label
                                     htmlFor={input.name}
@@ -168,6 +175,7 @@ const ProfileForm = props => {
                                     {input.label}
                                 </label>
                             </Grid>
+                            {/* Input element */}
                             <Grid item xs={7}>
                                 <Input
                                     value={values[input.name]} type="text" id={input.name} name={input.name}
@@ -181,7 +189,7 @@ const ProfileForm = props => {
 
                 {/* Buttons */}
                 <div className={styles.buttons}>
-                    {/* Submitting progress */}
+                    {/* Submitting progress indicator */}
                     {isSubmitting && <CircularProgress size={"2.2em"} className={styles.progress} />}
                     {/* Submit success indicator */}
                     {submitSuccess && <Done className={styles.success} />}
@@ -203,6 +211,7 @@ const ProfileForm = props => {
                 </div>
             </form>
 
+            {/* Display submit error message if there is one */}
             <Snackbar
                 anchorOrigin={{vertical: "bottom", horizontal: "center"}}
                 TransitionComponent={SlideTransition}

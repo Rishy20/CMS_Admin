@@ -10,14 +10,10 @@ const role = "admin";
 const userId = "60abc5bdbde2d08e5c1721dd";
 
 function App() {
-    // Set API URL according to the role of the logged-in user
+    // API URL state for the logged-in user
     const [userUrl, setUserUrl] = useState("");
 
-    useEffect(() => {
-        setUserUrl(`http://localhost:3000/api/v1/${role}s/${userId}`);
-    }, [role]);
-
-    // Account data states
+    // User account data states
     const [user, setUser] = useState({
         role: "",
         fname: "",
@@ -27,7 +23,20 @@ function App() {
         img: ""
     });
 
-    // Fetch and set user data
+    // Application-wide UI states
+    const [collapsed, setCollapsed] = useState(false);
+    const [fullscreen, setFullscreen] = useState(false);
+    const [notifications, setNotifications] = useState(0);
+
+    // Search state
+    const [search, setSearch] = useState("");
+
+    // Set API URL according to the role of the logged-in user and their user ID
+    useEffect(() => {
+        setUserUrl(`http://localhost:3000/api/v1/${role}s/${userId}`);
+    }, [role]);
+
+    // Fetch and set user data using the set API URL
     useEffect(() => {
         fetch(userUrl)
             .then(raw => raw.json())
@@ -35,13 +44,7 @@ function App() {
             .catch(err => console.log(err));
     }, [userUrl]);
 
-    // States
-    const [collapsed, setCollapsed] = useState(false);
-    const [search, setSearch] = useState("");
-    const [fullscreen, setFullscreen] = useState(false);
-    const [notifications, setNotifications] = useState(0);
-
-    // Set state method wrappers
+    // setState method wrappers to be passed to child components
     const onSetCollapsed = () => setCollapsed(!collapsed);
     const onSetSearch = event => setSearch(event.target.value);
 
@@ -62,7 +65,7 @@ function App() {
     }
 
     return (
-        <div className='App'>
+        <div className="App">
             <Router>
                 <NavBar collapsed={collapsed}/>
                 <TopBar
