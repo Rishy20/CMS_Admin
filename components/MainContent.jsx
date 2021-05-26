@@ -15,7 +15,13 @@ const MainContent = props => (
                 <Dashboard />
             </Route>
             <Route path="/account">
-                <UserProfile userUrl={props.userUrl} user={props.user} setUser={props.setUser} />
+                <UserProfile
+                    baseUrl={props.baseUrl}
+                    user={props.user}
+                    setUser={props.setUser}
+                    avatarSrc={props.avatarSrc}
+                    avatarTxt={props.avatarTxt}
+                />
             </Route>
         </Switch>
     </div>

@@ -39,12 +39,11 @@ function FileUpload({
                 fileType = file.type.split("/")[0];
                 //Validate files
                 if(fileType === "image"){
-
+                    setError("");
                     if (!props.multiple) {
                         return { file };
                     }
                     files[file.name] = file;
-                    setError("");
                 }else{
                     setError("Only image files can be uploaded");
                 }
@@ -65,6 +64,7 @@ function FileUpload({
         setFiles({ ...files });
         callUpdateFiles({ ...files });
         setPreview("");
+        setError("");
     };
 
     return (

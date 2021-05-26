@@ -51,6 +51,7 @@ const useStyles = makeStyles({
     }
 })
 
+// Slide transition for the error message snackbar
 const SlideTransition = props => (<Slide direction="up" {...props} />)
 
 const personalInfo = [
@@ -60,13 +61,14 @@ const personalInfo = [
     {label: "Email", name: "email"},
 ]
 
+// Submit error message
 const ERR_MSG = "Failed to save changes. Please try again...";
 
 const ProfileForm = props => {
     const styles = useStyles();
 
     // Destructure props
-    const {user, setUser, userUrl} = props;
+    const {user, setUser, baseUrl} = props;
 
     // Form states
     const [values, setValues] = useState({...user});
@@ -98,7 +100,7 @@ const ProfileForm = props => {
             const {file} = img;
             setAvatar(file);
             // Generate file name and set it to values state
-            const filename = `${user._id}.` + file.name.split(".").pop();
+            const filename = `${user._id}_${Date.now()}.${file.name.split(".").pop()}`;
             setValues({...values, avatar: filename});
         } else {
             setValues({...values, avatar: user.avatar});
@@ -116,7 +118,7 @@ const ProfileForm = props => {
     // Validate and submit form if no errors were found
     useEffect(() => {
             if(Object.keys(errors).length === 0 && isSubmitting ) {
-                if (userUrl) {
+                if (baseUrl) {
                     submitForm();
                 }
             } else {
@@ -134,7 +136,7 @@ const ProfileForm = props => {
         data.append("avatar", avatar);
 
         // Send PUT request to update user data and upload the avatar
-        fetch(userUrl,{
+        fetch(baseUrl + user._id, {
             method: "PUT",
             body: data
         }).then(res => res.json())
@@ -196,7 +198,11 @@ const ProfileForm = props => {
                         </label>
                     </Grid>
                     <Grid item xs={7}>
-                        <AvatarSelector callback={handleAddImg} user={user} edit={edit} />
+                        <AvatarSelector
+                            callback={handleAddImg}
+                            avatarSrc={props.avatarSrc}
+                            avatarTxt={props.avatarTxt}
+                            edit={edit} />
                     </Grid>
                 </Grid>
 

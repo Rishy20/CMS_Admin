@@ -37,7 +37,7 @@ const useStyles = makeStyles({
     }
 })
 
-const UserProfile = ({userUrl, user, setUser}) => {
+const UserProfile = ({baseUrl, user, setUser, ...props}) => {
     const styles = useStyles();
 
     // Tab state
@@ -69,10 +69,10 @@ const UserProfile = ({userUrl, user, setUser}) => {
                         <CardHeader
                             avatar={
                                 <Avatar
-                                    src={user.avatar}
+                                    src={props.avatarSrc}
                                     className={styles.profilePicLeft}
                                 >
-                                    {user.avatarTxt}
+                                    {props.avatarTxt}
                                 </Avatar>
                             }
 
@@ -164,7 +164,9 @@ const UserProfile = ({userUrl, user, setUser}) => {
                                 title="Personal Information"
                                 user={user}
                                 setUser={setUser}
-                                userUrl={userUrl}
+                                baseUrl={baseUrl}
+                                avatarSrc={props.avatarSrc}
+                                avatarTxt={props.avatarTxt}
                             />
                         </TabPanel>
                         <TabPanel value={tab} index={1}>

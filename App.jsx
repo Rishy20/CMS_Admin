@@ -7,47 +7,50 @@ import MainContent from "./components/MainContent";
 
 // Temporary hardcoded variables
 const role = "admin";
-const userId = "60abc5bdbde2d08e5c1721dd";
+const userId = "60ae297b90bb0400045cfd36";
 
 function App() {
-    // API URL state for the logged-in user
-    const [userUrl, setUserUrl] = useState("");
+    // Base API URL for the logged-in user
+    const [baseUrl, setBaseUrl] = useState("");
 
     // User account data states
     const [user, setUser] = useState({
         role: "",
-        fname: "",
-        lname: "",
+        fname: " ",
+        lname: " ",
         email: "",
         contact: "",
-        avatar: "",
-        avatarTxt: " "
+        avatar: ""
     });
 
     // Application-wide UI states
     const [collapsed, setCollapsed] = useState(false);
     const [fullscreen, setFullscreen] = useState(false);
     const [notifications, setNotifications] = useState(0);
+    // User data related app-wide UI states
+    const [avatarSrc, setAvatarSrc] = useState("");
+    const [avatarTxt, setAvatarTxt] = useState(" ");
 
     // Search state
     const [search, setSearch] = useState("");
 
     // Set API URL according to the role of the logged-in user and their user ID
     useEffect(() => {
-        setUserUrl(`http://localhost:3000/api/v1/${role}s/${userId}`);
+        setBaseUrl(`https://icaf.azurewebsites.net/api/v1/${role}s/`);
     }, [role]);
 
     // Fetch and set user data using the set API URL
     useEffect(() => {
-        fetch(userUrl)
+        fetch(baseUrl + userId)
             .then(raw => raw.json())
             .then(data => setUser({role, ...data}))
             .catch(err => console.log(err));
-    }, [userUrl]);
+    }, [baseUrl]);
 
-    // Set avatar fallback text if it doesn't already exist
+    // Set user avatar src and fallback text
     useEffect(() => {
-        !user.avatarTxt && setUser({...user, avatarTxt: `${user.fname[0]}${user.lname[0]}`});
+        setAvatarSrc(`${baseUrl}image/${user.avatar}`);
+        setAvatarTxt(`${user.fname[0]}${user.lname[0]}`);
     }, [user]);
 
     // setState method wrappers to be passed to child components
@@ -82,11 +85,20 @@ function App() {
                     fullscreen={fullscreen}
                     setFullscreen={onSetFullscreen}
                     notifications={notifications}
-                    user={user}
+                    avatarSrc={avatarSrc}
+                    avatarTxt={avatarTxt}
+                    firstName={user.fname}
                 />
 
                 {/* Main Content Area */}
-                <MainContent collapsed={collapsed} userUrl={userUrl} user={user} setUser={setUser} />
+                <MainContent
+                    collapsed={collapsed}
+                    baseUrl={baseUrl}
+                    user={user}
+                    setUser={setUser}
+                    avatarSrc={avatarSrc}
+                    avatarTxt={avatarTxt}
+                />
             </Router>
         </div>
     )

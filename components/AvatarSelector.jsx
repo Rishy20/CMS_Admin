@@ -32,7 +32,7 @@ const EditIcon = ({avatarEdit}) => {
     )
 };
 
-const AvatarSelector = ({callback, user, edit}) => {
+const AvatarSelector = ({callback, avatarSrc, avatarTxt, edit}) => {
     const styles = useStyles();
 
     const [avatarEdit, setAvatarEdit] = useState(false);
@@ -41,17 +41,17 @@ const AvatarSelector = ({callback, user, edit}) => {
     // Reset avatarEdit state and preview src when the main edit state is toggled
     useEffect(() => {
         edit && setAvatarEdit(false);
-        !edit && setSrc(user.avatar);
+        !edit && setSrc(avatarSrc);
     }, [edit]);
 
-    // Update src state when user object is updated
+    // Update src state when the prop is updated
     useEffect(() => {
-        setSrc(user.avatar);
-    }, [user]);
+        setSrc(avatarSrc);
+    }, [avatarSrc]);
 
     // Set preview callback function passed to FileUpload component
     const setPreview = url => {
-        setSrc(url);
+        url ? setSrc(url) : setSrc(avatarSrc);
     }
 
     return (
@@ -71,7 +71,7 @@ const AvatarSelector = ({callback, user, edit}) => {
                     className={styles.avatarPreview}
                     onClick={event => event.stopPropagation()}
                 >
-                    {user.avatarTxt}
+                    {avatarTxt}
                 </Avatar>
             </Badge>
 
