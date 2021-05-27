@@ -8,7 +8,7 @@ import {
     SnackbarContent,
     Typography
 } from "@material-ui/core";
-import "./ProfileForm.css";
+import "./styles/PersonalInfo.css";
 import validate from "./validateInfo";
 import Input from "./Input";
 import Grid from "@material-ui/core/Grid";
@@ -54,7 +54,7 @@ const useStyles = makeStyles({
 // Slide transition for the error message snackbar
 const SlideTransition = props => (<Slide direction="up" {...props} />)
 
-const personalInfo = [
+const inputs = [
     {label: "First Name", name: "fname"},
     {label: "Last Name", name: "lname"},
     {label: "Phone", name: "contact"},
@@ -64,7 +64,7 @@ const personalInfo = [
 // Submit error message
 const ERR_MSG = "Failed to save changes. Please try again...";
 
-const ProfileForm = props => {
+const PersonalInfo = props => {
     const styles = useStyles();
 
     // Destructure props
@@ -181,7 +181,7 @@ const ProfileForm = props => {
                 variant="body1"
                 classes={{body1: styles.title}}
             >
-                {props.title}
+                Personal Information
             </Typography>
             <hr className="divider" />
 
@@ -208,7 +208,7 @@ const ProfileForm = props => {
 
                 {/* Form inputs */}
                 {
-                    personalInfo.map(input => (
+                    inputs.map(input => (
                         <Grid container alignItems="center" spacing={6} key={input.name}>
                             {/* Input label */}
                             <Grid item xs={4}>
@@ -276,4 +276,4 @@ const ProfileForm = props => {
     )
 }
 
-export default ProfileForm;
+export default PersonalInfo;

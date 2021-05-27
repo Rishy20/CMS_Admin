@@ -1,6 +1,6 @@
 import React from "react"
 import {useState, useRef} from "react";
-import "./FileUpload.css";
+import "./styles/FileUpload.css";
 import {CloudUpload, RotateLeft} from "@material-ui/icons";
 const DEFAULT_MAX_FILE_SIZE = 8388608;
 

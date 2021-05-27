@@ -10,7 +10,7 @@ import {
     Typography
 } from "@material-ui/core";
 import TabPanel from "../TabPanel";
-import ProfileForm from "../ProfileForm";
+import PersonalInfo from "../PersonalInfo";
 
 const useStyles = makeStyles({
     cardContainer: {
@@ -160,8 +160,7 @@ const UserProfile = ({baseUrl, user, setUser, ...props}) => {
                     >
                         {/* Tab Switches */}
                         <TabPanel value={tab} index={0}>
-                            <ProfileForm
-                                title="Personal Information"
+                            <PersonalInfo
                                 user={user}
                                 setUser={setUser}
                                 baseUrl={baseUrl}

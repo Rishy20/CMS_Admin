@@ -1,7 +1,7 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
 import {ListItem, ListItemIcon, ListItemText, makeStyles} from "@material-ui/core";
-import "./NavButton.css"
+import "./styles/NavButton.css"
 
 // Make styles for ListItemIcon and ListItemText
 const useStyles = makeStyles({

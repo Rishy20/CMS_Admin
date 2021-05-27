@@ -36,7 +36,7 @@ function App() {
 
     // Set API URL according to the role of the logged-in user and their user ID
     useEffect(() => {
-        setBaseUrl(`https://icaf.azurewebsites.net/api/v1/${role}s/`);
+        setBaseUrl(`https://icaf.site/api/v1/${role}s/`);
     }, [role]);
 
     // Fetch and set user data using the set API URL

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import './Button.css'
+import './styles/Button.css'
 
 //Save and Cancel Button
 function Button(props){

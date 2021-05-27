@@ -11,7 +11,7 @@ import {
     PersonAdd,
     RateReview
 } from "@material-ui/icons";
-import "./NavBar.css"
+import "./styles/NavBar.css"
 import NavButton from "./NavButton";
 
 // Navigation buttons list
