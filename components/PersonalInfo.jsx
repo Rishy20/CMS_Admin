@@ -1,58 +1,11 @@
 import React, {useEffect, useState} from "react";
-import {
-    CircularProgress,
-    IconButton,
-    makeStyles,
-    Slide,
-    Snackbar,
-    SnackbarContent,
-    Typography
-} from "@material-ui/core";
-import "./styles/PersonalInfo.css";
 import validate from "./validateInfo";
-import Input from "./Input";
 import Grid from "@material-ui/core/Grid";
-import Button from "./Button";
-import {Close, Done} from "@material-ui/icons";
 import AvatarSelector from "./AvatarSelector";
-
-const useStyles = makeStyles({
-    title: {
-        fontSize: "1.3em",
-        marginInlineStart: "8px"
-    },
-    form: {
-        paddingInline: "16px",
-        paddingBlock: "24px"
-    },
-    label: {
-        fontWeight: "500",
-    },
-    buttons: {
-        position: "absolute",
-        top: 130,
-        right: 36,
-    },
-    progress: {
-        color: "#E2BC7F",
-        float: "left",
-        marginBlockStart: "7px",
-        marginInlineEnd: "8px"
-    },
-    success: {
-        color: "#4CAF50",
-        fontSize: "2.3em",
-        float: "left",
-        marginBlockStart: "6px",
-        marginInlineEnd: "8px"
-    },
-    error: {
-        backgroundColor: "#F44336"
-    }
-})
-
-// Slide transition for the error message snackbar
-const SlideTransition = props => (<Slide direction="up" {...props} />)
+import Input from "./Input";
+import {CircularProgress} from "@material-ui/core";
+import {Done} from "@material-ui/icons";
+import Button from "./Button";
 
 const inputs = [
     {label: "First Name", name: "fname"},
@@ -65,19 +18,16 @@ const inputs = [
 const ERR_MSG = "Failed to save changes. Please try again...";
 
 const PersonalInfo = props => {
-    const styles = useStyles();
-
     // Destructure props
-    const {user, setUser, baseUrl} = props;
+    const {styles, user, setUser, baseUrl, avatarSrc, avatarTxt, setSubmitError} = props;
 
     // Form states
     const [values, setValues] = useState({...user});
     const [avatar, setAvatar] = useState(null);
     const [errors, setErrors] = useState({});
+    const [edit, setEdit] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitSuccess, setSubmitSuccess] = useState(false);
-    const [submitError, setSubmitError] = useState("");
-    const [edit, setEdit] = useState(false);
 
     // Reset submit success state
     useEffect(() => setSubmitSuccess(false), []);
@@ -91,7 +41,6 @@ const PersonalInfo = props => {
     const handleChange = event => {
         const {name, value} = event.target;
         setValues({...values, [name]: value});
-        console.log(values);
     };
 
     // Handle adding an image
@@ -155,14 +104,14 @@ const PersonalInfo = props => {
     const handleSubmitResult = data => {
         if (data.status === "Success") {
             setSubmitError("");
-            setIsSubmitting(false);
             setSubmitSuccess(true);
             setEdit(false);
             setUser(values);
         } else if (data.status === "Error") {
             setSubmitError(ERR_MSG);
-            setIsSubmitting(false);
         }
+
+        setIsSubmitting(false);
     }
 
     // Handle setting the edit mode
@@ -171,44 +120,34 @@ const PersonalInfo = props => {
         setEdit(!edit);
         setSubmitSuccess(false);
         setValues({...user});
+        setErrors({});
         setAvatar(null);
     }
 
     return (
-        <>
-            {/* Form header */}
-            <Typography
-                variant="body1"
-                classes={{body1: styles.title}}
-            >
-                Personal Information
-            </Typography>
-            <hr className="divider" />
-
-            {/* Form body */}
-            <form onSubmit={handleSubmit} className={styles.form}>
-                {/* Avatar selector */}
-                <Grid container spacing={6}>
-                    <Grid item xs={4}>
-                        <label
-                            htmlFor="avatar"
-                            className={styles.label}
-                        >
-                            Avatar
-                        </label>
-                    </Grid>
-                    <Grid item xs={7}>
-                        <AvatarSelector
-                            callback={handleAddImg}
-                            avatarSrc={props.avatarSrc}
-                            avatarTxt={props.avatarTxt}
-                            edit={edit} />
-                    </Grid>
+        <form onSubmit={handleSubmit} className={styles.form}>
+            {/* Avatar selector */}
+            <Grid container spacing={6}>
+                <Grid item xs={4}>
+                    <label
+                        htmlFor="avatar"
+                        className={styles.label}
+                    >
+                        Avatar
+                    </label>
                 </Grid>
+                <Grid item xs={7}>
+                    <AvatarSelector
+                        callback={handleAddImg}
+                        avatarSrc={avatarSrc}
+                        avatarTxt={avatarTxt}
+                        edit={edit} />
+                </Grid>
+            </Grid>
 
-                {/* Form inputs */}
-                {
-                    inputs.map(input => (
+            {/* Form inputs */}
+            {
+                inputs.map(input => (
                         <Grid container alignItems="center" spacing={6} key={input.name}>
                             {/* Input label */}
                             <Grid item xs={4}>
@@ -224,56 +163,37 @@ const PersonalInfo = props => {
                                 <Input
                                     value={values[input.name]} type="text" id={input.name} name={input.name}
                                     onChange={handleChange} error={errors[input.name]} inline
-                                    disabled={!edit && true}
+                                    disabled={!edit}
                                 />
                             </Grid>
                         </Grid>
                     )
                 )}
 
-                {/* Buttons */}
-                <div className={styles.buttons}>
-                    {/* Submitting progress indicator */}
-                    {isSubmitting && <CircularProgress size={"2.2em"} className={styles.progress} />}
-                    {/* Submit success indicator */}
-                    {submitSuccess && <Done className={styles.success} />}
+            {/* Buttons */}
+            <div className={styles.buttons}>
+                {/* Submitting progress indicator */}
+                {isSubmitting && <CircularProgress size={"2.2em"} className={styles.progress} />}
+                {/* Submit success indicator */}
+                {submitSuccess && <Done className={styles.success} />}
 
-                    {/* Save button */}
-                    {edit && <Button
-                        btnStyle="btn-save"
-                        name="Save Changes"
-                        type="submit"
-                        disabled={isSubmitting}
-                    />}
-                    {/* Edit/Cancel button | This button toggles the edit mode */}
-                    <Button
-                        btnStyle={"btn-cancel"}
-                        name={edit ? "Cancel" : "Edit"}
-                        onclick={handleSetEdit}
-                        disabled={isSubmitting}
-                    />
-                </div>
-            </form>
-
-            {/* Display submit error message if there is one */}
-            <Snackbar
-                anchorOrigin={{vertical: "bottom", horizontal: "center"}}
-                TransitionComponent={SlideTransition}
-                open={submitError.length > 0} autoHideDuration={5000}
-                onClose={() => setSubmitError("")}
-            >
-                <SnackbarContent
-                    message={submitError}
-                    className={styles.error}
-                    action={
-                        <IconButton size="small" onClick={() => setSubmitError("")} color="inherit">
-                            <Close fontSize="small" />
-                        </IconButton>
-                    }
+                {/* Save button */}
+                {edit && <Button
+                    btnStyle="btn-save"
+                    name="Save Changes"
+                    type="submit"
+                    disabled={isSubmitting}
+                />}
+                {/* Edit/Cancel button | This button toggles the edit mode */}
+                <Button
+                    btnStyle={"btn-cancel"}
+                    name={edit ? "Cancel" : "Edit"}
+                    onclick={handleSetEdit}
+                    disabled={isSubmitting}
                 />
-            </Snackbar>
-        </>
-    )
+            </div>
+        </form>
+    );
 }
 
 export default PersonalInfo;

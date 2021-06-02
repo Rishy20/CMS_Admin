@@ -11,7 +11,9 @@ function Input(props){
             <input className={`input-box ${props.inline && "input-box-inline"} ${props.disabled && "disabled"}`}
                    type={props.type} name={props.name} id={props.name} value={props.value}
                    placeholder={props.placeholder} maxLength={props.maxLength}
-                   onChange={props.onChange} disabled={props.disabled} />
+                   onChange={props.onChange} disabled={props.disabled}
+                   style={props.password && {paddingInlineEnd: "40px"}}
+            />
             {/*Print Validation errors           */}
             <p className="error">{props.error}</p>
         </div>

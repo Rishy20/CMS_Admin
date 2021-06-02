@@ -7,7 +7,7 @@ import MainContent from "./components/MainContent";
 
 // Temporary hardcoded variables
 const role = "admin";
-const userId = "60ae297b90bb0400045cfd36";
+const userId = "60b77e89312ec1c36778fff0";
 
 function App() {
     // Base API URL for the logged-in user
@@ -36,7 +36,7 @@ function App() {
 
     // Set API URL according to the role of the logged-in user and their user ID
     useEffect(() => {
-        setBaseUrl(`https://icaf.site/api/v1/${role}s/`);
+        setBaseUrl(`http://localhost:3000/api/v1/${role}s/`);
     }, [role]);
 
     // Fetch and set user data using the set API URL
@@ -49,7 +49,7 @@ function App() {
 
     // Set user avatar src and fallback text
     useEffect(() => {
-        setAvatarSrc(`${baseUrl}image/${user.avatar}`);
+        setAvatarSrc(user.avatar && `${baseUrl}image/${user.avatar}`);
         setAvatarTxt(`${user.fname[0]}${user.lname[0]}`);
     }, [user]);
 

@@ -10,7 +10,7 @@ import {
     Typography
 } from "@material-ui/core";
 import TabPanel from "../TabPanel";
-import PersonalInfo from "../PersonalInfo";
+import ProfileForm from "../ProfileForm";
 
 const useStyles = makeStyles({
     cardContainer: {
@@ -160,7 +160,7 @@ const UserProfile = ({baseUrl, user, setUser, ...props}) => {
                     >
                         {/* Tab Switches */}
                         <TabPanel value={tab} index={0}>
-                            <PersonalInfo
+                            <ProfileForm
                                 user={user}
                                 setUser={setUser}
                                 baseUrl={baseUrl}
@@ -172,7 +172,12 @@ const UserProfile = ({baseUrl, user, setUser, ...props}) => {
                             Account Information
                         </TabPanel>
                         <TabPanel value={tab} index={2}>
-                            Change Password
+                            <ProfileForm
+                                user={user}
+                                setUser={setUser}
+                                baseUrl={baseUrl}
+                                changePassword
+                            />
                         </TabPanel>
                     </Card>
                 </Grid>
