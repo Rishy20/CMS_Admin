@@ -1,7 +1,7 @@
 import React from "react";
+import {Switch, Route} from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
-import Test from "./pages/Test";
-import {Route} from "react-router-dom"
+import UserProfile from "./pages/UserProfile";
 
 const MainContent = props => (
     <div
@@ -10,11 +10,20 @@ const MainContent = props => (
              ${props.collapsed && "mainExtended"}`
         }
     >
-        <Route exact path={"/"}>
-            <Dashboard/>
-        </Route>
-
-        <Test/>
+        <Switch>
+            <Route exact path="/">
+                <Dashboard />
+            </Route>
+            <Route path="/account">
+                <UserProfile
+                    baseUrl={props.baseUrl}
+                    user={props.user}
+                    setUser={props.setUser}
+                    avatarSrc={props.avatarSrc}
+                    avatarTxt={props.avatarTxt}
+                />
+            </Route>
+        </Switch>
     </div>
 )
 

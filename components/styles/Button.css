@@ -57,6 +57,9 @@
     box-shadow: none;
     color: white;
 }
+.disabledBtn {
+    filter: grayscale(25%);
+}
 .formbox .btn-save, .formbox .btn-cancel{
     font-size: 13px;
 }

@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Card, Container, makeStyles, Typography} from "@material-ui/core";
-import "./EventInfoCard.css"
+import "./styles/EventInfoCard.css"
 import EventInfoText from "./EventInfoText";
 
 // Styles for Material UI components

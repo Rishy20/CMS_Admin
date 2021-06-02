@@ -1,5 +1,5 @@
 import React from "react";
-import './Select.css'
+import './styles/Select.css'
 export default function Select(props){
     return (
         <div>

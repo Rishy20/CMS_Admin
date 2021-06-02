@@ -3,7 +3,7 @@ import {Card, CardContent, CardHeader, makeStyles, Typography} from "@material-u
 import Grid from "@material-ui/core/Grid";
 import {ArgumentAxis, Chart, BarSeries, ValueAxis} from "@devexpress/dx-react-chart-material-ui";
 import {Animation} from "@devexpress/dx-react-chart";
-import "./OverviewCard.css"
+import "./styles/OverviewCard.css"
 
 const useStyles = makeStyles({
     cardTitle: {
