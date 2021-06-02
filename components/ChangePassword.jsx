@@ -52,8 +52,14 @@ const ChangePassword = props => {
             setAuthenticated(false);
             resetStates();
         } else {
-            setIsAuthenticating(true);
-            authenticate();
+            if (values.currentPassword) {
+                setErrors({currentPassword: ""});
+                setIsAuthenticating(true);
+                authenticate();
+            }
+            else {
+                setErrors({currentPassword: "Please enter a password"});
+            }
         }
     }
 
@@ -61,7 +67,7 @@ const ChangePassword = props => {
     const authenticate = () => {
         const data = {email: user.email, password: values.currentPassword}
 
-        fetch("http://localhost:3000/api/v1/login/admin", {
+        fetch("https://icaf.site/api/v1/login/admin", {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',

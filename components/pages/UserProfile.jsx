@@ -131,15 +131,10 @@ const UserProfile = ({baseUrl, user, setUser, ...props}) => {
                                 onChange={changeTab}
                                 orientation="vertical"
                                 classes={{indicator: styles.tabIndicator}}
-                                style={{marginBlockStart: "24px", marginInline: "24px"}}
+                                style={{marginBlockStart: "32px", marginInline: "48px"}}
                             >
                                 <Tab
                                     label="Personal Information"
-                                    classes={{selected: styles.tabSelected}}
-                                    disableRipple
-                                />
-                                <Tab
-                                    label="Account Information"
                                     classes={{selected: styles.tabSelected}}
                                     disableRipple
                                 />
@@ -169,9 +164,6 @@ const UserProfile = ({baseUrl, user, setUser, ...props}) => {
                             />
                         </TabPanel>
                         <TabPanel value={tab} index={1}>
-                            Account Information
-                        </TabPanel>
-                        <TabPanel value={tab} index={2}>
                             <ProfileForm
                                 user={user}
                                 setUser={setUser}
