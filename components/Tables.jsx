@@ -18,7 +18,6 @@ import Button from "../components/Button";
 import {Delete, Edit} from "@material-ui/icons";
 import {useFetch} from "./useFetch";
 
-const url = "http://localhost:8280/estore/seller?service=products";
 
 const useStyles = makeStyles({
     cardContainer: {
@@ -288,8 +287,8 @@ const Tables = props => {
                                                             <Delete />
                                                         </IconButton>
                                                     </ButtonGroup>
-
                                                     }
+
                                                 </TableCell>
                                             ))
                                         }
