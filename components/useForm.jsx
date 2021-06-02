@@ -1,7 +1,7 @@
 import {useState, useEffect} from "react";
 
 
-function useForm(callback,validate,val,url,method){
+function useForm(callback,validate,val,url){
 
     //Hook to store states of values
     const [values,setValues] = useState({
@@ -18,12 +18,17 @@ function useForm(callback,validate,val,url,method){
         setValues({...values,[name]:value});
     };
 
+    const handleFileSubmit = ({file},name)=>{
+        setValues({...values,[name]:file});
+    }
+
     //This function is executed on form submission
     const handleSubmit = e=> {
         e.preventDefault();
         //Sets errors if there are errors
         setErrors(validate(values));
         setIsSubmitting(true);
+        console.log(errors);
     }
 
     useEffect(
@@ -46,20 +51,21 @@ function useForm(callback,validate,val,url,method){
     //This function handles the POST api call to submit the form data
     const submitForm = () =>{
 
+
             fetch(url,{
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                method:method?method:"POST",
-                body: JSON.stringify(values),
+                method:"POST",
+                body: JSON.stringify(values)
             }).then(res => res.json())
-                .then(data=>callback())
+                .then(data=>callback(data))
                 .catch(err=>console.log(err));
     }
 
 
-    return {handleChange,handleSubmit,values,errors};
+    return {handleChange,handleSubmit,values,errors,handleFileSubmit};
 
 }
 export default useForm;
