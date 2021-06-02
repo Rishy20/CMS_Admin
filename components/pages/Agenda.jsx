@@ -7,26 +7,6 @@ const url = "http://localhost:3000/api/v1/workshops";
 
 const columns=[
     {
-        name:"Event Name",
-        id:"ename",
-        type:"text"
-    },
-    {
-        name:"Description",
-        id:"description",
-        type:"text"
-    },
-    {
-        name:"Venue",
-        id:"venue",
-        type:"text"
-    },
-    {
-      name:"Event Type",
-      id:"etype",
-      type:"select"
-    },
-    {
         name:"Start Date",
         id:"sdate",
         type:"date"
@@ -45,32 +25,23 @@ const columns=[
         name:"End Time",
         id:"etime",
         type:"time"
-    }
+    },
+    {
+        name:"Event Type",
+        id:"type",
+        type:"select"
+    },
+    {
+        name:"Event",
+        id:"event",
+        type:"select"
+    },
+
 ]
 
 //Inputs stored as an array so they can be mapped to Input component
 const inputs=[
-    {
-        label:"Event Name",
-        type:"text",
-        name:"ename"
-    },
-    {
-        label:"Description",
-        type:"text",
-        name:"description"
-    },
-    {
-        label:"Venue",
-        type:"text",
-        name:"venue"
-    },
-    {
-        label:"Event Type",
-        type:"select",
-        name:"etype",
-        values:["Single Day","Multiple Days"]
-    },
+
     {
         label:"Start Date",
         type:"date",
@@ -90,6 +61,17 @@ const inputs=[
         label:"End Time",
         type:"time",
         name:"etime"
+    },
+    {
+        label:"Event Type",
+        type:"select",
+        name:"type",
+        values:["Research paper submission","Workshop"]
+    },
+    {
+        label:"Event",
+        type:"select",
+        name:"event"
     }
 ]
 
@@ -107,17 +89,15 @@ const buttons = [
 ]
 //Input box names used in the form so that they can be sent to useForm hook to maintain the state
 const names={
-    ename:'',
-    description:'',
-    venue:'',
-    etype:'',
     sdate:'',
     stime:'',
     edate:'',
     etime:'',
+    type:'',
+    event:'',
 }
 
-const GeneralSettings = () => {
+const Agenda = () => {
 
 
     // State for the current product in edit
@@ -126,20 +106,20 @@ const GeneralSettings = () => {
     const history = useHistory();
 
     const toLink = () => {
-        history.push("/GeneralSettings");
+        history.push("/Agenda");
     }
 
     return (
         <div>
 
-            <Route exact path="/GeneralSettings">
-                <Tables url={url} title={"General Settings"} columns={columns} type={"GeneralSettings"} setEditData={setEditData}/>
+            <Route exact path="/Agenda">
+                <Tables url={url} title={"Agenda"} columns={columns} type={"Agenda"} setEditData={setEditData}/>
             </Route>
             {/*Add Path*/}
-            <Route path="/GeneralSettings/add">
+            <Route path="/Agenda/add">
                 <FormHolder
-                    title={"Add General Settings"}
-                    formTitle={"General Settings Information"}
+                    title={"Add Agenda"}
+                    formTitle={"Agenda Information"}
                     inputs={inputs}
                     buttons={buttons}
                     names={names}
@@ -149,10 +129,10 @@ const GeneralSettings = () => {
                 />
             </Route>
             {/*Edit Path*/}
-            <Route path="/GeneralSettings/edit">
+            <Route path="/Agenda/edit">
                 <FormHolder
-                    title={"Edit General Settings"}
-                    formTitle={"General Settings Information"}
+                    title={"Edit Agenda"}
+                    formTitle={"Agenda Information"}
                     inputs={inputs}
                     buttons={buttons}
                     names={editData}
@@ -167,4 +147,4 @@ const GeneralSettings = () => {
     )
 }
 
-export default GeneralSettings;
+export default Agenda;
