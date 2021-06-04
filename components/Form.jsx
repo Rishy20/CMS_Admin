@@ -51,8 +51,10 @@ function Form(props){
                         inputs.map(input=>{
                             if(input.type==="select"){
                                 return <Grid item xs={12} md={singleColumn ? 12 : 6} key={input.name}>
-                                    <Select name={input.name} label={input.label} values={input.values} value={values[input.name]} onChange={handleChange}
-                                            error={errors[input.name] ? errors[input.name] : ''} />
+                                    <Select name={input.name} label={input.label} values={input.values} value={values[input.name]}
+                                            onChange={input.onChange ? input.onChange : handleChange}
+                                            error={errors[input.name] ? errors[input.name] : ''}
+                                    />
                                 </Grid>
                             }else {
                                 return <Grid item xs={12} md={singleColumn ? 12 : 6} key={input.name}>

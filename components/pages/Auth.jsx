@@ -10,7 +10,7 @@ const useStyles = makeStyles({
     cardContainer: {
         padding: "0 24px 24px 24px",
         borderRadius: "16px",
-        marginInlineEnd: "32px",
+        marginInline: "104px 24px",
         background: "rgb(255,255,255,0.85)"
     },
     tabIndicator: {
@@ -29,6 +29,11 @@ const Auth = props => {
 
     // Handle changing Login/Register tabs
     const changeTab = (event, tab) => setTab(tab);
+
+    // Callback method to be executed after registration is completed
+    const registerCallback = () => {
+        setTab(0);
+    }
 
     return (
         <Grid
@@ -52,10 +57,16 @@ const Auth = props => {
 
                     {/* Content */}
                     <TabPanel value={tab} index={0}>
-                        <Login loginCallback={props.loginCallback} setSubmitError={setSubmitError} />
+                        <Login
+                            loginCallback={props.loginCallback}
+                            setSubmitError={setSubmitError}
+                        />
                     </TabPanel>
                     <TabPanel value={tab} index={1}>
-                        <Register setFeedback={{setSubmitSuccess, setSubmitError}} />
+                        <Register
+                            registerCallback={registerCallback}
+                            setFeedback={{setSubmitSuccess, setSubmitError}}
+                        />
                     </TabPanel>
 
                     {/* Logo */}

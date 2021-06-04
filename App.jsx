@@ -84,15 +84,18 @@ function App() {
 
     // Login callback function
     const loginCallback = () => {
-        setRole(checkLogin());
+        setRoleaccount(checkLogin());
     }
 
     // Logout function
     const logout = () => {
         // Remove the JWT token
         Cookies.remove("token");
-        //Reset role
+
+        //Reset user related states
         setRole(false);
+        setUserId("");
+        setUser({role: "", fname: " ", lname: " ", email: "", contact: "", avatar: ""});
     }
 
     return (
