@@ -1,15 +1,19 @@
 import React, {useEffect, useState} from 'react';
-import {BrowserRouter as Router} from "react-router-dom";
+import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
 import NavBar from './components/NavBar'
 import './App.css'
 import TopBar from "./components/TopBar";
 import MainContent from "./components/MainContent";
-
-// Temporary hardcoded variables
-const role = "admin";
-const userId = "60b77e89312ec1c36778fff0";
+import Auth from "./components/pages/Auth";
+import checkLogin from "./components/CheckLogin";
+import jwt_decode from "jwt-decode";
+import Cookies from "js-cookie";
 
 function App() {
+    // User login states
+    const [role, setRole] = useState(checkLogin());
+    const [userId, setUserId] = useState();
+
     // Base API URL for the logged-in user
     const [baseUrl, setBaseUrl] = useState("");
 
@@ -34,18 +38,23 @@ function App() {
     // Search state
     const [search, setSearch] = useState("");
 
-    // Set API URL according to the role of the logged-in user and their user ID
+    // Set userId and baseUrl if and when the user is logged in (when role is set)
     useEffect(() => {
-        setBaseUrl(`https://icaf.site/api/v1/${role}s/`);
+        if (role) {
+            setUserId(jwt_decode(Cookies.get("token")).id);
+            setBaseUrl(`https://icaf.site/api/v1/${role}s/`);
+        }
     }, [role]);
 
     // Fetch and set user data using the set API URL
     useEffect(() => {
-        fetch(baseUrl + userId)
-            .then(raw => raw.json())
-            .then(data => setUser({role, ...data}))
-            .catch(err => console.log(err));
-    }, [baseUrl]);
+        if (baseUrl && userId) {
+            fetch(baseUrl + userId)
+                .then(raw => raw.json())
+                .then(data => setUser({role, ...data}))
+                .catch(err => console.log(err));
+        }
+    }, [baseUrl, userId]);
 
     // Set user avatar src and fallback text
     useEffect(() => {
@@ -73,32 +82,65 @@ function App() {
             setFullscreen(true) : setFullscreen(false);
     }
 
+    // Login callback function
+    const loginCallback = () => {
+        setRoleaccount(checkLogin());
+    }
+
+    // Logout function
+    const logout = () => {
+        // Remove the JWT token
+        Cookies.remove("token");
+
+        //Reset user related states
+        setRole(false);
+        setUserId("");
+        setUser({role: "", fname: " ", lname: " ", email: "", contact: "", avatar: ""});
+    }
+
     return (
         <div className="App">
             <Router>
-                <NavBar collapsed={collapsed}/>
-                <TopBar
-                    collapsed={collapsed}
-                    setCollapsed={onSetCollapsed}
-                    search={search}
-                    setSearch={onSetSearch}
-                    fullscreen={fullscreen}
-                    setFullscreen={onSetFullscreen}
-                    notifications={notifications}
-                    avatarSrc={avatarSrc}
-                    avatarTxt={avatarTxt}
-                    firstName={user.fname}
-                />
+                <Switch>
+                    {/* Login/Register interface */}
+                    <Route path="/auth">
+                        {/* Redirect to dashboard if logged in */}
+                        {role && <Redirect to="/" />}
 
-                {/* Main Content Area */}
-                <MainContent
-                    collapsed={collapsed}
-                    baseUrl={baseUrl}
-                    user={user}
-                    setUser={setUser}
-                    avatarSrc={avatarSrc}
-                    avatarTxt={avatarTxt}
-                />
+                        <Auth loginCallback={loginCallback} />
+                    </Route>
+
+                    {/* Admin Panel interface | accessible only when logged in */}
+                    <Route path="/">
+                        {/* Redirect to Login/Register interface if not logged in */}
+                        {!role && <Redirect to="/auth" />}
+
+                        <NavBar collapsed={collapsed} />
+                        <TopBar
+                            collapsed={collapsed}
+                            setCollapsed={onSetCollapsed}
+                            search={search}
+                            setSearch={onSetSearch}
+                            fullscreen={fullscreen}
+                            setFullscreen={onSetFullscreen}
+                            logout={logout}
+                            notifications={notifications}
+                            avatarSrc={avatarSrc}
+                            avatarTxt={avatarTxt}
+                            firstName={user.fname}
+                        />
+
+                        {/* Main Content Area */}
+                        <MainContent
+                            collapsed={collapsed}
+                            baseUrl={baseUrl}
+                            user={user}
+                            setUser={setUser}
+                            avatarSrc={avatarSrc}
+                            avatarTxt={avatarTxt}
+                        />
+                    </Route>
+                </Switch>
             </Router>
         </div>
     )

@@ -1,16 +1,12 @@
 import React, {useState} from "react";
 import {
-    IconButton,
     makeStyles,
-    Slide,
-    Snackbar,
-    SnackbarContent,
     Typography
 } from "@material-ui/core";
 import "./styles/ProfileForm.css";
-import {Close} from "@material-ui/icons";
 import PersonalInfo from "./PersonalInfo";
 import ChangePassword from "./ChangePassword";
+import FeedbackMsg from "./FeedbackMsg";
 
 const useStyles = makeStyles({
     title: {
@@ -41,17 +37,8 @@ const useStyles = makeStyles({
         float: "left",
         marginBlockStart: "6px",
         marginInlineEnd: "8px"
-    },
-    showPassBtn: {
-        marginInlineStart: "-60px"
-    },
-    error: {
-        backgroundColor: "#F44336"
     }
 })
-
-// Slide transition for the error message snackbar
-const SlideTransition = props => (<Slide direction="up" {...props} />)
 
 const ProfileForm = props => {
     const styles = useStyles();
@@ -90,22 +77,7 @@ const ProfileForm = props => {
             }
 
             {/* Display submit error message if there is one */}
-            <Snackbar
-                anchorOrigin={{vertical: "bottom", horizontal: "center"}}
-                TransitionComponent={SlideTransition}
-                open={submitError.length > 0} autoHideDuration={5000}
-                onClose={() => setSubmitError("")}
-            >
-                <SnackbarContent
-                    message={submitError}
-                    className={styles.error}
-                    action={
-                        <IconButton size="small" onClick={() => setSubmitError("")} color="inherit">
-                            <Close fontSize="small" />
-                        </IconButton>
-                    }
-                />
-            </Snackbar>
+            <FeedbackMsg error msg={submitError} onClose={() => setSubmitError("")} />
         </>
     )
 }

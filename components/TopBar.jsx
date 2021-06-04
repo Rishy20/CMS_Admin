@@ -141,6 +141,7 @@ const TopBar = props => {
                         anchorEl={accBtnAnchor}
                         open={accMenuOpen}
                         onClose={accMenuClose}
+                        logout={props.logout}
                     />
                 </Grid>
             </Grid>
