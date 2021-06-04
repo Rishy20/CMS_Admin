@@ -177,13 +177,6 @@ const PersonalInfo = props => {
                 {/* Submit success indicator */}
                 {submitSuccess && <Done className={styles.success} />}
 
-                {/* Save button */}
-                {edit && <Button
-                    btnStyle="btn-save"
-                    name="Save Changes"
-                    type="submit"
-                    disabled={isSubmitting}
-                />}
                 {/* Edit/Cancel button | This button toggles the edit mode */}
                 <Button
                     btnStyle={"btn-cancel"}
@@ -191,6 +184,13 @@ const PersonalInfo = props => {
                     onclick={handleSetEdit}
                     disabled={isSubmitting}
                 />
+                {/* Save button */}
+                {edit && <Button
+                    btnStyle="btn-save"
+                    name="Save Changes"
+                    type="submit"
+                    disabled={isSubmitting}
+                />}
             </div>
         </form>
     );
