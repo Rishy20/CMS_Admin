@@ -4,8 +4,9 @@ export default function Select(props){
     return (
         <div>
             <label className="form-label" htmlFor={props.name}>{props.label}</label>
-            <select className="form-select" name={props.name} id={props.name} value={props.value} onChange={props.onChange} >
-                <option  disabled></option>
+            <select className={`form-select ${props.styles}`} name={props.name} id={props.name}
+                    value={props.value} onChange={props.onChange}
+            >
                 {props.values.map(value=>{
                     return <option value={value} key={value}>{value}</option>
                 })}

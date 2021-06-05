@@ -17,6 +17,7 @@ import {
 import Button from "../components/Button";
 import {Delete, Edit} from "@material-ui/icons";
 import {useFetch} from "./useFetch";
+import Select from "./Select";
 
 
 const useStyles = makeStyles({
@@ -75,6 +76,9 @@ const useStyles = makeStyles({
     },
     noBorder:{
         border:"none"
+    },
+    selector: {
+        marginBlockStart: "-32px"
     }
 })
 
@@ -184,18 +188,36 @@ const Tables = props => {
         }
     }
 
+    // CardHeader action component
+    const Action = () => (
+        <>
+            {/* Only enable Add button if table is not read-only */}
+            {!props.readOnly &&
+                <Link to= {`/${props.type}/add`}>
+                    <Button
+                        name={`Add ${props.type}`}
+                        btnStyle="btn-next"
+                    />
+                </Link>
+            }
+
+            {/* Enable select and assign values if selector prop is passed */}
+            {props.selector &&
+                <Select
+                    values={props.selectValues}
+                    value={props.selectValue}
+                    onChange={props.selectCallback}
+                    styles={styles.selector}
+                />
+            }
+        </>
+    )
+
     return (
         <Card variant="outlined" className={styles.cardContainer}>
             <CardHeader
                 title={props.title}
-                action={
-                    <Link to= {`/${props.type}/add`}>
-                        <Button
-                            name={`Add ${props.type}`}
-                            btnStyle="btn-next"
-                        />
-                    </Link>
-                }
+                action={<Action />}
                 classes={{action: styles.action,title:styles.cardHead}}
             />
             <hr className={styles.hr} />

@@ -80,7 +80,12 @@ const Dashboard = () => {
                         title="Total Attendees"
                         value={totalAttendees}
                         styles="totalAttendees"
-                        path="/registrations"
+                        path={{
+                            pathname: "/registrations",
+                            state: {
+                                regType: "attendees"
+                            }
+                        }}
                     />
                 </Grid>
                 <Grid item md={3}>
@@ -96,7 +101,12 @@ const Dashboard = () => {
                         title="Total Researchers"
                         value={totalResearchers}
                         styles="totalResearchers"
-                        path="/registrations"
+                        path={{
+                            pathname: "/registrations",
+                            state: {
+                                regType: "researchers"
+                            }
+                        }}
                     />
                 </Grid>
 
