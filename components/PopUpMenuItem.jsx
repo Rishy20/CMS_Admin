@@ -7,7 +7,7 @@ const PopUpMenuItem = React.forwardRef((props, ref) => (
         ref={ref}
         component={NavLink}
         to={props.path}
-        onClick={props.onClick}
+        onClick={props.customAction ? props.customAction : props.onClose}
         divider={props.divider}
     >
         <ListItemIcon>{props.icon}</ListItemIcon>
