@@ -61,7 +61,7 @@ const buttons = [
 ]
 
 const Register = props => {
-    const {registerCallback} = props;
+    const {baseUrl, registerCallback} = props;
     const {setSubmitSuccess, setSubmitError} = props.setFeedback;
 
     const [role, setRole] = useState("editor");
@@ -91,7 +91,7 @@ const Register = props => {
 
     // Set form URL
     useEffect(() => {
-        role && setUrl(`https://icaf.site/api/v1/${role}s`)
+        role && setUrl(`${baseUrl}/${role}s`);
     }, [role])
 
     return (

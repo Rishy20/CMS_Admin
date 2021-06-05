@@ -18,7 +18,7 @@ const ERR_MSG_SAVE = "Something went wrong. Please try again...";
 
 const ChangePassword = props => {
     // Destructure props
-    const {styles, user, baseUrl, setSubmitError} = props;
+    const {styles, user, baseUrl, baseUserUrl, setSubmitError} = props;
 
     // Form states
     const [values, setValues] = useState({currentPassword: "", password: "", confirmPassword: ""});
@@ -62,7 +62,7 @@ const ChangePassword = props => {
     const authenticate = () => {
         const data = {email: user.email, password: values.currentPassword}
 
-        fetch("https://icaf.site/api/v1/login/admin", {
+        fetch(`${baseUrl}/login/admin`, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -105,7 +105,7 @@ const ChangePassword = props => {
     // Validate and submit form if no errors were found
     useEffect(() => {
             if(Object.keys(errors).length === 0 && isSubmitting ) {
-                if (baseUrl) {
+                if (baseUserUrl) {
                     submitForm();
                 }
             } else {
@@ -124,7 +124,7 @@ const ChangePassword = props => {
         data.append("values", JSON.stringify(submitData));
 
         // Send PUT request to update user data and upload the avatar
-        fetch(baseUrl + user._id, {
+        fetch(`${baseUserUrl}/${user._id}`, {
             method: "PUT",
             body: data
         }).then(res => res.json())

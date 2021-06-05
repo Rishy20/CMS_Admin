@@ -19,7 +19,7 @@ const ERR_MSG = "Failed to save changes. Please try again...";
 
 const PersonalInfo = props => {
     // Destructure props
-    const {styles, user, setUser, baseUrl, avatarSrc, avatarTxt, setSubmitError} = props;
+    const {styles, user, setUser, baseUserUrl, avatarSrc, avatarTxt, setSubmitError} = props;
 
     // Form states
     const [values, setValues] = useState({...user});
@@ -67,7 +67,7 @@ const PersonalInfo = props => {
     // Validate and submit form if no errors were found
     useEffect(() => {
             if(Object.keys(errors).length === 0 && isSubmitting ) {
-                if (baseUrl) {
+                if (baseUserUrl) {
                     submitForm();
                 }
             } else {
@@ -85,7 +85,7 @@ const PersonalInfo = props => {
         data.append("avatar", avatar);
 
         // Send PUT request to update user data and upload the avatar
-        fetch(baseUrl + user._id, {
+        fetch(`${baseUserUrl}/${user._id}`, {
             method: "PUT",
             body: data
         }).then(res => res.json())

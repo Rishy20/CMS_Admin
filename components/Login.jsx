@@ -33,10 +33,10 @@ const buttons = [
     }
 ]
 
-// Form URL
-const url = "https://icaf.site/api/v1/login/admin";
+const Login = ({baseUrl, loginCallback, setSubmitError}) => {
+    // Login URL
+    const url = `${baseUrl}/login/admin`;
 
-const Login = ({loginCallback, setSubmitError}) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     // Callback method
