@@ -1,5 +1,5 @@
 import React from "react";
-import {Switch, Route} from "react-router-dom";
+import {Switch, Route, Redirect} from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import UserProfile from "./pages/UserProfile";
 import AllItems from "./pages/AllItems";
@@ -16,26 +16,8 @@ const MainContent = props => (
              ${props.collapsed && "mainExtended"}`
         }
     >
+        {/* COMMON Routes */}
         <Switch>
-            {/* ADMIN-ONLY Routes */}
-
-            {/* Reviewers */}
-            <Route path="/reviewers">
-                <AllItems baseUrl={props.baseUrl} type="reviewers" />
-            </Route>
-
-            {/* Editors */}
-            <Route path="/editors">
-                <AllItems baseUrl={props.baseUrl} type="editors" />
-            </Route>
-
-            {/* Registrations */}
-            <Route path="/registrations">
-                <AllItems baseUrl={props.baseUrl} type="registrations" />
-            </Route>
-
-            {/* COMMON Routes */}
-
             {/* User Profile */}
             <Route path="/account">
                 <UserProfile
@@ -47,25 +29,70 @@ const MainContent = props => (
                     avatarTxt={props.avatarTxt}
                 />
             </Route>
-            <Route exact path="/test">
-                <Test />
-            </Route>
-            <Route exact path="/editors">
-                <Editors/>
-            </Route>
-            <Route exact path="/agenda">
-                <Agenda />
-            </Route>
-            <Route exact path="/generalsettings">
-                <GeneralSettings />
-            </Route>
-            <Route exact path="/Tickets">
-                <Tickets />
-            </Route>
 
-            {/* Dashboard | DEFAULT Route */}
-            <Route path="/">
+            {/* Dashboard */}
+            <Route exact path="/">
                 <Dashboard />
+            </Route>
+        </Switch>
+
+
+        {/* ADMIN-ONLY Routes */}
+        {props.role === "admin" &&
+            <Switch>
+                {/* Reviewers */}
+                <Route path="/reviewers">
+                    <AllItems baseUrl={props.baseUrl} type="reviewers" />
+                </Route>
+
+                {/* Editors */}
+                <Route path="/editors">
+                    <Editors />
+                </Route>
+
+                {/* Registrations */}
+                <Route path="/registrations">
+                    <AllItems baseUrl={props.baseUrl} type="registrations" />
+                </Route>
+            </Switch>
+        }
+
+
+        {/* EDITOR-SPECIFIC Routes */}
+        {props.role === "editor" &&
+            <Switch>
+                <Route exact path="/test">
+                    <Test />
+                </Route>
+
+                {/* Agenda */}
+                <Route path="/agenda">
+                    <Agenda />
+                </Route>
+
+                {/* General Settings */}
+                <Route path="/generalsettings">
+                    <GeneralSettings />
+                </Route>
+
+                {/* Tickets */}
+                <Route path="/tickets">
+                    <Tickets />
+                </Route>
+            </Switch>
+        }
+
+
+        {/* REVIEWER-SPECIFIC Routes */}
+        {props.role === "reviewer" &&
+            null
+        }
+
+
+        {/* DEFAULT Route */}
+        <Switch>
+            <Route path="/">
+                <Redirect to="/" />
             </Route>
         </Switch>
     </div>

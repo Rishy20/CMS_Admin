@@ -41,7 +41,7 @@ const NavButton = (props) => {
             button
             component={NavLink}  // Make ListItem component act as a NavLink
             to={props.path}  // Pass the link path
-            exact
+            exact={props.path === "/"}
             className="navButton"
             activeClassName="selected"  // Classname when the link is active
         >

@@ -3,31 +3,34 @@ import {Link} from "react-router-dom";
 import {Grid, List} from "@material-ui/core";
 import {
     AccountCircle,
-    CloudUpload,
+    CloudUpload, ConfirmationNumber,
     Dashboard,
     Edit,
     Event,
     InsertDriveFile,
     PersonAdd,
-    RateReview
+    RateReview, Settings
 } from "@material-ui/icons";
 import "./styles/NavBar.css"
 import NavButton from "./NavButton";
 
 // Navigation buttons list
 const navButtons = [
-    {text: "Dashboard", icon: <Dashboard />, path: "/"},
-    {text: "Reviewers", icon: <RateReview />, path: "/reviewers"},
-    {text: "Editors", icon: <Edit />, path: "/editors"},
-    {text: "Registrations", icon: <PersonAdd />, path: "/registrations"},
-    {text: "Templates", icon: <InsertDriveFile />, path: "/templates"},
-    {text: "Submissions", icon: <CloudUpload />, path: "/submissions"},
-    {text: "Agenda", icon: <Event />, path: "/agenda"},
-    {text: "User Profile", icon: <AccountCircle />, path:"/account"}
+    {text: "Dashboard", icon: <Dashboard />, path: "/", auth: "all"},
+    {text: "Reviewers", icon: <RateReview />, path: "/reviewers", auth: "admin"},
+    {text: "Editors", icon: <Edit />, path:"/editors", auth: "admin"},
+    {text: "Registrations", icon: <PersonAdd />, path: "/registrations", auth: "admin"},
+    {text: "Templates", icon: <InsertDriveFile />, path: "/templates", auth: "admin"},
+    {text: "Submissions", icon: <CloudUpload />, path: "/submissions", auth: "admin"},
+    {text: "Agenda", icon: <Event />, path: "/agenda", auth: "admin"},
+    {text: "Agenda", icon: <Event />, path:"/agenda", auth: "editor"},
+    {text: "General Settings", icon: <Settings />, path:"/generalsettings", auth: "editor"},
+    {text: "Tickets", icon: <ConfirmationNumber />, path:"/tickets", auth: "editor"},
+    {text: "User Profile", icon: <AccountCircle />, path:"/account", auth: "all"},
 ]
 
 //Admin NavBar
-function NavBar(props){
+const NavBar = props => {
     return(
         <div
             className={
@@ -52,13 +55,15 @@ function NavBar(props){
             <List component="nav">
                 {/* Render each navigation button in the list with props */}
                 {navButtons.map(navButton => (
-                    <NavButton
-                        key={navButton.text}
-                        text={navButton.text}
-                        icon={navButton.icon}
-                        path={navButton.path}
-                        collapsed={props.collapsed}
-                    />
+                    // Only render NavButtons which are allowed for the user type
+                    (navButton.auth === props.role || navButton.auth === "all") &&
+                        <NavButton
+                            key={navButton.text}
+                            text={navButton.text}
+                            icon={navButton.icon}
+                            path={navButton.path}
+                            collapsed={props.collapsed}
+                        />
                 ))}
             </List>
         </div>

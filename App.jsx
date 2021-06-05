@@ -117,7 +117,7 @@ function App() {
                         {/* Redirect to Login/Register interface if not logged in */}
                         {!role && <Redirect to="/auth" />}
 
-                        <NavBar collapsed={collapsed} />
+                        <NavBar role={role} collapsed={collapsed} />
                         <TopBar
                             collapsed={collapsed}
                             setCollapsed={onSetCollapsed}
@@ -137,6 +137,7 @@ function App() {
                             collapsed={collapsed}
                             baseUrl={baseUrl}
                             baseUserUrl={baseUserUrl}
+                            role={role}
                             user={user}
                             setUser={setUser}
                             avatarSrc={avatarSrc}
