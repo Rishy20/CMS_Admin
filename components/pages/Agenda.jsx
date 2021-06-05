@@ -3,7 +3,7 @@ import {Switch, Route, useHistory, Redirect} from "react-router-dom";
 import Tables from "../Tables";
 import FormHolder from "../FormHolder";
 
-const url = "http://localhost:3000/api/v1/workshops";
+const url = "http://localhost:3000/api/v1/agenda";
 
 const columns=[
     {
@@ -112,11 +112,11 @@ const Agenda = () => {
     return (
         <div>
 
-            <Route exact path="/Agenda">
-                <Tables url={url} title={"Agenda"} columns={columns} type={"Agenda"} setEditData={setEditData}/>
+            <Route exact path="/agenda">
+                <Tables url={url} title={"Agenda"} columns={columns} type={"agenda"} setEditData={setEditData}/>
             </Route>
             {/*Add Path*/}
-            <Route path="/Agenda/add">
+            <Route path="/agenda/add">
                 <FormHolder
                     title={"Add Agenda"}
                     formTitle={"Agenda Information"}
@@ -129,7 +129,7 @@ const Agenda = () => {
                 />
             </Route>
             {/*Edit Path*/}
-            <Route path="/Agenda/edit">
+            <Route path="/agenda/edit">
                 <FormHolder
                     title={"Edit Agenda"}
                     formTitle={"Agenda Information"}

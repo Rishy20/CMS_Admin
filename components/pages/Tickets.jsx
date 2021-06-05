@@ -101,7 +101,7 @@ const Tickets = () => {
                 />
             </Route>
             {/*Edit Path*/}
-            <Route path="/ticket/edit">
+            <Route path="/tickets/edit">
                 <FormHolder
                     title={"Edit Tickets"}
                     formTitle={"Ticket Information"}

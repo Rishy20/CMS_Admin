@@ -1,0 +1,15 @@
+.navButton {
+    white-space: nowrap;
+}
+
+.selected {
+    background: linear-gradient(var(--gold), var(--gold));
+}
+
+.selected::after {
+    content: "";
+    border: solid 1.5em transparent;
+    border-right-color: var(--lightGrey);
+    left: 11.4em;
+    position: absolute;
+}

@@ -1,8 +1,17 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import {Grid, List} from "@material-ui/core";
-import {CloudUpload, Dashboard, Edit, Event, InsertDriveFile, PersonAdd, RateReview} from "@material-ui/icons";
-import "./NavBar.css"
+import {
+    AccountCircle,
+    CloudUpload,
+    Dashboard,
+    Edit,
+    Event,
+    InsertDriveFile,
+    PersonAdd,
+    RateReview
+} from "@material-ui/icons";
+import "./styles/NavBar.css"
 import NavButton from "./NavButton";
 
 // Navigation buttons list
@@ -14,6 +23,7 @@ const navButtons = [
     {text: "Templates", icon: <InsertDriveFile />, path: "/templates"},
     {text: "Submissions", icon: <CloudUpload />, path: "/submissions"},
     {text: "Agenda", icon: <Event />, path: "/agenda"},
+    {text: "User Profile", icon: <AccountCircle />, path:"/account"}
 ]
 
 //Admin NavBar

@@ -3,7 +3,7 @@ import {Switch, Route, useHistory, Redirect} from "react-router-dom";
 import Tables from "../Tables";
 import FormHolder from "../FormHolder";
 
-const url = "http://localhost:3000/api/v1/workshops";
+const url = "http://localhost:3000/api/v1/generalsettings";
 
 const columns=[
     {
@@ -45,6 +45,11 @@ const columns=[
         name:"End Time",
         id:"etime",
         type:"time"
+    },
+    {
+        name:"Status",
+        id:"status",
+        type:"select"
     }
 ]
 
@@ -90,6 +95,11 @@ const inputs=[
         label:"End Time",
         type:"time",
         name:"etime"
+    },
+    {
+        label:"Status",
+        type:"select",
+        name:"status"
     }
 ]
 
@@ -115,6 +125,7 @@ const names={
     stime:'',
     edate:'',
     etime:'',
+    status:'',
 }
 
 const GeneralSettings = () => {
@@ -126,17 +137,17 @@ const GeneralSettings = () => {
     const history = useHistory();
 
     const toLink = () => {
-        history.push("/GeneralSettings");
+        history.push("/generalsettings");
     }
 
     return (
         <div>
 
-            <Route exact path="/GeneralSettings">
-                <Tables url={url} title={"General Settings"} columns={columns} type={"GeneralSettings"} setEditData={setEditData}/>
+            <Route exact path="/generalsettings">
+                <Tables url={url} title={"General Settings"} columns={columns} type={"generalsettings"} setEditData={setEditData}/>
             </Route>
             {/*Add Path*/}
-            <Route path="/GeneralSettings/add">
+            <Route path="/generalsettings/add">
                 <FormHolder
                     title={"Add General Settings"}
                     formTitle={"General Settings Information"}
@@ -149,7 +160,7 @@ const GeneralSettings = () => {
                 />
             </Route>
             {/*Edit Path*/}
-            <Route path="/GeneralSettings/edit">
+            <Route path="/generalsettings/edit">
                 <FormHolder
                     title={"Edit General Settings"}
                     formTitle={"General Settings Information"}

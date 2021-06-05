@@ -2,7 +2,7 @@ import React from "react";
 import {Menu} from "@material-ui/core";
 import {ExitToApp, Person} from "@material-ui/icons";
 import PopUpMenuItem from "./PopUpMenuItem";
-import "./PopUpMenu.css"
+import "./styles/PopUpMenu.css"
 
 // Pop up menu items list
 const popUpMenuItems = [
