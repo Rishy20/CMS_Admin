@@ -32,6 +32,7 @@ const Input = props => {
                     size="small"
                     onClick={() => setShowPassword(!showPassword)}
                     style={showPassBtn}
+                    disableRipple
                 >
                     {showPassword ? <VisibilityOff/> : <Visibility/>}
                 </IconButton>

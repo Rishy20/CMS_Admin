@@ -84,7 +84,7 @@ function App() {
 
     // Login callback function
     const loginCallback = () => {
-        setRoleaccount(checkLogin());
+        setRole(checkLogin());
     }
 
     // Logout function

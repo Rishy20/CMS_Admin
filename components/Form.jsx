@@ -71,8 +71,15 @@ function Form(props){
                 <div style={props.btnstyle==='top'? btnTop:btnStyle}>
                     {/* Buttons */}
                     {
-                        buttons.reverse().map(btn => {
-                            return <Button btnStyle={btn.style} name={btn.name} type={btn.type} key={btn.name} disabled={isSubmitting}/>
+                        // Render buttons in reverse order to counter the reversing applied due to 'float: right' style
+                        buttons.slice(0).reverse().map(btn => {
+                            return <Button
+                                btnStyle={btn.style}
+                                name={btn.name}
+                                type={btn.type}
+                                key={btn.name}
+                                disabled={isSubmitting}
+                            />
                         })
                     }
 
