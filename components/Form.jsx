@@ -40,7 +40,15 @@ function Form(props){
     console.log(method);
 
     //Import methods from useForm hook
-    const {handleChange, handleSubmit, values, errors } = useForm(callback,validate,names,url,method,callbackIsSubmitting);
+    const {handleChange, handleSubmit, values, errors } = useForm(
+        callback, validate, names, url, method, adminUserUpdate, callbackIsSubmitting
+    );
+
+    // Cancel button action
+    const handleCancel = event => {
+        event.preventDefault();
+        callback();
+    }
 
     return(
         <div>
@@ -79,6 +87,7 @@ function Form(props){
                                 type={btn.type}
                                 key={btn.name}
                                 disabled={isSubmitting}
+                                onclick={btn.type === "cancel" ? handleCancel : () => {}}
                             />
                         })
                     }
