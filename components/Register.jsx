@@ -66,7 +66,6 @@ const Register = props => {
 
     const [role, setRole] = useState("editor");
     const [url, setUrl] = useState("");
-    const [isSubmitting, setIsSubmitting] = useState(false);
 
     // Form input for role, which would be used to set the form URL
     const roleInput = {
@@ -85,8 +84,6 @@ const Register = props => {
         } else {
             setSubmitError("Something went wrong! Please try again...");
         }
-
-        setIsSubmitting(false);
     }
 
     // Set form URL
@@ -102,8 +99,6 @@ const Register = props => {
                 btns={buttons}
                 url={url}
                 callback={callback}
-                isSubmitting={isSubmitting}
-                callbackIsSubmitting={() => setIsSubmitting(true)}
             />
         </div>
     )

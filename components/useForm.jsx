@@ -38,7 +38,7 @@ function useForm(callback,validate,val,url,method,adminUserUpdate,callbackIsSubm
 
                 // //Submit the form
                 if(url){
-                    callbackIsSubmitting && callbackIsSubmitting();
+                    callbackIsSubmitting && callbackIsSubmitting(true);
                     submitForm();
                 }else{
                     //Callback the submitForm method
@@ -68,7 +68,8 @@ function useForm(callback,validate,val,url,method,adminUserUpdate,callbackIsSubm
             body: data
         }).then(res => res.json())
             .then(data=>callback(data))
-            .catch(err=>console.log(err));
+            .catch(err=>console.log(err))
+            .finally(() => callbackIsSubmitting(false));
     }
 
 

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import Cookies from "js-cookie";
 import Form from "./Form";
 
@@ -37,8 +37,6 @@ const Login = ({baseUrl, loginCallback, setSubmitError}) => {
     // Login URL
     const url = `${baseUrl}/login/admin`;
 
-    const [isSubmitting, setIsSubmitting] = useState(false);
-
     // Callback method
     const callback = result => {
         if (result.auth) {
@@ -47,8 +45,6 @@ const Login = ({baseUrl, loginCallback, setSubmitError}) => {
         } else {
             setSubmitError(result.message);
         }
-
-        setIsSubmitting(false);
     }
 
     return (
@@ -60,8 +56,6 @@ const Login = ({baseUrl, loginCallback, setSubmitError}) => {
                 btns={buttons}
                 url={url}
                 callback={callback}
-                isSubmitting={isSubmitting}
-                callbackIsSubmitting={() => setIsSubmitting(true)}
             />
         </div>
     )

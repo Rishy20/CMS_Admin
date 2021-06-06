@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Grid from "@material-ui/core/Grid";
 import Select from "./Select";
 import Input from "./Input";
@@ -21,7 +21,6 @@ const btnTop={
 
 const progress = {
     color: "#E2BC7F",
-    display: "right",
     marginBlockStart: "8px",
     marginInlineEnd: "8px",
     float: "right"
@@ -36,9 +35,10 @@ function Form(props){
     const method = props.method;
     const adminUserUpdate = props.adminUserUpdate;
     const singleColumn = props.singleColumn;
-    const isSubmitting = props.isSubmitting;
-    const callbackIsSubmitting = props.callbackIsSubmitting;
-    console.log(method);
+
+    // Handle isSubmitting state for submitting feedback
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const callbackIsSubmitting = state => setIsSubmitting(state);
 
     //Import methods from useForm hook
     const {handleChange, handleSubmit, values, errors } = useForm(
