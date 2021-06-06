@@ -6,29 +6,34 @@ import FormHolder from "../FormHolder";
 // Columns for the table
 const columns = [
     {
-        name:"First Name",
-        id:"fname",
-        type:"text"
+        name: "First Name",
+        id: "fname",
+        type: "text"
     },
     {
-        name:"Last Name",
-        id:"lname",
-        type:"text"
+        name: "Last Name",
+        id: "lname",
+        type: "text"
     },
     {
-        name:"Email",
-        id:"email",
-        type:"text"
+        name: "Email",
+        id: "email",
+        type: "text"
     },
     {
-        name:"Phone",
-        id:"contact",
-        type:"text"
+        name: "Phone",
+        id: "contact",
+        type: "text"
     },
     {
-        name:"Actions",
-        id:"action",
-        type:"actions"
+        name: "Status",
+        id: "status",
+        type: "text"
+    },
+    {
+        name: "Actions",
+        id: "action",
+        type: "actions"
     }
 ]
 
@@ -53,6 +58,17 @@ const columns = [
             label:"Phone",
             type:"tel",
             name:"contact"
+        },
+        {
+            label:"Password",
+            type:"password",
+            name:"password"
+        },
+        {
+            label:"Status",
+            type:"select",
+            name:"status",
+            values: ["pending", "active", "suspended"]
         }
 ]
 
@@ -75,7 +91,9 @@ const names = {
     fname: '',
     lname: '',
     email: '',
-    contact: ''
+    contact: '',
+    password: '',
+    status: 'pending'
 }
 
 const Editors = ({baseUrl}) => {

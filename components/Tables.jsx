@@ -69,6 +69,24 @@ const useStyles = makeStyles({
         fontWeight: "bold",
         padding:8
     },
+    statusPending: {
+        fontWeight: "bold",
+        padding:8,
+        color: "#E2BC7F",
+        textTransform: "capitalize"
+    },
+    statusActive: {
+        fontWeight: "bold",
+        padding:8,
+        color: "#4CAF50",
+        textTransform: "capitalize"
+    },
+    statusSuspended: {
+        fontWeight: "bold",
+        padding:8,
+        color: "#F44336",
+        textTransform: "capitalize"
+    },
     row: {
         '&:nth-of-type(odd)': {
             backgroundColor: "rgba(0, 0, 0, 0.04)",
@@ -273,46 +291,64 @@ const Tables = props => {
                                         </TableCell>
 
                                         {
-                                            props.columns.map(column=>(
+                                            props.columns.map(column => {
+                                                // Determine text field style based on user account status (if present)
+                                                let tableDataStyle = styles.tableData;
+                                                if (column.id === "status") {
+                                                    switch (item.status) {
+                                                        case "pending":
+                                                            tableDataStyle = styles.statusPending;
+                                                            break;
+                                                        case "active":
+                                                            tableDataStyle = styles.statusActive;
+                                                            break;
+                                                        case "suspended":
+                                                            tableDataStyle = styles.statusSuspended;
+                                                            break;
+                                                    }
+                                                }
 
-                                                <TableCell align="center" classes={{root:styles.noBorder}}>
-                                                    {column.type === "img" &&
-                                                    <img
-                                                        src={`http://localhost:3000/${props.type}/${item[column.id]}`}
-                                                        alt={item.name}
-                                                        style={{
-                                                            minHeight: "160px",
-                                                            maxHeight: "160px"
-                                                        }}
-                                                    />
-                                                    }
-                                                    {column.type === "text" &&
-                                                    <Typography
-                                                        variant="body1"
-                                                        classes={{body1: styles.tableData}}
-                                                    >
-                                                        {item[column.id]}
-                                                    </Typography>
-                                                    }
-                                                    {column.type === "actions" &&
-                                                    <ButtonGroup color="primary">
-                                                        <IconButton
-                                                            component={Link}
-                                                            to={`/${props.type}/edit`}
-                                                            onClick={() => {setEditDataHandler(item);}}
+                                                return (
+                                                    <TableCell align="center" classes={{root: styles.noBorder}}>
+                                                        {column.type === "img" &&
+                                                        <img
+                                                            src={`http://localhost:3000/${props.type}/${item[column.id]}`}
+                                                            alt={item.name}
+                                                            style={{
+                                                                minHeight: "160px",
+                                                                maxHeight: "160px"
+                                                            }}
+                                                        />
+                                                        }
+                                                        {column.type === "text" &&
+                                                        <Typography
+                                                            variant="body1"
+                                                            classes={{body1: tableDataStyle}}
                                                         >
-                                                            <Edit />
-                                                        </IconButton>
-                                                        <IconButton
-                                                            onClick={() => deleteData(item)}
-                                                        >
-                                                            <Delete />
-                                                        </IconButton>
-                                                    </ButtonGroup>
-                                                    }
-
-                                                </TableCell>
-                                            ))
+                                                            {item[column.id]}
+                                                        </Typography>
+                                                        }
+                                                        {column.type === "actions" &&
+                                                        <ButtonGroup color="primary">
+                                                            <IconButton
+                                                                component={Link}
+                                                                to={`/${props.type}/edit`}
+                                                                onClick={() => {
+                                                                    setEditDataHandler(item);
+                                                                }}
+                                                            >
+                                                                <Edit/>
+                                                            </IconButton>
+                                                            <IconButton
+                                                                onClick={() => deleteData(item)}
+                                                            >
+                                                                <Delete/>
+                                                            </IconButton>
+                                                        </ButtonGroup>
+                                                        }
+                                                    </TableCell>
+                                                )
+                                            })
                                         }
 
                                     </TableRow>
