@@ -47,7 +47,7 @@ const MainContent = props => (
 
                 {/* Editors */}
                 <Route path="/editors">
-                    <Editors />
+                    <Editors baseUrl={props.baseUrl} />
                 </Route>
 
                 {/* Registrations */}

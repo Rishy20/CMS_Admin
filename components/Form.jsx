@@ -34,6 +34,7 @@ function Form(props){
     const callback = props.callback;
     const buttons = props.btns;
     const method = props.method;
+    const adminUserUpdate = props.adminUserUpdate;
     const singleColumn = props.singleColumn;
     const isSubmitting = props.isSubmitting;
     const callbackIsSubmitting = props.callbackIsSubmitting;

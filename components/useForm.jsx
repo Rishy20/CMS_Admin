@@ -1,7 +1,7 @@
 import {useState, useEffect} from "react";
 
 
-function useForm(callback,validate,val,url,method,callbackIsSubmitting){
+function useForm(callback,validate,val,url,method,adminUserUpdate,callbackIsSubmitting){
 
     //Hook to store states of values
     const [values,setValues] = useState({
@@ -38,7 +38,7 @@ function useForm(callback,validate,val,url,method,callbackIsSubmitting){
 
                 // //Submit the form
                 if(url){
-                    callbackIsSubmitting();
+                    callbackIsSubmitting && callbackIsSubmitting();
                     submitForm();
                 }else{
                     //Callback the submitForm method
@@ -50,19 +50,25 @@ function useForm(callback,validate,val,url,method,callbackIsSubmitting){
     );
 
     //This function handles the POST api call to submit the form data
-    const submitForm = () =>{
+    const submitForm = () => {
+        let data = JSON.stringify(values);
 
+        // If an admin user is updated, create the request accordingly
+        if (adminUserUpdate) {
+            data = new FormData();
+            data.append("values", JSON.stringify(values));
+        }
 
-            fetch(url,{
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                method:"POST",
-                body: JSON.stringify(values)
-            }).then(res => res.json())
-                .then(data=>callback(data))
-                .catch(err=>console.log(err));
+        fetch(url,{
+            headers: !adminUserUpdate ? {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            } : {},
+            method: method ? method : "POST",
+            body: data
+        }).then(res => res.json())
+            .then(data=>callback(data))
+            .catch(err=>console.log(err));
     }
 
 

@@ -1,11 +1,10 @@
-import React, {useEffect, useState} from "react";
-import {Switch, Route, useHistory, Redirect} from "react-router-dom";
+import React, {useState} from "react";
+import {Route, useHistory} from "react-router-dom";
 import Tables from "../Tables";
 import FormHolder from "../FormHolder";
 
-const url = "http://localhost:3000/api/v1/editors";
-
-const columns=[
+// Columns for the table
+const columns = [
     {
         name:"First Name",
         id:"fname",
@@ -17,29 +16,24 @@ const columns=[
         type:"text"
     },
     {
-        name:"Gender",
-        id:"gender",
-        type:"select"
-    },
-    {
         name:"Email",
         id:"email",
         type:"text"
     },
     {
-        name:"Contact",
+        name:"Phone",
         id:"contact",
         type:"text"
     },
     {
-        name:"Country",
-        id:"country",
-        type:"text"
-    },
-
+        name:"Actions",
+        id:"action",
+        type:"actions"
+    }
 ]
-//Inputs stored as an array so they can be mapped to Input component
-    const inputs=[
+
+// Inputs stored as an array so they can be mapped to Input component
+    const inputs = [
         {
             label:"First Name",
             type:"text",
@@ -51,53 +45,43 @@ const columns=[
             name:"lname"
         },
         {
-            label:"Gender",
-            type:"select",
-            name:"gender"
-        },
-        {
             label:"Email",
             type:"email",
             name:"email"
         },
         {
-            label:"Contact",
+            label:"Phone",
             type:"tel",
             name:"contact"
-        },
-        {
-            label:"Country",
-            type:"text",
-            name:"country"
         }
-
 ]
-//Buttons to be displayed in the form
+
+// Buttons to be displayed in the form
     const buttons = [
         {
             name:"Save ",
             style:"btn-save",
-            type:"Submit"
+            type:"submit"
         },
         {
             name:"Cancel",
             style:"btn-cancel",
+            type:"cancel"
         }
-        ]
-//Input box names used in the form so that they can be sent to useForm hook to maintain the state
-const names= {
+    ]
+
+// Input box names used in the form so that they can be sent to useForm hook to maintain the state
+const names = {
     fname: '',
     lname: '',
-    gender: '',
     email: '',
-    contact: '',
-    country:'',
+    contact: ''
 }
 
-const Editors = () => {
-
-
-    // State for the current product in edit
+const Editors = ({baseUrl}) => {
+    // API URL
+    const url = `${baseUrl}/editors`;
+    // State for the current editor to edit
     const [editData, setEditData] = useState(null);
 
     const history = useHistory();
@@ -108,10 +92,16 @@ const Editors = () => {
 
     return (
         <div>
-
             <Route exact path="/editors">
-                <Tables url={url} title={"All Editors"} columns={columns} type={"editors"} setEditData={setEditData}/>
+                <Tables
+                    url={url}
+                    title={"Editors"}
+                    columns={columns}
+                    type={"editors"}
+                    setEditData={setEditData}
+                />
             </Route>
+
             {/*Add Path*/}
             <Route path="/editors/add">
                 <FormHolder
@@ -125,6 +115,7 @@ const Editors = () => {
                     method={"POST"}
                 />
             </Route>
+
             {/*Edit Path*/}
             <Route path="/editors/edit">
                 <FormHolder
@@ -134,13 +125,12 @@ const Editors = () => {
                     buttons={buttons}
                     names={editData}
                     callback={toLink}
-                    url={`${url}/${editData?editData._id:""}`}
+                    url={`${url}/${editData ? editData._id : ""}`}
                     method={"PUT"}
+                    adminUserUpdate
                 />
             </Route>
-
         </div>
-
     )
 }
 
