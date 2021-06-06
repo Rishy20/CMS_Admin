@@ -33,7 +33,7 @@ const usersExtra = [
     }
 ];
 
-const regTypeSelect = ["Attendees", "Presenters", "Researchers"];
+const regTypeSelect = ["attendees", "presenters", "researchers"];
 
 const AllItems = ({type, baseUrl}) => {
     // Table states
@@ -96,7 +96,7 @@ const AllItems = ({type, baseUrl}) => {
                 readOnly
                 selector={type === "registrations"}
                 selectValues={regTypeSelect}
-                selectValue={regType && `${regType[0].toUpperCase()}${regType.slice(1)}`}
+                selectValue={regType}
                 selectCallback={event => setRegType(event.target.value)}
             />
         </>

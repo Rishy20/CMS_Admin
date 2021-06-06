@@ -8,7 +8,10 @@ export default function Select(props){
                     value={props.value} onChange={props.onChange}
             >
                 {props.values.map(value=>{
-                    return <option value={value} key={value}>{value}</option>
+                    return <option value={value} key={value}>
+                        {/* Display value in capitalized form */}
+                        {`${value[0].toUpperCase()}${value.slice(1)}`}
+                    </option>
                 })}
             </select>{/*Print Validation errors           */}
             <p className="error">{props.error}</p>

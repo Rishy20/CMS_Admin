@@ -72,8 +72,8 @@ const Register = props => {
         label: "Role",
         type: "select",
         name: "role",
-        values: ["Editor", "Reviewer"],
-        onChange: event => setRole(event.target.value.toLowerCase())
+        values: ["editor", "reviewer"],
+        onChange: event => setRole(event.target.value)
     }
 
     // Callback method
