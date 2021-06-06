@@ -7,7 +7,7 @@ import {
     Dashboard,
     Edit,
     Event,
-    InsertDriveFile,
+    InsertDriveFile, LocalLibrary,
     PersonAdd,
     RateReview, Settings
 } from "@material-ui/icons";
@@ -19,7 +19,8 @@ const navButtons = [
     {text: "Dashboard", icon: <Dashboard />, path: "/", auth: "all"},
     {text: "Reviewers", icon: <RateReview />, path: "/reviewers", auth: "admin"},
     {text: "Editors", icon: <Edit />, path:"/editors", auth: "admin"},
-    {text: "Registrations", icon: <PersonAdd />, path: "/registrations", auth: "admin"},
+    {text: "Attendees", icon: <PersonAdd />, path: "/attendees", auth: "admin"},
+    {text: "Researchers", icon: <LocalLibrary />, path: "/researchers", auth: "admin"},
     {text: "Templates", icon: <InsertDriveFile />, path: "/templates", auth: "admin"},
     {text: "Submissions", icon: <CloudUpload />, path: "/submissions", auth: "admin"},
     {text: "Agenda", icon: <Event />, path: "/agenda", auth: "admin"},

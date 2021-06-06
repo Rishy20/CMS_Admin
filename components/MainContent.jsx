@@ -2,12 +2,13 @@ import React from "react";
 import {Switch, Route, Redirect} from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import UserProfile from "./pages/UserProfile";
-import AllItems from "./pages/AllItems";
 import Agenda from "./pages/Agenda";
 import Test from "./pages/Test";
 import GeneralSettings from "./pages/GeneralSettings";
 import Tickets from "./pages/Tickets";
 import Editors from "./pages/Editors";
+import Attendees from "./pages/Attendees";
+import Researchers from "./pages/Researchers";
 
 const MainContent = props => (
     <div
@@ -40,19 +41,19 @@ const MainContent = props => (
         {/* ADMIN-ONLY Routes */}
         {props.role === "admin" &&
             <Switch>
-                {/* Reviewers */}
-                <Route path="/reviewers">
-                    <AllItems baseUrl={props.baseUrl} type="reviewers" />
-                </Route>
-
                 {/* Editors */}
                 <Route path="/editors">
                     <Editors baseUrl={props.baseUrl} />
                 </Route>
 
-                {/* Registrations */}
-                <Route path="/registrations">
-                    <AllItems baseUrl={props.baseUrl} type="registrations" />
+                {/* Attendees */}
+                <Route path="/attendees">
+                    <Attendees baseUrl={props.baseUrl} />
+                </Route>
+
+                {/* Researchers */}
+                <Route path="/researchers">
+                    <Researchers baseUrl={props.baseUrl} />
                 </Route>
             </Switch>
         }
