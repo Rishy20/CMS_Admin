@@ -68,7 +68,11 @@ const columns = [
             label:"Status",
             type:"select",
             name:"status",
-            values: ["pending", "active", "suspended"]
+            values: [
+                {value: "pending", displayAs: "Pending"},
+                {value: "active", displayAs: "Active"},
+                {value: "suspended", displayAs: "Suspended"}
+            ]
         }
 ]
 

@@ -72,7 +72,10 @@ const Register = props => {
         label: "Role",
         type: "select",
         name: "role",
-        values: ["editor", "reviewer"],
+        values: [
+            {value: "editor", displayAs: "Editor"},
+            {value: "reviewer", displayAs: "Reviewer"}
+        ],
         onChange: event => setRole(event.target.value)
     }
 
