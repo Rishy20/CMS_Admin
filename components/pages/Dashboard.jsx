@@ -57,6 +57,10 @@ const Dashboard = ({baseUrl}) => {
     useEffect(() => {
         DashboardDataRender(baseUrl).then(data => {
             setEventInfo({...data.eventInfo});
+            setPendingEdits(data.pendingEdits);
+            setTotalAttendees(data.totalAttendees);
+            setTotalPresenters(data.totalPresenters);
+            setTotalResearchers(data.totalResearchers);
         });
     }, [])
 

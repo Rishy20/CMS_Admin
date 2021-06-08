@@ -31,10 +31,39 @@ export const DashboardDataRender = async url => {
         );
 
         eventInfo.remaining = Math.floor((date - Date.now() ) / 86400000);
-        console.log(eventInfo.remaining)
-
-        parsedData.eventInfo = eventInfo;
     }
+
+    // Append event info to return
+    parsedData.eventInfo = eventInfo;
+
+
+    // TOTAL VALUES
+    let pendingEdits = 0;
+    let totalAttendees = 0;
+    let totalPresenters = 0;
+    let totalResearchers = 0;
+
+    // Fetch and set total pending edits
+    fetched = await fetch(`${url}/edits`).then(data => data.json());
+    pendingEdits = fetched.filter(edit => edit.status === "pending").length;
+
+    // Fetch and set total attendees
+    fetched = await fetch(`${url}/attendees`).then(data => data.json());
+    totalAttendees = fetched.length;
+
+    // Fetch and set total presenters
+    // fetched = await fetch(`${url}/workshops`).then(data => data.json());
+    // totalPresenters = fetched.length;
+
+    // Fetch and set total researchers
+    fetched = await fetch(`${url}/researchers`).then(data => data.json());
+    totalResearchers = fetched.length;
+
+    // Append total values to return
+    parsedData.pendingEdits = pendingEdits;
+    parsedData.totalAttendees = totalAttendees;
+    parsedData.totalPresenters = totalPresenters;
+    parsedData.totalResearchers = totalResearchers;
 
     return parsedData;
 }
