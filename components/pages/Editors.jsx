@@ -28,7 +28,8 @@ const columns = [
     {
         name: "Status",
         id: "status",
-        type: "text"
+        type: "text",
+        statusStyle: true
     },
     {
         name: "Actions",

@@ -1,14 +1,22 @@
-import React, {useEffect, useState} from "react";
-import {Switch, Route, useHistory, Redirect} from "react-router-dom";
+import React, {useState} from "react";
+import {Route, useHistory} from "react-router-dom";
 import Tables from "../Tables";
 import FormHolder from "../FormHolder";
 
-const url = "http://localhost:3000/api/v1/generalsettings";
-
-const columns=[
+const columnsSettings = [
     {
-        name:"Event Name",
-        id:"ename",
+        name:"Conference Name",
+        id:"conferenceName",
+        type:"text"
+    },
+    {
+        name:"Abbr.",
+        id:"abbrevation",
+        type:"text"
+    },
+    {
+        name:"Short Description",
+        id:"shortDescription",
         type:"text"
     },
     {
@@ -17,48 +25,71 @@ const columns=[
         type:"text"
     },
     {
-        name:"Venue",
-        id:"venue",
+        name:"Location",
+        id:"location",
         type:"text"
     },
     {
-      name:"Event Type",
-      id:"etype",
-      type:"select"
-    },
-    {
         name:"Start Date",
-        id:"sdate",
-        type:"date"
+        id:"startDate",
+        type:"text"
     },
     {
         name:"Start Time",
-        id:"stime",
-        type:"time"
-    },
-    {
-        name:"End Date",
-        id:"edate",
-        type:"date"
-    },
-    {
-        name:"End Time",
-        id:"etime",
-        type:"time"
-    },
-    {
-        name:"Status",
-        id:"status",
-        type:"select"
+        id:"startTime",
+        type:"text"
     }
-]
+];
+
+const columnsEdits = [
+    {
+        name: "Edit Item",
+        id: "editItem",
+        type: "text",
+        prettify: true
+    },
+    {
+        name: "New Value",
+        id: "newValue",
+        type: "text"
+    },
+    {
+        name: "Description",
+        id: "description",
+        type: "text"
+    },
+    {
+        name: "Status",
+        id: "status",
+        type: "text",
+        statusStyle: true
+    },
+    {
+        name: "Actions",
+        id: "action",
+        type: "actions",
+        disableEditOn: [
+            {column: "status", value: "approved"},
+            {column: "status", value: "rejected"}
+        ]
+    }
+];
 
 //Inputs stored as an array so they can be mapped to Input component
-const inputs=[
+const inputs = [
     {
-        label:"Event Name",
-        type:"text",
-        name:"ename"
+        label:"Edit Item",
+        type:"select",
+        name:"editItem",
+        values: [
+            {value: "conferenceName", displayAs: "Conference Name"},
+            {value: "abbrevation", displayAs: "Abbreviation"},
+            {value: "shortDescription", displayAs: "Short Description"},
+            {value: "description", displayAs: "Description"},
+            {value: "location", displayAs: "Location"},
+            {value: "startDate", displayAs: "Start Date"},
+            {value: "startTime", displayAs: "Start Time"},
+        ]
     },
     {
         label:"Description",
@@ -66,41 +97,10 @@ const inputs=[
         name:"description"
     },
     {
-        label:"Venue",
-        type:"text",
-        name:"venue"
+        label:"New Value",
+        type:"textarea",
+        name:"newValue"
     },
-    {
-        label:"Event Type",
-        type:"select",
-        name:"etype",
-        values:["Single Day","Multiple Days"]
-    },
-    {
-        label:"Start Date",
-        type:"date",
-        name:"sdate"
-    },
-    {
-        label:"Start Time",
-        type:"time",
-        name:"stime"
-    },
-    {
-        label:"End Date",
-        type:"date",
-        name:"edate"
-    },
-    {
-        label:"End Time",
-        type:"time",
-        name:"etime"
-    },
-    {
-        label:"Status",
-        type:"select",
-        name:"status"
-    }
 ]
 
 //Buttons to be displayed in the form
@@ -113,43 +113,51 @@ const buttons = [
     {
         name:"Cancel",
         style:"btn-cancel",
+        type: "cancel"
     },
 ]
+
 //Input box names used in the form so that they can be sent to useForm hook to maintain the state
-const names={
-    ename:'',
+const names = {
+    editItem:'conferenceName',
+    newValue:'',
     description:'',
-    venue:'',
-    etype:'',
-    sdate:'',
-    stime:'',
-    edate:'',
-    etime:'',
-    status:'',
 }
 
-const GeneralSettings = () => {
-
-
-    // State for the current product in edit
+const GeneralSettings = ({baseUrl}) => {
+    // API URLs
+    const url = `${baseUrl}/edits`;
+    const infoUrl = `${baseUrl}/info`;
+    // State for the current edit to modify
     const [editData, setEditData] = useState(null);
 
     const history = useHistory();
 
     const toLink = () => {
-        history.push("/generalsettings");
+        history.push("/edits");
     }
 
     return (
         <div>
-
-            <Route exact path="/generalsettings">
-                <Tables url={url} title={"General Settings"} columns={columns} type={"generalsettings"} setEditData={setEditData}/>
+            <Route exact path="/edits">
+                <Tables
+                    url={infoUrl} title={"General Settings"}
+                    columns={columnsSettings}
+                    type={"general-settings"}
+                    readOnly
+                />
+                <Tables
+                    url={url} title={"Edits"}
+                    columns={columnsEdits}
+                    type={"edits"}
+                    setEditData={setEditData}
+                />
             </Route>
+
             {/*Add Path*/}
-            <Route path="/generalsettings/add">
+            <Route path="/edits/add">
                 <FormHolder
-                    title={"Add General Settings"}
+                    title={"Add Edit"}
                     formTitle={"General Settings Information"}
                     inputs={inputs}
                     buttons={buttons}
@@ -159,10 +167,11 @@ const GeneralSettings = () => {
                     method={"POST"}
                 />
             </Route>
+
             {/*Edit Path*/}
-            <Route path="/generalsettings/edit">
+            <Route path="/edits/edit">
                 <FormHolder
-                    title={"Edit General Settings"}
+                    title={"Modify Edit"}
                     formTitle={"General Settings Information"}
                     inputs={inputs}
                     buttons={buttons}

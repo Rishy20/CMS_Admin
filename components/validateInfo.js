@@ -185,6 +185,14 @@ export default function validateInfo(values){
         }
     }
 
+    //Validate new event info value
+    if(values.hasOwnProperty("newValue")) {
+        if (!values.newValue.trim()) {
+            console.log("newValueEmpty")
+            errors.newValue = "Please enter a value";
+        }
+    }
+
 
 
     return errors;

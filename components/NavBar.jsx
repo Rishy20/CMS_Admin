@@ -25,7 +25,7 @@ const navButtons = [
     {text: "Submissions", icon: <CloudUpload />, path: "/submissions", auth: "admin"},
     {text: "Agenda", icon: <Event />, path: "/agenda", auth: "admin"},
     {text: "Agenda", icon: <Event />, path:"/agenda", auth: "editor"},
-    {text: "General Settings", icon: <Settings />, path:"/generalsettings", auth: "editor"},
+    {text: "General Info", icon: <Settings />, path:"/edits", auth: "editor"},
     {text: "Tickets", icon: <ConfirmationNumber />, path:"/tickets", auth: "editor"},
     {text: "User Profile", icon: <AccountCircle />, path:"/account", auth: "all"},
 ]

@@ -72,8 +72,8 @@ const MainContent = ({role, ...props}) => (
 
             {/* General Settings */}
             {role === "editor" &&
-                <Route path="/generalsettings">
-                    <GeneralSettings />
+                <Route path="/edits">
+                    <GeneralSettings baseUrl={props.baseUrl} />
                 </Route>
             }
 

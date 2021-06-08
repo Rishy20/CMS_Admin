@@ -17,6 +17,7 @@ import {
 import Button from "../components/Button";
 import {Delete, Edit} from "@material-ui/icons";
 import {useFetch} from "./useFetch";
+import ScrollableDialog from "./pages/ScrollableDialog";
 
 const useStyles = makeStyles({
     cardContainer: {
@@ -65,7 +66,12 @@ const useStyles = makeStyles({
     },
     tableData: {
         fontWeight: "bold",
-        padding:8
+        padding: 4,
+        display: "-webkit-box",
+        overflow: "hidden",
+        "-webkit-line-clamp": 4,
+        "-webkit-box-orient": "vertical",
+        cursor: "pointer"
     },
     statusPending: {
         fontWeight: "bold",
@@ -111,6 +117,21 @@ const Tables = props => {
     // Pagination states
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
+    // Details popup dialog states
+    const [openDialog, setOpenDialog] = useState(false);
+    const [dialogText, setDialogText] = useState("");
+
+    // Handle opening details popup dialog
+    const handleOpenDialog = text => {
+        setOpenDialog(true);
+        setDialogText(text);
+    }
+
+    // Handle opening details popup dialog
+    const handleCloseDialog = () => {
+        setOpenDialog(false);
+        setDialogText("");
+    }
 
     //Get the fetched Data
     const  {loading,data} = useFetch(props.url);
@@ -272,20 +293,38 @@ const Tables = props => {
 
                                         {
                                             props.columns.map(column => {
-                                                // Determine text field style based on user account status (if present)
+                                                // Determine text field style based on status type (if present)
                                                 let tableDataStyle = styles.tableData;
-                                                if (column.id === "status") {
+                                                if (column.statusStyle) {
                                                     switch (item.status) {
                                                         case "pending":
                                                             tableDataStyle = styles.statusPending;
                                                             break;
                                                         case "active":
+                                                        case "approved":
                                                             tableDataStyle = styles.statusActive;
                                                             break;
                                                         case "suspended":
+                                                        case "rejected":
                                                             tableDataStyle = styles.statusSuspended;
                                                             break;
                                                     }
+                                                }
+
+                                                // Make text human-readable if prettify is set to true
+                                                if (column.prettify) {
+                                                    const result = item[column.id].replace(/([A-Z])/g, " $1");
+                                                    item[column.id] = result[0].toUpperCase() + result.slice(1);
+                                                }
+
+                                                // Disable edit button according to provided values
+                                                let disableEdit = false;
+                                                if (column.disableEditOn) {
+                                                    column.disableEditOn.forEach(rule => {
+                                                        if (item[rule.column] === rule.value) {
+                                                            disableEdit = true;
+                                                        }
+                                                    })
                                                 }
 
                                                 return (
@@ -304,6 +343,10 @@ const Tables = props => {
                                                         <Typography
                                                             variant="body1"
                                                             classes={{body1: tableDataStyle}}
+                                                            onClick={() => {
+                                                                column.id !== "status" &&
+                                                                handleOpenDialog(item[column.id])
+                                                            }}
                                                         >
                                                             {item[column.id]}
                                                         </Typography>
@@ -316,6 +359,7 @@ const Tables = props => {
                                                                 onClick={() => {
                                                                     setEditDataHandler(item);
                                                                 }}
+                                                                disabled={disableEdit}
                                                             >
                                                                 <Edit/>
                                                             </IconButton>
@@ -349,6 +393,13 @@ const Tables = props => {
                     </Table>
                 </TableContainer>
             </CardContent>
+
+            {/* Details Dialog */}
+            <ScrollableDialog
+                isOpen={openDialog}
+                text={dialogText}
+                closeCallback={() => handleCloseDialog()}
+            />
         </Card>
     )
 }
