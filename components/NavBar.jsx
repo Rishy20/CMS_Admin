@@ -21,6 +21,7 @@ const navButtons = [
     {text: "Editors", icon: <Edit />, path:"/editors", auth: "admin"},
     {text: "Attendees", icon: <PersonAdd />, path: "/attendees", auth: "admin"},
     {text: "Researchers", icon: <LocalLibrary />, path: "/researchers", auth: "admin"},
+    {text: "Edits", icon: <Settings />, path: "/edits", auth: "admin"},
     {text: "Templates", icon: <InsertDriveFile />, path: "/templates", auth: "admin"},
     {text: "Submissions", icon: <CloudUpload />, path: "/submissions", auth: "admin"},
     {text: "Agenda", icon: <Event />, path: "/agenda", auth: "admin"},

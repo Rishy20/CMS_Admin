@@ -229,7 +229,7 @@ const Tables = props => {
         <Card variant="outlined" className={styles.cardContainer}>
             <CardHeader
                 title={props.title}
-                action={!props.readOnly &&
+                action={!props.disableAdd &&
                     <Link to= {`/${props.type}/add`}>
                         <Button
                             name={`Add ${props.type.slice(0, -1)}`}

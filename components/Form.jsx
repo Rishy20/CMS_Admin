@@ -62,7 +62,7 @@ function Form(props){
                                 return <Grid item xs={12} md={singleColumn ? 12 : 6} key={input.name}>
                                     <Select name={input.name} label={input.label} values={input.values} value={values[input.name]}
                                             onChange={input.onChange ? input.onChange : handleChange}
-                                            error={errors[input.name] ? errors[input.name] : ''}
+                                            error={errors[input.name] ? errors[input.name] : ''} disabled={input.disabled}
                                     />
                                 </Grid>
                             }else {
@@ -70,6 +70,7 @@ function Form(props){
                                     <Input label={input.label} value={values[input.name]} id={input.name} type={input.type}
                                            name={input.name} onChange={handleChange} placeholder={input.placeholder}
                                            error={errors[input.name] ? errors[input.name] : ''} maxLength={input.maxLength}
+                                           disabled={input.disabled}
                                     />
                                 </Grid>
                             }

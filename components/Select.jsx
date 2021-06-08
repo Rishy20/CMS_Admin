@@ -4,8 +4,12 @@ export default function Select(props){
     return (
         <div>
             <label className="form-label" htmlFor={props.name}>{props.label}</label>
-            <select className={`form-select ${props.styles}`} name={props.name} id={props.name}
-                    value={props.value} onChange={props.onChange}
+            <select className={`form-select ${props.styles} ${props.disabled && "disabled"}`}
+                    name={props.name}
+                    id={props.name}
+                    value={props.value}
+                    onChange={props.onChange}
+                    disabled={props.disabled}
             >
                 {props.values.map(option => {
                     // Check if option is given as an object, and render it accordingly

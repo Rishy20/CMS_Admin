@@ -21,19 +21,23 @@ const Input = props => {
 
             {props.type === "textarea" ?
                 <textarea
-                    className={"input-box"}
+                    className={`input-box ${props.disabled && "disabled"}`}
                     name={props.name}
                     id={props.name}
                     value={props.value}
                     placeholder={props.placeholder}
                     onChange={props.onChange}
+                    disabled={props.disabled}
                 />
                 :
                 <input className={`input-box ${props.inline && "input-box-inline"} ${props.disabled && "disabled"}`}
                        type={password && showPassword ? "text" : props.type}
-                       name={props.name} id={props.name} value={props.value}
-                       placeholder={props.placeholder} maxLength={props.maxLength}
-                       onChange={props.onChange} disabled={props.disabled}
+                       name={props.name} id={props.name}
+                       value={props.value}
+                       placeholder={props.placeholder}
+                       maxLength={props.maxLength}
+                       onChange={props.onChange}
+                       disabled={props.disabled}
                        style={password ? {paddingInlineEnd: "40px"} : {}}
                 />
             }
