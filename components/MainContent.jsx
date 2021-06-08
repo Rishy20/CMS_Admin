@@ -22,7 +22,7 @@ const MainContent = ({role, ...props}) => (
 
             {/* Dashboard */}
             <Route exact path="/">
-                <Dashboard />
+                <Dashboard baseUrl={props.baseUrl} />
             </Route>
 
             {/* User Profile */}

@@ -1,18 +1,28 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Title from '../Title';
 import {Grid} from "@material-ui/core";
 import RegistrationInfoCard from "../RegistrationInfoCard"
 import EventInfoCard from "../EventInfoCard";
 import TotalValueCard from "../TotalValueCard";
 import OverviewCard from "../OverviewCard";
+import {DashboardDataRender} from "../DashboardDataRender";
 
 //Admin Dashboard Page
-const Dashboard = () => {
+const Dashboard = ({baseUrl}) => {
     // States
     const [pendingEdits, setPendingEdits] = useState(0);
     const [totalAttendees, setTotalAttendees] = useState(0);
     const [totalPresenters, setTotalPresenters] = useState(0);
     const [totalResearchers, setTotalResearchers] = useState(0);
+
+    // Event info state
+    const [eventInfo, setEventInfo] = useState({
+        title: "",
+        location: "",
+        date: "",
+        time: "",
+        remaining: 0
+    });
 
     // Overview card states
     const [submissionInfo, setSubmissionInfo] = useState({
@@ -44,6 +54,12 @@ const Dashboard = () => {
         chartData: []
     });
 
+    useEffect(() => {
+        DashboardDataRender(baseUrl).then(data => {
+            setEventInfo({...data.eventInfo});
+        });
+    }, [])
+
     return (
         <>
             <div>
@@ -63,7 +79,13 @@ const Dashboard = () => {
 
                 {/* Event Info Card */}
                 <Grid item md={4}>
-                    <EventInfoCard />
+                    <EventInfoCard
+                        title={eventInfo.title}
+                        location={eventInfo.location}
+                        date={eventInfo.date}
+                        time={eventInfo.time}
+                        remaining={eventInfo.remaining}
+                    />
                 </Grid>
 
                 {/* Total Pending Edits/Attendees etc. Cards */}
