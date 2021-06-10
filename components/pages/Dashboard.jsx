@@ -140,7 +140,7 @@ const Dashboard = ({baseUrl}) => {
                         title="Total Presenters"
                         value={totalPresenters}
                         styles="totalPresenters"
-                        path="/registrations"
+                        path="/presenters"
                     />
                 </Grid>
                 <Grid item md={3}>

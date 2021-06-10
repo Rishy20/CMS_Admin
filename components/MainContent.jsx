@@ -9,6 +9,7 @@ import Editors from "./pages/Editors";
 import Attendees from "./pages/Attendees";
 import Researchers from "./pages/Researchers";
 import Edits from "./pages/Edits";
+import Presenters from "./pages/Presenters";
 
 const MainContent = ({role, ...props}) => (
     <div
@@ -61,7 +62,14 @@ const MainContent = ({role, ...props}) => (
                 </Route>
             }
 
-            {/* Researchers */}
+            {/* Presenters */}
+            {role === "admin" &&
+                <Route path="/presenters">
+                    <Presenters baseUrl={props.baseUrl} />
+                </Route>
+            }
+
+            {/* Edits */}
             {role === "admin" &&
                 <Route path="/edits">
                     <Edits baseUrl={props.baseUrl} />

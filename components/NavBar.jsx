@@ -8,7 +8,7 @@ import {
     Edit,
     Event,
     InsertDriveFile, LocalLibrary,
-    PersonAdd,
+    PersonAdd, PresentToAll,
     RateReview, Settings
 } from "@material-ui/icons";
 import "./styles/NavBar.css"
@@ -21,9 +21,10 @@ const navButtons = [
     {text: "Editors", icon: <Edit />, path:"/editors", auth: "admin"},
     {text: "Attendees", icon: <PersonAdd />, path: "/attendees", auth: "admin"},
     {text: "Researchers", icon: <LocalLibrary />, path: "/researchers", auth: "admin"},
+    {text: "Presenters", icon: <PresentToAll />, path: "/presenters", auth: "admin"},
     {text: "Edits", icon: <Settings />, path: "/edits", auth: "admin"},
-    {text: "Templates", icon: <InsertDriveFile />, path: "/templates", auth: "admin"},
-    {text: "Submissions", icon: <CloudUpload />, path: "/submissions", auth: "admin"},
+    // {text: "Templates", icon: <InsertDriveFile />, path: "/templates", auth: "admin"},
+    // {text: "Submissions", icon: <CloudUpload />, path: "/submissions", auth: "admin"},
     {text: "Agenda", icon: <Event />, path: "/agenda", auth: "admin"},
     {text: "Agenda", icon: <Event />, path:"/agenda", auth: "editor"},
     {text: "General Info", icon: <Settings />, path:"/edits", auth: "editor"},
