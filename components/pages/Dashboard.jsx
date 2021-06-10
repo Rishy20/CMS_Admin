@@ -9,11 +9,18 @@ import {DashboardDataRender} from "../DashboardDataRender";
 
 //Admin Dashboard Page
 const Dashboard = ({baseUrl}) => {
-    // States
+    // Total value states
     const [pendingEdits, setPendingEdits] = useState(0);
     const [totalAttendees, setTotalAttendees] = useState(0);
     const [totalPresenters, setTotalPresenters] = useState(0);
     const [totalResearchers, setTotalResearchers] = useState(0);
+
+    // Registration info state
+    const [registrationInfo, setRegistrationInfo] = useState({
+        totalRevenue: 0,
+        totalRegistrations: 0,
+        chartData: []
+    })
 
     // Event info state
     const [eventInfo, setEventInfo] = useState({
@@ -32,7 +39,7 @@ const Dashboard = ({baseUrl}) => {
         rejected: 0,
         chartData: []
     });
-    const [reviewersInfo, setReviewerInfo] = useState({
+    const [reviewersInfo, setReviewersInfo] = useState({
         total: 0,
         pending: 0,
         accepted: 0,
@@ -56,11 +63,26 @@ const Dashboard = ({baseUrl}) => {
 
     useEffect(() => {
         DashboardDataRender(baseUrl).then(data => {
+            // Set registration info
+            setRegistrationInfo({...data.registrationInfo});
+
+            // Set event info
             setEventInfo({...data.eventInfo});
+
+            // Set total values
             setPendingEdits(data.pendingEdits);
             setTotalAttendees(data.totalAttendees);
             setTotalPresenters(data.totalPresenters);
             setTotalResearchers(data.totalResearchers);
+
+            // Set submissions info
+            setSubmissionInfo(data.submissionsInfo);
+            // Set reviewer info
+            setReviewersInfo(data.reviewersInfo);
+            // Set research proposals info
+            setResearchPropInfo(data.researchPropInfo);
+            // Set workshop proposals info
+            setWorkshopPropInfo(data.workshopPropInfo);
         });
     }, [])
 
@@ -78,7 +100,11 @@ const Dashboard = ({baseUrl}) => {
 
                 {/* Registration Info Card */}
                 <Grid item md={8}>
-                    <RegistrationInfoCard />
+                    <RegistrationInfoCard
+                        totalRevenue={registrationInfo.totalRevenue}
+                        totalRegistrations={registrationInfo.totalRegistrations}
+                        chartData={registrationInfo.chartData}
+                    />
                 </Grid>
 
                 {/* Event Info Card */}
@@ -130,25 +156,25 @@ const Dashboard = ({baseUrl}) => {
                 <Grid item xs={6}>
                     <OverviewCard
                         title="Submissions Overview"
-                        submissions={submissionInfo}
+                        data={submissionInfo}
                     />
                 </Grid>
                 <Grid item xs={6}>
                     <OverviewCard
                         title="Reviewers Overview"
-                        submissions={reviewersInfo}
+                        data={reviewersInfo}
                     />
                 </Grid>
                 <Grid item xs={6}>
                     <OverviewCard
                         title="Research Proposals Overview"
-                        submissions={researchPropInfo}
+                        data={researchPropInfo}
                     />
                 </Grid>
                 <Grid item xs={6}>
                     <OverviewCard
                         title="Workshop Proposals Overview"
-                        submissions={workshopPropInfo}
+                        data={workshopPropInfo}
                     />
                 </Grid>
             </Grid>

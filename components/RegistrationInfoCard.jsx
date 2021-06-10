@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {Card, Container, Grid, makeStyles, Typography} from "@material-ui/core";
 import {ArgumentAxis, Chart, ValueAxis, SplineSeries} from "@devexpress/dx-react-chart-material-ui";
 import {Animation} from "@devexpress/dx-react-chart";
@@ -17,13 +17,8 @@ const useStyles = makeStyles({
     }
 })
 
-const RegistrationInfoCard = () => {
+const RegistrationInfoCard = props => {
     const styles = useStyles();
-
-    // States
-    const [chartData, setChartData] = useState([]);
-    const [totalRevenue, setTotalRevenue] = useState(0);
-    const [totalRegistrations, setTotalRegistrations] = useState(0);
 
     return (
     <Card variant="outlined" style={{padding: "16px", height: "100%"}}>
@@ -37,7 +32,7 @@ const RegistrationInfoCard = () => {
                         align="center"
                         classes={{h6: styles.value}}
                     >
-                        Rs. {totalRevenue}
+                        Rs. {props.totalRevenue}
                     </Typography>
                         <Typography
                             variant="h6"
@@ -56,7 +51,7 @@ const RegistrationInfoCard = () => {
                         align="center"
                         classes={{h6: styles.value}}
                     >
-                        {totalRegistrations}
+                        {props.totalRegistrations}
                     </Typography>
                     <Typography
                         variant="h6"
@@ -72,14 +67,14 @@ const RegistrationInfoCard = () => {
             {/* Registrations Chart */}
             <Grid item md={7}>
                 <Chart
-                    data={chartData}
+                    data={props.chartData}
                     height={220}
                 >
                     <ArgumentAxis />
                     <ValueAxis />
 
                     <SplineSeries
-                        valueField="registrations"
+                        valueField="value"
                         argumentField="day"
                     />
 
