@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Title from '../Title';
-import {Grid} from "@material-ui/core";
+import {Backdrop, CircularProgress, Grid} from "@material-ui/core";
 import RegistrationInfoCard from "../RegistrationInfoCard"
 import EventInfoCard from "../EventInfoCard";
 import TotalValueCard from "../TotalValueCard";
@@ -9,6 +9,9 @@ import {DashboardDataRender} from "../DashboardDataRender";
 
 //Admin Dashboard Page
 const Dashboard = ({baseUrl}) => {
+    // Loading state
+    const [loading, setLoading] = useState(true);
+
     // Total value states
     const [pendingEdits, setPendingEdits] = useState(0);
     const [totalAttendees, setTotalAttendees] = useState(0);
@@ -83,6 +86,8 @@ const Dashboard = ({baseUrl}) => {
             setResearchPropInfo(data.researchPropInfo);
             // Set workshop proposals info
             setWorkshopPropInfo(data.workshopPropInfo);
+
+            setLoading(false);
         });
     }, [])
 
@@ -178,6 +183,11 @@ const Dashboard = ({baseUrl}) => {
                     />
                 </Grid>
             </Grid>
+
+            {/* Loading backdrop */}
+            <Backdrop open={loading} style={{zIndex: 99}}>
+                <CircularProgress style={{color: "#E2BC7F"}} />
+            </Backdrop>
         </>
     )
 }
