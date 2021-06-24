@@ -193,6 +193,33 @@ export default function validateInfo(values){
         }
     }
 
+    // Validate name
+    if (values.hasOwnProperty("name")) {
+        if (!values.name.trim()) {
+            errors.name = "Please enter a name";
+        }
+    }
+    // Validate date
+    if (values.hasOwnProperty("date")) {
+        if (!values.date.trim()) {
+            errors.date = "Please select a date";
+        }
+    }
+    // Validate time
+    if (values.hasOwnProperty("time")) {
+        if (!values.time.trim()) {
+            errors.time = "Please enter a time";
+        }
+    }
+    // Validate workshop
+    if (values.hasOwnProperty("workshop")) {
+        if (values.type === "Workshop") {
+            if (!values.workshop.trim()) {
+                errors.workshop = "Please select a workshop";
+            }
+        }
+    }
+
 
 
     return errors;

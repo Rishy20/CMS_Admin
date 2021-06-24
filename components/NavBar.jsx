@@ -3,11 +3,11 @@ import {Link} from "react-router-dom";
 import {Grid, List} from "@material-ui/core";
 import {
     AccountCircle,
-    CloudUpload, ConfirmationNumber,
+    ConfirmationNumber,
     Dashboard,
     Edit,
     Event,
-    InsertDriveFile, LocalLibrary,
+    LocalLibrary,
     PersonAdd, PresentToAll,
     RateReview, Settings
 } from "@material-ui/icons";
@@ -23,10 +23,8 @@ const navButtons = [
     {text: "Researchers", icon: <LocalLibrary />, path: "/researchers", auth: "admin"},
     {text: "Presenters", icon: <PresentToAll />, path: "/presenters", auth: "admin"},
     {text: "Edits", icon: <Settings />, path: "/edits", auth: "admin"},
-    // {text: "Templates", icon: <InsertDriveFile />, path: "/templates", auth: "admin"},
-    // {text: "Submissions", icon: <CloudUpload />, path: "/submissions", auth: "admin"},
     {text: "Agenda", icon: <Event />, path: "/agenda", auth: "admin"},
-    {text: "Agenda", icon: <Event />, path:"/agenda", auth: "editor"},
+    {text: "Agenda", icon: <Event />, path:"/events", auth: "editor"},
     {text: "General Info", icon: <Settings />, path:"/edits", auth: "editor"},
     {text: "Tickets", icon: <ConfirmationNumber />, path:"/tickets", auth: "editor"},
     {text: "User Profile", icon: <AccountCircle />, path:"/account", auth: "all"},

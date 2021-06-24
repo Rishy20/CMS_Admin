@@ -29,6 +29,7 @@ function Formbox(props){
                     inputs={inputs}
                     names={names}
                     callback={callback}
+                    onChangeCallback={props.onChangeCallback}
                     btns={buttons}
                     btnstyle="top"
                     url={url}

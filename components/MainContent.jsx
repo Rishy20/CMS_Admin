@@ -81,8 +81,8 @@ const MainContent = ({role, ...props}) => (
 
             {/* Agenda */}
             {role === "editor" &&
-                <Route path="/agenda">
-                    <Agenda />
+                <Route path="/events">
+                    <Agenda baseUrl={props.baseUrl} />
                 </Route>
             }
 

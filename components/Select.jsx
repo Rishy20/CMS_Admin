@@ -1,8 +1,9 @@
 import React from "react";
 import './styles/Select.css'
-export default function Select(props){
+
+export default props => {
     return (
-        <div>
+        <div hidden={props.hidden}>
             <label className="form-label" htmlFor={props.name}>{props.label}</label>
             <select className={`form-select ${props.styles} ${props.disabled && "disabled"}`}
                     name={props.name}
@@ -11,6 +12,10 @@ export default function Select(props){
                     onChange={props.onChange}
                     disabled={props.disabled}
             >
+                {/* Default option */}
+                <option value="">[Select {props.label}]</option>
+
+                {/* Dynamic options */}
                 {props.values.map(option => {
                     // Check if option is given as an object, and render it accordingly
                     if (option.value && option.displayAs) {

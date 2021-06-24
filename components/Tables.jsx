@@ -145,9 +145,8 @@ const Tables = props => {
     }, [sortedCount, items]);
 
     useEffect(() => {
-
         setItems(data);
-
+        props.sortBy && sortItems(props.sortBy, "asc");
     }, [data]);
 
     // Data functions
@@ -160,15 +159,24 @@ const Tables = props => {
     }
 
     // Sorting functions
-    const sortItems = column => {
+    const sortItems = (column, order) => {
         let newData = data;
-        if (column !== sortBy) {
-            setSortOrder("asc");
-            newData.sort(dynamicSort(column, false));
-        } else {
+
+        // Check if sort order is given and sort according to that
+        if (order) {
+            setSortOrder(order);
+            newData.sort(dynamicSort(column, order === "desc"));
+        }
+        // If sort order is not given, check if the given column is the one currently sorted, and if so, toggle sort order
+        else if (column === sortBy) {
             const newOrder = sortOrder === "asc" ? "desc" : "asc";
             setSortOrder(newOrder);
             newData.sort(dynamicSort(column, newOrder === "desc"));
+        }
+        // Else, sort the given column in ascending order
+        else {
+            setSortOrder("asc");
+            newData.sort(dynamicSort(column, false));
         }
 
         setItems(newData)
@@ -232,7 +240,7 @@ const Tables = props => {
                 action={!props.disableAdd &&
                     <Link to= {`/${props.type}/add`}>
                         <Button
-                            name={`Add ${props.type.slice(0, -1)}`}
+                            name={`Add ${props.type}`}
                             btnStyle="btn-next"
                         />
                     </Link>
