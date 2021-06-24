@@ -185,10 +185,16 @@ export default function validateInfo(values){
         }
     }
 
-    //Validate new event info value
+    // Validate edit item
+    if(values.hasOwnProperty("editItem")) {
+        if (!values.editItem.trim()) {
+            errors.editItem = "Please select an item to edit";
+        }
+    }
+
+    // Validate new event info value
     if(values.hasOwnProperty("newValue")) {
         if (!values.newValue.trim()) {
-            console.log("newValueEmpty")
             errors.newValue = "Please enter a value";
         }
     }

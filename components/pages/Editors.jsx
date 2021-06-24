@@ -98,7 +98,7 @@ const names = {
     email: '',
     contact: '',
     password: '',
-    status: 'pending'
+    status: ''
 }
 
 const Editors = ({baseUrl}) => {

@@ -260,7 +260,6 @@ export const DashboardDataRender = async url => {
         date.setDate(date.getDate() + 1);
     }
 
-    console.log(registrationInfo.chartData);
     parsedData.registrationInfo = registrationInfo;
 
 

@@ -119,7 +119,7 @@ const buttons = [
 
 //Input box names used in the form so that they can be sent to useForm hook to maintain the state
 const names = {
-    editItem:'conferenceName',
+    editItem:'',
     newValue:'',
     description:'',
 }
