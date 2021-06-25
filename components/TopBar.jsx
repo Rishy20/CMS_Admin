@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import './TopBar.css'
+import './styles/TopBar.css'
 import {
     Avatar,
     Badge, Grid, IconButton, InputBase, makeStyles, Paper
@@ -36,7 +36,7 @@ const useStyles = makeStyles({
 })
 
 //Admin TopBar
-function TopBar(props) {
+const TopBar = props => {
     const styles = useStyles();
 
     // States
@@ -130,8 +130,8 @@ function TopBar(props) {
                         onClick={accMenuClick}
                         disableRipple
                     >
-                        <Avatar src={props.profilePic}>
-                            {props.firstName[0]}
+                        <Avatar src={props.avatarSrc}>
+                            {props.avatarTxt}
                         </Avatar>
                         <p className="firstName">{props.firstName}</p>
                         <ArrowDropDown />
@@ -141,6 +141,7 @@ function TopBar(props) {
                         anchorEl={accBtnAnchor}
                         open={accMenuOpen}
                         onClose={accMenuClose}
+                        logout={props.logout}
                     />
                 </Grid>
             </Grid>

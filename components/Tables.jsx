@@ -289,8 +289,8 @@ const Tables = props => {
                                                             <Delete />
                                                         </IconButton>
                                                     </ButtonGroup>
-
                                                     }
+
                                                 </TableCell>
                                             ))
                                         }

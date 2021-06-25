@@ -2,16 +2,16 @@ import React from "react";
 import {Menu} from "@material-ui/core";
 import {ExitToApp, Person} from "@material-ui/icons";
 import PopUpMenuItem from "./PopUpMenuItem";
-import "./PopUpMenu.css"
-
-// Pop up menu items list
-const popUpMenuItems = [
-    {text: "User Profile", icon: <Person />, path: "/account", divider: true},
-    {text: "Logout", icon: <ExitToApp />, path: "/logout"}
-]
+import "./styles/PopUpMenu.css"
 
 // Custom popup menu component
 const PopUpMenu = props => {
+    // Pop up menu items list
+    const popUpMenuItems = [
+        {text: "User Profile", icon: <Person />, path: "/account", divider: true},
+        {text: "Logout", icon: <ExitToApp />, path: "/auth", customAction: props.logout}
+    ]
+
     return (
         <Menu
             elevation={0}
@@ -29,8 +29,9 @@ const PopUpMenu = props => {
                     text={menuItem.text}
                     icon={menuItem.icon}
                     path={menuItem.path}
+                    customAction={menuItem.customAction}
                     divider={menuItem.divider}
-                    onClick={props.onClose}
+                    onClose={props.onClose}
                 />
             ))}
         </Menu>

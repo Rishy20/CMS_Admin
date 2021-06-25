@@ -1,5 +1,5 @@
 import React from "react";
-import './Formbox.css'
+import './styles/FormBox.css'
 import Form from "./Form";
 
 
