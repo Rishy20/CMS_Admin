@@ -1,11 +1,7 @@
 import React from "react";
 import './Formbox.css'
-import Button from "./Button";
-import Input from './Input'
-import Grid from '@material-ui/core/Grid'
 import Form from "./Form";
-import useForm from "./useForm";
-import validate from "./validateInfo";
+
 
 //Formbox in admin menu
 function Formbox(props){
@@ -14,6 +10,8 @@ function Formbox(props){
     const callback = props.callback;
     const buttons = props.buttons;
     const url = props.url;
+    const method = props.method;
+
     return(
 
         <div className='formbox'>
@@ -27,7 +25,7 @@ function Formbox(props){
 
             <div className="form-body">
 
-                <Form inputs={inputs} names={names} callback={callback} btns={buttons} url={url} btnstyle="top"/>
+                <Form inputs={inputs} names={names} callback={callback} btns={buttons} url={url} method={method} btnstyle="top"/>
 
 
             </div>

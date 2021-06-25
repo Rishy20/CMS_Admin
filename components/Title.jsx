@@ -3,7 +3,8 @@ const style = {
     fontSize:26,
     fontWeight: 600,
     color: "#585858cf",
-    textTransform: "uppercase"
+    textTransform: "uppercase",
+    marginBlockEnd: "12px"
 }
 //Admin Page Titles
 function Title(props){

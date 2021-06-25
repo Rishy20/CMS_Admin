@@ -50,6 +50,7 @@
     background-color: var(--gold);
     color: white;
     padding: 8px 35px;
+    text-transform: capitalize;
 }
 .selected{
     background-color: var(--gold);

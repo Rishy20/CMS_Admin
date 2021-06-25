@@ -1,7 +1,7 @@
 import {useState, useEffect} from "react";
 
 
-function useForm(callback,validate,val,url){
+function useForm(callback,validate,val,url,method){
 
     //Hook to store states of values
     const [values,setValues] = useState({
@@ -30,11 +30,13 @@ function useForm(callback,validate,val,url){
         ()=>{
             //Checks if there are no errors and the form is in IsSubmitting state
             if(Object.keys(errors).length === 0 && isSubmitting ){
-                //Callback the submitForm method
-                callback(values);
+
                 // //Submit the form
                 if(url){
                     submitForm();
+                }else{
+                    //Callback the submitForm method
+                    callback(values);
                 }
 
             }
@@ -49,10 +51,10 @@ function useForm(callback,validate,val,url){
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                method:"POST",
-                body: JSON.stringify(values)
+                method:method?method:"POST",
+                body: JSON.stringify(values),
             }).then(res => res.json())
-                .then(data=>console.log(data))
+                .then(data=>callback())
                 .catch(err=>console.log(err));
     }
 
