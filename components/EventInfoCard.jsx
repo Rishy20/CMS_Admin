@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {Card, Container, makeStyles, Typography} from "@material-ui/core";
 import "./styles/EventInfoCard.css"
 import EventInfoText from "./EventInfoText";
@@ -31,15 +31,8 @@ const useStyles = makeStyles({
     }
 });
 
-const EventInfoCard = () => {
+const EventInfoCard = props => {
     const styles = useStyles();
-
-    // States
-    const [eventTitle, setEventTitle] = useState("");
-    const [remainingDays, setRemainingDays] = useState(0);
-    const [date, setDate] = useState("");
-    const [location, setLocation] = useState("");
-    const [time, setTime] = useState("");
 
     return (
         <Card variant="outlined" style={{height: "100%"}}>
@@ -50,7 +43,7 @@ const EventInfoCard = () => {
                     classes={{h1: styles.title}}
                     className="eventTitle"
                 >
-                    {eventTitle}
+                    {props.title}
                 </Typography>
                 <div className="background">
                 </div>
@@ -61,7 +54,7 @@ const EventInfoCard = () => {
                     align="center"
                     classes={{h2: styles.days}}
                 >
-                    {remainingDays}
+                    {props.remaining}
                 </Typography>
                 <Typography
                     variant="h2"
@@ -73,9 +66,9 @@ const EventInfoCard = () => {
                 </Typography>
             </Container>
             <Container className={`${styles.container} ${styles.infoText}`}>
-                <EventInfoText label="Conference Date" data={date} />
-                <EventInfoText label="Location" data={location} />
-                <EventInfoText label="Time" data={time} />
+                <EventInfoText label="Location" data={props.location} />
+                <EventInfoText label="Date" data={props.date} />
+                <EventInfoText label="Time" data={props.time} />
             </Container>
         </Card>
     )

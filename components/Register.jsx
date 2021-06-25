@@ -61,20 +61,22 @@ const buttons = [
 ]
 
 const Register = props => {
-    const {registerCallback} = props;
+    const {baseUrl, registerCallback} = props;
     const {setSubmitSuccess, setSubmitError} = props.setFeedback;
 
     const [role, setRole] = useState("editor");
     const [url, setUrl] = useState("");
-    const [isSubmitting, setIsSubmitting] = useState(false);
 
     // Form input for role, which would be used to set the form URL
     const roleInput = {
         label: "Role",
         type: "select",
         name: "role",
-        values: ["Editor", "Reviewer"],
-        onChange: event => setRole(event.target.value.toLowerCase())
+        values: [
+            {value: "editor", displayAs: "Editor"},
+            {value: "reviewer", displayAs: "Reviewer"}
+        ],
+        onChange: event => setRole(event.target.value)
     }
 
     // Callback method
@@ -85,13 +87,11 @@ const Register = props => {
         } else {
             setSubmitError("Something went wrong! Please try again...");
         }
-
-        setIsSubmitting(false);
     }
 
     // Set form URL
     useEffect(() => {
-        role && setUrl(`https://icaf.site/api/v1/${role}s`)
+        role && setUrl(`${baseUrl}/${role}s`);
     }, [role])
 
     return (
@@ -102,8 +102,6 @@ const Register = props => {
                 btns={buttons}
                 url={url}
                 callback={callback}
-                isSubmitting={isSubmitting}
-                callbackIsSubmitting={() => setIsSubmitting(true)}
             />
         </div>
     )

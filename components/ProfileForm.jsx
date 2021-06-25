@@ -44,7 +44,7 @@ const ProfileForm = props => {
     const styles = useStyles();
 
     // Destructure props
-    const {user, setUser, baseUrl} = props;
+    const {baseUrl, user, setUser, baseUserUrl, changePassword, avatarSrc, avatarTxt} = props;
 
     // State for managing the submit error message
     const [submitError, setSubmitError] = useState("");
@@ -56,22 +56,22 @@ const ProfileForm = props => {
                 variant="body1"
                 classes={{body1: styles.title}}
             >
-                {props.changePassword ? "Change Password" : "Personal Information"}
+                {changePassword ? "Change Password" : "Personal Information"}
             </Typography>
             <hr className="divider" />
 
             {/* Form body */}
-            {props.changePassword ?
+            {changePassword ?
                 <ChangePassword
-                    styles={styles}
-                    user={user} setUser={setUser} baseUrl={baseUrl}
+                    styles={styles} baseUrl={baseUrl}
+                    user={user} setUser={setUser} baseUserUrl={baseUserUrl}
                     setSubmitError={setSubmitError}
                 />
             :
                 <PersonalInfo
                     styles={styles}
-                    user={user} setUser={setUser} baseUrl={baseUrl}
-                    avatarSrc={props.avatarSrc} avatarTxt={props.avatarTxt}
+                    user={user} setUser={setUser} baseUserUrl={baseUserUrl}
+                    avatarSrc={avatarSrc} avatarTxt={avatarTxt}
                     setSubmitError={setSubmitError}
                 />
             }

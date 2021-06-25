@@ -57,7 +57,7 @@ const OverviewCard = props => {
                             color="textSecondary"
                             classes={{h3: styles.total}}
                         >
-                            {props.submissions.total}
+                            {props.data.total}
                         </Typography>
                         <Typography
                             variant="h6"
@@ -71,7 +71,7 @@ const OverviewCard = props => {
                     {/* Chart */}
                     <Grid item xs={8}>
                         <Chart
-                            data={props.submissions.chartData}
+                            data={props.data.chartData}
                             height={180}
                         >
                             <ArgumentAxis />
@@ -100,7 +100,7 @@ const OverviewCard = props => {
                                         color="textSecondary"
                                         classes={{h3: styles.subValues}}
                                     >
-                                        {props.submissions.pending}
+                                        {props.data.pending}
                                     </Typography>
                                     <Typography
                                         variant="h6"
@@ -119,7 +119,7 @@ const OverviewCard = props => {
                                         color="textSecondary"
                                         classes={{h3: styles.subValues}}
                                     >
-                                        {props.submissions.accepted}
+                                        {props.data.accepted}
                                     </Typography>
                                     <Typography
                                         variant="h6"
@@ -138,7 +138,7 @@ const OverviewCard = props => {
                                         color="textSecondary"
                                         classes={{h3: styles.subValues}}
                                     >
-                                        {props.submissions.rejected}
+                                        {props.data.rejected}
                                     </Typography>
                                     <Typography
                                         variant="h6"

@@ -26,10 +26,9 @@ const columns = [
         type: "text"
     },
     {
-        name: "Status",
-        id: "status",
-        type: "text",
-        statusStyle: true
+        name: "Company",
+        id: "company",
+        type: "text"
     },
     {
         name: "Actions",
@@ -39,97 +38,104 @@ const columns = [
 ]
 
 // Inputs stored as an array so they can be mapped to Input component
-    const inputs = [
-        {
-            label:"First Name",
-            type:"text",
-            name:"fname"
-        },
-        {
-            label:"Last Name",
-            type:"text",
-            name:"lname"
-        },
-        {
-            label:"Email",
-            type:"email",
-            name:"email"
-        },
-        {
-            label:"Phone",
-            type:"tel",
-            name:"contact"
-        },
-        {
-            label:"Password",
-            type:"password",
-            name:"password"
-        },
-        {
-            label:"Status",
-            type:"select",
-            name:"status",
-            values: [
-                {value: "pending", displayAs: "Pending"},
-                {value: "active", displayAs: "Active"},
-                {value: "suspended", displayAs: "Suspended"}
-            ]
-        }
+const inputs = [
+    {
+        label: "First Name",
+        type: "text",
+        name: "fname"
+    },
+    {
+        label: "Last Name",
+        type: "text",
+        name: "lname"
+    },
+    {
+        label: "Email",
+        type: "email",
+        name: "email"
+    },
+    {
+        label: "Phone",
+        type: "tel",
+        name: "contact"
+    },
+    {
+        label: "Password",
+        type: "password",
+        name: "password"
+    },
+    {
+        label: "Country",
+        type: "text",
+        name: "country",
+    },
+    {
+        label: "Job Title",
+        type: "text",
+        name: "jobTitle",
+    },
+    {
+        label: "Company",
+        type: "text",
+        name: "company",
+    }
 ]
 
 // Buttons to be displayed in the form
-    const buttons = [
-        {
-            name:"Save ",
-            style:"btn-save",
-            type:"submit"
-        },
-        {
-            name:"Cancel",
-            style:"btn-cancel",
-            type:"cancel"
-        }
-    ]
+const buttons = [
+    {
+        name:"Save ",
+        style:"btn-save",
+        type:"submit"
+    },
+    {
+        name:"Cancel",
+        style:"btn-cancel",
+        type:"cancel"
+    }
+]
 
 // Input box names used in the form so that they can be sent to useForm hook to maintain the state
 const names = {
-    fname: '',
-    lname: '',
-    email: '',
-    contact: '',
-    password: '',
-    status: 'pending'
+    fname: "",
+    lname: "",
+    email: "",
+    contact: "",
+    password: "",
+    country: "",
+    jobTitle: "",
+    company: ""
 }
 
-const Editors = ({baseUrl}) => {
+const Researchers = ({baseUrl}) => {
     // API URL
-    const url = `${baseUrl}/editors`;
-    // State for the current editor to edit
+    const url = `${baseUrl}/researchers`;
+    // State for the current researcher to edit
     const [editData, setEditData] = useState(null);
 
     const history = useHistory();
 
     const toLink = () => {
-        history.push("/editors");
+        history.push("/researchers");
     }
 
     return (
         <div>
-            <Route exact path="/editors">
+            <Route exact path="/researchers">
                 <Tables
                     url={url}
-                    title={"Editors"}
+                    title={"Researchers"}
                     columns={columns}
-                    type={"editors"}
+                    type={"researchers"}
                     setEditData={setEditData}
                 />
             </Route>
 
             {/*Add Path*/}
-            <Route path="/editors/add">
+            <Route path="/researchers/add">
                 <FormHolder
-                    title={"Add Editor"}
-                    formTitle={"Editor Information"}
+                    title={"Add Researcher"}
+                    formTitle={"Researcher Information"}
                     inputs={inputs}
                     buttons={buttons}
                     names={names}
@@ -140,21 +146,20 @@ const Editors = ({baseUrl}) => {
             </Route>
 
             {/*Edit Path*/}
-            <Route path="/editors/edit">
+            <Route path="/researchers/edit">
                 <FormHolder
-                    title={"Edit Editor"}
-                    formTitle={"Editor Information"}
+                    title={"Edit Researcher"}
+                    formTitle={"Researcher Information"}
                     inputs={inputs}
                     buttons={buttons}
                     names={editData}
                     callback={toLink}
                     url={`${url}/${editData ? editData._id : ""}`}
                     method={"PUT"}
-                    adminUserUpdate
                 />
             </Route>
         </div>
     )
 }
 
-export default Editors;
+export default Researchers;

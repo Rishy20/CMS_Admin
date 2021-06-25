@@ -37,7 +37,7 @@ const useStyles = makeStyles({
     }
 })
 
-const UserProfile = ({baseUrl, user, setUser, ...props}) => {
+const UserProfile = ({baseUrl, baseUserUrl, user, setUser, ...props}) => {
     const styles = useStyles();
 
     // Tab state
@@ -158,16 +158,17 @@ const UserProfile = ({baseUrl, user, setUser, ...props}) => {
                             <ProfileForm
                                 user={user}
                                 setUser={setUser}
-                                baseUrl={baseUrl}
+                                baseUserUrl={baseUserUrl}
                                 avatarSrc={props.avatarSrc}
                                 avatarTxt={props.avatarTxt}
                             />
                         </TabPanel>
                         <TabPanel value={tab} index={1}>
                             <ProfileForm
+                                baseUrl={baseUrl}
                                 user={user}
                                 setUser={setUser}
-                                baseUrl={baseUrl}
+                                baseUserUrl={baseUserUrl}
                                 changePassword
                             />
                         </TabPanel>

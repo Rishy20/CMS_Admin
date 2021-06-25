@@ -89,17 +89,30 @@ const inputs = [
             {value: "location", displayAs: "Location"},
             {value: "startDate", displayAs: "Start Date"},
             {value: "startTime", displayAs: "Start Time"},
-        ]
+        ],
+        disabled: true
     },
     {
         label:"Description",
         type:"text",
-        name:"description"
+        name:"description",
+        disabled: true
     },
     {
         label:"New Value",
         type:"textarea",
-        name:"newValue"
+        name:"newValue",
+        disabled: true
+    },
+    {
+        label:"Status",
+        type:"select",
+        name:"status",
+        values: [
+            {value: "pending", displayAs: "Pending"},
+            {value: "approved", displayAs: "Approved"},
+            {value: "rejected", displayAs: "Rejected"},
+        ]
     },
 ]
 
@@ -115,16 +128,9 @@ const buttons = [
         style:"btn-cancel",
         type: "cancel"
     },
-]
+];
 
-//Input box names used in the form so that they can be sent to useForm hook to maintain the state
-const names = {
-    editItem:'conferenceName',
-    newValue:'',
-    description:'',
-}
-
-const GeneralSettings = ({baseUrl}) => {
+const Edits = ({baseUrl}) => {
     // API URLs
     const url = `${baseUrl}/edits`;
     const infoUrl = `${baseUrl}/info`;
@@ -141,38 +147,25 @@ const GeneralSettings = ({baseUrl}) => {
         <div>
             <Route exact path="/edits">
                 <Tables
-                    url={infoUrl} title={"General Settings"}
-                    columns={columnsSettings}
-                    type={"general-settings"}
-                    disableAdd
-                />
-                <Tables
                     url={url} title={"Edits"}
                     columns={columnsEdits}
                     type={"edits"}
                     setEditData={setEditData}
+                    disableAdd
                 />
-            </Route>
-
-            {/*Add Path*/}
-            <Route path="/edits/add">
-                <FormHolder
-                    title={"Add Edit"}
-                    formTitle={"General Settings Information"}
-                    inputs={inputs}
-                    buttons={buttons}
-                    names={names}
-                    callback={toLink}
-                    url={url}
-                    method={"POST"}
+                <Tables
+                    url={infoUrl} title={"Event Info"}
+                    columns={columnsSettings}
+                    type={"event-info"}
+                    disableAdd
                 />
             </Route>
 
             {/*Edit Path*/}
             <Route path="/edits/edit">
                 <FormHolder
-                    title={"Modify Edit"}
-                    formTitle={"General Settings Information"}
+                    title={"Manage Edit"}
+                    formTitle={"Edits Information"}
                     inputs={inputs}
                     buttons={buttons}
                     names={editData}
@@ -187,4 +180,4 @@ const GeneralSettings = ({baseUrl}) => {
     )
 }
 
-export default GeneralSettings;
+export default Edits;

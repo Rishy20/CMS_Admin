@@ -17,7 +17,7 @@ import {
 import Button from "../components/Button";
 import {Delete, Edit} from "@material-ui/icons";
 import {useFetch} from "./useFetch";
-
+import ScrollableDialog from "./pages/ScrollableDialog";
 
 
 const useStyles = makeStyles({
@@ -67,7 +67,30 @@ const useStyles = makeStyles({
     },
     tableData: {
         fontWeight: "bold",
-        padding:8
+        padding: 4,
+        display: "-webkit-box",
+        overflow: "hidden",
+        "-webkit-line-clamp": 4,
+        "-webkit-box-orient": "vertical",
+        cursor: "pointer"
+    },
+    statusPending: {
+        fontWeight: "bold",
+        padding:8,
+        color: "#E2BC7F",
+        textTransform: "capitalize"
+    },
+    statusActive: {
+        fontWeight: "bold",
+        padding:8,
+        color: "#4CAF50",
+        textTransform: "capitalize"
+    },
+    statusSuspended: {
+        fontWeight: "bold",
+        padding:8,
+        color: "#F44336",
+        textTransform: "capitalize"
     },
     row: {
         '&:nth-of-type(odd)': {
@@ -76,6 +99,9 @@ const useStyles = makeStyles({
     },
     noBorder:{
         border:"none"
+    },
+    selector: {
+        marginBlockStart: "-32px"
     }
 })
 
@@ -92,6 +118,21 @@ const Tables = props => {
     // Pagination states
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
+    // Details popup dialog states
+    const [openDialog, setOpenDialog] = useState(false);
+    const [dialogText, setDialogText] = useState("");
+
+    // Handle opening details popup dialog
+    const handleOpenDialog = text => {
+        setOpenDialog(true);
+        setDialogText(text);
+    }
+
+    // Handle opening details popup dialog
+    const handleCloseDialog = () => {
+        setOpenDialog(false);
+        setDialogText("");
+    }
 
     //Get the fetched Data
     const  {loading,data} = useFetch(props.url);
@@ -190,10 +231,10 @@ const Tables = props => {
         <Card variant="outlined" className={styles.cardContainer}>
             <CardHeader
                 title={props.title}
-                action={
+                action={!props.disableAdd &&
                     <Link to= {`/${props.type}/add`}>
                         <Button
-                            name={`Add ${props.type}`}
+                            name={`Add ${props.type.slice(0, -1)}`}
                             btnStyle="btn-next"
                         />
                     </Link>
@@ -253,46 +294,87 @@ const Tables = props => {
                                         </TableCell>
 
                                         {
-                                            props.columns.map(column=>(
+                                            props.columns.map(column => {
+                                                // Determine text field style based on status type (if present)
+                                                let tableDataStyle = styles.tableData;
+                                                if (column.statusStyle) {
+                                                    switch (item.status) {
+                                                        case "pending":
+                                                            tableDataStyle = styles.statusPending;
+                                                            break;
+                                                        case "active":
+                                                        case "approved":
+                                                            tableDataStyle = styles.statusActive;
+                                                            break;
+                                                        case "suspended":
+                                                        case "rejected":
+                                                            tableDataStyle = styles.statusSuspended;
+                                                            break;
+                                                    }
+                                                }
 
-                                                <TableCell align="center" classes={{root:styles.noBorder}}>
-                                                    {column.type === "img" &&
-                                                    <img
-                                                        src={`http://localhost:3000/${props.type}/${item[column.id]}`}
-                                                        alt={item.name}
-                                                        style={{
-                                                            minHeight: "160px",
-                                                            maxHeight: "160px"
-                                                        }}
-                                                    />
-                                                    }
-                                                    {column.type === "text" &&
-                                                    <Typography
-                                                        variant="body1"
-                                                        classes={{body1: styles.tableData}}
-                                                    >
-                                                        {item[column.id]}
-                                                    </Typography>
-                                                    }
-                                                    {column.type === "actions" &&
-                                                    <ButtonGroup color="primary">
-                                                        <IconButton
-                                                            component={Link}
-                                                            to={`/${props.type}/edit`}
-                                                            onClick={() => {setEditDataHandler(item);}}
-                                                        >
-                                                            <Edit />
-                                                        </IconButton>
-                                                        <IconButton
-                                                            onClick={() => deleteData(item)}
-                                                        >
-                                                            <Delete />
-                                                        </IconButton>
-                                                    </ButtonGroup>
-                                                    }
+                                                // Make text human-readable if prettify is set to true
+                                                if (column.prettify) {
+                                                    const result = item[column.id].replace(/([A-Z])/g, " $1");
+                                                    item[column.id] = result[0].toUpperCase() + result.slice(1);
+                                                }
 
-                                                </TableCell>
-                                            ))
+                                                // Disable edit button according to provided values
+                                                let disableEdit = false;
+                                                if (column.disableEditOn) {
+                                                    column.disableEditOn.forEach(rule => {
+                                                        if (item[rule.column] === rule.value) {
+                                                            disableEdit = true;
+                                                        }
+                                                    })
+                                                }
+
+                                                return (
+                                                    <TableCell align="center" classes={{root: styles.noBorder}}>
+                                                        {column.type === "img" &&
+                                                        <img
+                                                            src={`http://localhost:3000/${props.type}/${item[column.id]}`}
+                                                            alt={item.name}
+                                                            style={{
+                                                                minHeight: "160px",
+                                                                maxHeight: "160px"
+                                                            }}
+                                                        />
+                                                        }
+                                                        {column.type === "text" &&
+                                                        <Typography
+                                                            variant="body1"
+                                                            classes={{body1: tableDataStyle}}
+                                                            onClick={() => {
+                                                                column.id !== "status" &&
+                                                                handleOpenDialog(item[column.id])
+                                                            }}
+                                                        >
+                                                            {item[column.id]}
+                                                        </Typography>
+                                                        }
+                                                        {column.type === "actions" &&
+                                                        <ButtonGroup color="primary">
+                                                            <IconButton
+                                                                component={Link}
+                                                                to={`/${props.type}/edit`}
+                                                                onClick={() => {
+                                                                    setEditDataHandler(item);
+                                                                }}
+                                                                disabled={disableEdit}
+                                                            >
+                                                                <Edit/>
+                                                            </IconButton>
+                                                            <IconButton
+                                                                onClick={() => deleteData(item)}
+                                                            >
+                                                                <Delete/>
+                                                            </IconButton>
+                                                        </ButtonGroup>
+                                                        }
+                                                    </TableCell>
+                                                )
+                                            })
                                         }
 
                                     </TableRow>
@@ -313,6 +395,13 @@ const Tables = props => {
                     </Table>
                 </TableContainer>
             </CardContent>
+
+            {/* Details Dialog */}
+            <ScrollableDialog
+                isOpen={openDialog}
+                text={dialogText}
+                closeCallback={() => handleCloseDialog()}
+            />
         </Card>
     )
 }
