@@ -33,6 +33,7 @@ const columns=[
     }
 ]
 
+
 //Inputs stored as an array so they can be mapped to Input component
 const inputs=[
     {

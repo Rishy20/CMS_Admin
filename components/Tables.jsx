@@ -19,6 +19,7 @@ import {Delete, Edit} from "@material-ui/icons";
 import {useFetch} from "./useFetch";
 
 
+
 const useStyles = makeStyles({
     cardContainer: {
         border: "2px solid #e6e6e67d",
@@ -157,6 +158,7 @@ const Tables = props => {
     // Delete Data
     const deleteData = delItem => {
         let newData = items.filter(item => (item._id !== delItem._id));
+
 
         fetch(`${props.url}/${delItem._id}`, {
             headers: {

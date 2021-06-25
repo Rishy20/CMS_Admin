@@ -4,9 +4,14 @@ import Dashboard from "./pages/Dashboard";
 import UserProfile from "./pages/UserProfile";
 import Agenda from "./pages/Agenda";
 import Test from "./pages/Test";
+
+
+import Reviewer from "./pages/Reviewer";
+
 import GeneralSettings from "./pages/GeneralSettings";
 import Tickets from "./pages/Tickets";
 import Editors from "./pages/Editors";
+
 
 const MainContent = props => (
     <div
@@ -15,6 +20,7 @@ const MainContent = props => (
              ${props.collapsed && "mainExtended"}`
         }
     >
+
         <Switch>
             <Route exact path="/">
                 <Dashboard />
@@ -30,6 +36,9 @@ const MainContent = props => (
             </Route>
             <Route exact path="/test">
                 <Test />
+            </Route>
+            <Route exact path="/reviewers">
+                <Reviewer/>
             </Route>
             <Route exact path="/editors">
                 <Editors/>
