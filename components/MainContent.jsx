@@ -3,6 +3,13 @@ import {Switch, Route, Redirect} from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import UserProfile from "./pages/UserProfile";
 import Agenda from "./pages/Agenda";
+
+import Test from "./pages/Test";
+
+
+import Reviewer from "./pages/Reviewer";
+
+
 import GeneralSettings from "./pages/GeneralSettings";
 import Tickets from "./pages/Tickets";
 import Editors from "./pages/Editors";
@@ -11,13 +18,16 @@ import Researchers from "./pages/Researchers";
 import Edits from "./pages/Edits";
 import Presenters from "./pages/Presenters";
 
+
 const MainContent = ({role, ...props}) => (
+
     <div
         className={
             `main
              ${props.collapsed && "mainExtended"}`
         }
     >
+
         <Switch>
             {/* COMMON Routes */}
 
@@ -37,7 +47,6 @@ const MainContent = ({role, ...props}) => (
                     avatarTxt={props.avatarTxt}
                 />
             </Route>
-
 
             {/* ADMIN-SPECIFIC Routes */}
 
@@ -102,10 +111,13 @@ const MainContent = ({role, ...props}) => (
 
 
             {/* REVIEWER-SPECIFIC Routes */}
-
+             <Route exact path="/reviewers">
+                <Reviewer/>
+            </Route>
 
             {/* DEFAULT Route */}
             <Redirect to={role ? "/" : "/auth"} />
+
         </Switch>
     </div>
 )
