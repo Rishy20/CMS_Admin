@@ -22,7 +22,6 @@ const TotalValueCard = props => {
     return (
         <Card
             variant="outlined"
-            style={{height: "100%"}}
         >
             <Grid
                 container

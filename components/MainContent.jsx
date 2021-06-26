@@ -23,7 +23,7 @@ const MainContent = ({role, ...props}) => (
 
             {/* Dashboard */}
             <Route exact path="/">
-                <Dashboard baseUrl={props.baseUrl} />
+                <Dashboard baseUrl={props.baseUrl} role={role} />
             </Route>
 
             {/* User Profile */}
@@ -80,9 +80,9 @@ const MainContent = ({role, ...props}) => (
             {/* EDITOR-SPECIFIC Routes */}
 
             {/* Agenda */}
-            {role === "editor" &&
+            { (role === "editor" || role === "admin") &&
                 <Route path="/events">
-                    <Agenda baseUrl={props.baseUrl} />
+                    <Agenda baseUrl={props.baseUrl} role={role} />
                 </Route>
             }
 

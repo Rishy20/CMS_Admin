@@ -7,8 +7,8 @@ import TotalValueCard from "../TotalValueCard";
 import OverviewCard from "../OverviewCard";
 import {DashboardDataRender} from "../DashboardDataRender";
 
-//Admin Dashboard Page
-const Dashboard = ({baseUrl}) => {
+// Admin Dashboard Page
+const Dashboard = ({ baseUrl, role }) => {
     // Loading state
     const [loading, setLoading] = useState(true);
 
