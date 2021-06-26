@@ -65,7 +65,7 @@ export default function validateInfo(values){
     //validate price
     if(values.hasOwnProperty("price")) {
         if (!values.price.trim()) {
-            errors.price = "Please select the price";
+            errors.price = "Please enter a price";
         }else if (/^[0-9\b]+$/.test(values.price)) {
             errors.price = 'Please enter a valid price';
         }
