@@ -96,7 +96,7 @@ const MainContent = ({role, ...props}) => (
             {/* Tickets */}
             {role === "editor" &&
                 <Route path="/tickets">
-                    <Tickets />
+                    <Tickets baseUrl={props.baseUrl} />
                 </Route>
             }
 

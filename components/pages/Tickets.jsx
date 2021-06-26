@@ -3,8 +3,6 @@ import {Route, useHistory} from "react-router-dom";
 import Tables from "../Tables";
 import FormHolder from "../FormHolder";
 
-const url = "http://localhost:3000/api/v1/tickets";
-
 const columns=[
     {
         name:"Name",
@@ -73,8 +71,9 @@ const names={
     price:'',
     qty:'',
 }
-const Tickets = () => {
-
+const Tickets = props => {
+    // API URL
+    const url = `${props.baseUrl}/tickets`;
 
     // State for the current product in edit
     const [editData, setEditData] = useState(null);

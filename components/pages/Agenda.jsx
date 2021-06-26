@@ -3,8 +3,6 @@ import {Route, useHistory} from "react-router-dom";
 import Tables from "../Tables";
 import FormHolder from "../FormHolder";
 
-const url = "http://localhost:3000/api/v1/events";
-
 const columns=[
     {
         name:"Date",
@@ -81,6 +79,9 @@ const names = {
 }
 
 const Agenda = props => {
+    // API URL
+    const url = `${props.baseUrl}/events`;
+
     // State for the current product in edit
     const [editData, setEditData] = useState(null);
 
