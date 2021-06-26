@@ -64,7 +64,7 @@ function Form(props){
                                     <Select name={input.name} label={input.label} values={input.values} value={values[input.name]}
                                             onChange={input.onChange ? input.onChange : handleChange}
                                             error={errors[input.name] ? errors[input.name] : ''}
-                                            disabled={input.disabled} hidden={input.hidden}
+                                            disabled={input.disabled} hidden={input.hidden} preselected={input.preselected}
                                     />
                                 </Grid>
                             }else {

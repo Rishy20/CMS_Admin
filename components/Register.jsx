@@ -76,6 +76,7 @@ const Register = props => {
             {value: "editor", displayAs: "Editor"},
             {value: "reviewer", displayAs: "Reviewer"}
         ],
+        preselected: true,
         onChange: event => setRole(event.target.value)
     }
 

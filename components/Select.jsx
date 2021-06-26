@@ -13,7 +13,7 @@ export default props => {
                     disabled={props.disabled}
             >
                 {/* Default option */}
-                <option value="">[Select {props.label}]</option>
+                { !props.preselected && <option value="">[Select {props.label}]</option> }
 
                 {/* Dynamic options */}
                 {props.values.map(option => {

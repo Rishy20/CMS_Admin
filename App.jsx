@@ -1,22 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
 import NavBar from './components/NavBar'
-import './App.css'
-
-import Dashboard from "./components/pages/dashboard";
-import Topbar from "./components/Topbar";
-import Test from "./components/pages/Test";
-import AddReviewer from "./components/pages/AddReviewer";
-import AllReviewer from "./components/pages/AllReviewer";
-
-
-
 import TopBar from "./components/TopBar";
 import MainContent from "./components/MainContent";
 import Auth from "./components/pages/Auth";
 import checkLogin from "./components/CheckLogin";
 import jwt_decode from "jwt-decode";
 import Cookies from "js-cookie";
+import './App.css'
 
 const baseUrl = "https://icaf.site/api/v1";
 
