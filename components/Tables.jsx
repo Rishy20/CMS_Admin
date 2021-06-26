@@ -263,7 +263,12 @@ const Tables = props => {
                                     #
                                 </TableCell>
                                 {
-                                    props.columns.map(column=>{
+                                    props.columns.map(column => {
+                                        // Avoid rendering actions column if table is set to read-only
+                                        if (column.id === "action" && props.readOnly) {
+                                            return
+                                        }
+
                                         return <TableCell
                                             classes={{head: styles.darkCell}}
                                             align="center"
@@ -333,6 +338,11 @@ const Tables = props => {
                                                             disableEdit = true;
                                                         }
                                                     })
+                                                }
+
+                                                // Avoid rendering actions column if table is set to read-only
+                                                if (column.id === "action" && props.readOnly) {
+                                                    return
                                                 }
 
                                                 return (

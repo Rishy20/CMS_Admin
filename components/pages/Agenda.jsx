@@ -30,7 +30,7 @@ const columns=[
         name:"Actions",
         id:"action",
         type:"actions"
-    },
+    }
 ]
 
 //Inputs stored as an array so they can be mapped to Input component
@@ -124,11 +124,11 @@ const Agenda = props => {
     }
 
     // Handle displaying 'workshop' input field according to selected 'editData'
-    // useEffect(() => {
-    //     if (editData.type && editData.type === "Workshop") {
-    //         setWorkshopInput({...workshopInput, hidden: false});
-    //     }
-    // }, [editData]);
+    useEffect(() => {
+        if (editData && editData.type === "Workshop") {
+            setWorkshopInput({...workshopInput, hidden: false});
+        }
+    }, [editData]);
 
     // Reset values
     const reset = () => {
@@ -146,6 +146,8 @@ const Agenda = props => {
                     type="events"
                     setEditData={setEditData}
                     sortBy="date"
+                    readOnly={props.role === "admin"}
+                    disableAdd={props.role === "admin"}
                 />
             </Route>
             {/*Add Path*/}

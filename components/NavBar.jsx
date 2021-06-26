@@ -16,18 +16,17 @@ import NavButton from "./NavButton";
 
 // Navigation buttons list
 const navButtons = [
-    {text: "Dashboard", icon: <Dashboard />, path: "/", auth: "all"},
-    {text: "Reviewers", icon: <RateReview />, path: "/reviewers", auth: "admin"},
-    {text: "Editors", icon: <Edit />, path:"/editors", auth: "admin"},
-    {text: "Attendees", icon: <PersonAdd />, path: "/attendees", auth: "admin"},
-    {text: "Researchers", icon: <LocalLibrary />, path: "/researchers", auth: "admin"},
-    {text: "Presenters", icon: <PresentToAll />, path: "/presenters", auth: "admin"},
-    {text: "Edits", icon: <Settings />, path: "/edits", auth: "admin"},
-    {text: "Agenda", icon: <Event />, path: "/agenda", auth: "admin"},
-    {text: "Agenda", icon: <Event />, path:"/events", auth: "editor"},
-    {text: "General Info", icon: <Settings />, path:"/edits", auth: "editor"},
-    {text: "Tickets", icon: <ConfirmationNumber />, path:"/tickets", auth: "editor"},
-    {text: "User Profile", icon: <AccountCircle />, path:"/account", auth: "all"},
+    {text: "Dashboard", icon: <Dashboard />, path: "/", auth: ["admin", "editor", "reviewer"]},
+    {text: "Reviewers", icon: <RateReview />, path: "/reviewers", auth: ["admin"]},
+    {text: "Editors", icon: <Edit />, path:"/editors", auth: ["admin"]},
+    {text: "Attendees", icon: <PersonAdd />, path: "/attendees", auth: ["admin"]},
+    {text: "Researchers", icon: <LocalLibrary />, path: "/researchers", auth: ["admin"]},
+    {text: "Presenters", icon: <PresentToAll />, path: "/presenters", auth: ["admin"]},
+    {text: "Edits", icon: <Settings />, path: "/edits", auth: ["admin"]},
+    {text: "Agenda", icon: <Event />, path:"/events", auth: ["admin", "editor"]},
+    {text: "General Info", icon: <Settings />, path:"/edits", auth: ["editor"]},
+    {text: "Tickets", icon: <ConfirmationNumber />, path:"/tickets", auth: ["editor"]},
+    {text: "User Profile", icon: <AccountCircle />, path:"/account", auth: ["admin", "editor", "reviewer"]},
 ]
 
 //Admin NavBar
@@ -57,7 +56,7 @@ const NavBar = props => {
                 {/* Render each navigation button in the list with props */}
                 {navButtons.map(navButton => (
                     // Only render NavButtons which are allowed for the user type
-                    (navButton.auth === props.role || navButton.auth === "all") &&
+                    navButton.auth.includes(props.role) &&
                         <NavButton
                             key={navButton.text}
                             text={navButton.text}
