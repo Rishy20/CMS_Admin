@@ -152,7 +152,7 @@ const Tables = props => {
 
 
     //Get the fetched Data
-    const  {loading,data} = useFetch(url);
+    const  {loading,data} = useFetch(props.altUrl ? props.altUrl : url);
 
     const styles = useStyles();
 

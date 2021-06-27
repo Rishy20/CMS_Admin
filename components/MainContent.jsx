@@ -117,7 +117,7 @@ const MainContent = ({role, ...props}) => (
             {/* General Settings */}
             {role === "editor" &&
                 <Route path="/edits">
-                    <GeneralSettings baseUrl={props.baseUrl} />
+                    <GeneralSettings baseUrl={props.baseUrl} userId={props.user._id} />
                 </Route>
             }
 
@@ -133,20 +133,23 @@ const MainContent = ({role, ...props}) => (
 
             {/* Dashboard */}
             { role === "reviewer" &&
-                <Route path="/">
+                <Route exact path="/">
                     <ReviewerDashboard baseUrl={props.baseUrl} role={role} userId={props.user._id} />
                 </Route>
             }
 
+            {/* Pending Reviews */}
             {role === "reviewer" &&
-                <>
-                    <Route path="/reviews/pending">
-                        <PendingReviews baseUrl={props.baseUrl} userId={props.user._id}/>
-                    </Route>
-                    <Route path="/reviews/my">
-                        <MyReviews baseUrl={props.baseUrl} userId={props.user._id}/>
-                    </Route>
-                </>
+                <Route path="/reviews/pending">
+                    <PendingReviews baseUrl={props.baseUrl} role={role} userId={props.user._id} />
+                </Route>
+            }
+
+            {/* My Reviews */}
+            {role === "reviewer" &&
+                <Route path="/reviews/my">
+                    <MyReviews baseUrl={props.baseUrl} role={role} userId={props.user._id} />
+                </Route>
             }
 
 

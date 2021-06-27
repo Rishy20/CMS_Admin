@@ -136,7 +136,7 @@ const names = {
     description:'',
 }
 
-const GeneralSettings = ({baseUrl}) => {
+const GeneralSettings = ({baseUrl, userId}) => {
     // API URLs
     const url = `${baseUrl}/edits`;
     const infoUrl = `${baseUrl}/info`;
@@ -163,6 +163,7 @@ const GeneralSettings = ({baseUrl}) => {
                     columns={columnsEdits}
                     type={"edits"}
                     setEditData={setEditData}
+                    altUrl={`${url}/editor/${userId}`}
                 />
             </Route>
 
@@ -173,7 +174,7 @@ const GeneralSettings = ({baseUrl}) => {
                     formTitle={"General Settings Information"}
                     inputs={inputs}
                     buttons={buttons}
-                    names={names}
+                    names={{...names, userId: userId}}
                     callback={toLink}
                     url={url}
                     method={"POST"}

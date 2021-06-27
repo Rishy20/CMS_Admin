@@ -53,6 +53,11 @@ const columnsSettings = [
 
 const columnsEdits = [
     {
+        name: "Editor",
+        id: "userName",
+        type: "text",
+    },
+    {
         name: "Edit Item",
         id: "editItem",
         type: "text",
