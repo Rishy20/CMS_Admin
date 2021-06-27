@@ -9,7 +9,7 @@ import {
     Event,
     LocalLibrary,
     PersonAdd, PresentToAll,
-    RateReview, Settings, CheckCircle
+    RateReview, Settings, CheckCircle, RecordVoiceOver
 } from "@material-ui/icons";
 import "./styles/NavBar.css"
 import NavButton from "./NavButton";
@@ -22,6 +22,7 @@ const navButtons = [
     {text: "Attendees", icon: <PersonAdd />, path: "/attendees", auth: ["admin"]},
     {text: "Researchers", icon: <LocalLibrary />, path: "/researchers", auth: ["admin"]},
     {text: "Presenters", icon: <PresentToAll />, path: "/presenters", auth: ["admin"]},
+    {text: "Speakers", icon: <RecordVoiceOver />, path: "/keynotes", auth: ["admin"]},
     {text: "Edits", icon: <Settings />, path: "/edits", auth: ["admin"]},
     {text: "Agenda", icon: <Event />, path:"/events", auth: ["admin", "editor"]},
     {text: "General Info", icon: <Settings />, path:"/edits", auth: ["editor"]},
