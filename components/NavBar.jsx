@@ -26,8 +26,8 @@ const navButtons = [
     {text: "Agenda", icon: <Event />, path:"/events", auth: ["admin", "editor"]},
     {text: "General Info", icon: <Settings />, path:"/edits", auth: ["editor"]},
     {text: "Tickets", icon: <ConfirmationNumber />, path:"/tickets", auth: ["editor"]},
-    {text: "Pending ", icon: <RateReview />, path: "/reviews/pending", auth: "reviewer"},
-    {text: "My Reviews", icon: <CheckCircle />, path: "/reviews/my", auth: "reviewer"},
+    {text: "Pending ", icon: <RateReview />, path: "/reviews/pending", auth: ["reviewer"]},
+    {text: "My Reviews", icon: <CheckCircle />, path: "/reviews/my", auth: ["reviewer"]},
     {text: "User Profile", icon: <AccountCircle />, path:"/account", auth: ["admin", "editor", "reviewer"]},
 ]
 

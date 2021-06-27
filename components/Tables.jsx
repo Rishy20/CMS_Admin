@@ -454,7 +454,7 @@ const Tables = props => {
                                                             </IconButton>
                                                         </ButtonGroup>
                                                         }
-D
+
                                                         {column.type === "approve" &&
                                                         <ButtonGroup color="primary">
                                                             <IconButton
