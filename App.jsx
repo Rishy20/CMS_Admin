@@ -3,11 +3,6 @@ import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom
 import NavBar from './components/NavBar'
 import './App.css'
 
-import Dashboard from "./components/pages/dashboard";
-import Topbar from "./components/Topbar";
-import Test from "./components/pages/Test";
-import AddReviewer from "./components/pages/AddReviewer";
-import AllReviewer from "./components/pages/AllReviewer";
 
 
 
@@ -160,6 +155,6 @@ function App() {
             </Router>
 
         </div>
-)
+    )
 }
 export default App;

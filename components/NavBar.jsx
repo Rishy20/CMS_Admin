@@ -9,7 +9,9 @@ import {
     Event,
     InsertDriveFile, LocalLibrary,
     PersonAdd, PresentToAll,
-    RateReview, Settings
+
+    RateReview, Settings, CheckCircle
+
 } from "@material-ui/icons";
 import "./styles/NavBar.css"
 import NavButton from "./NavButton";
@@ -29,6 +31,10 @@ const navButtons = [
     {text: "Agenda", icon: <Event />, path:"/agenda", auth: "editor"},
     {text: "General Info", icon: <Settings />, path:"/edits", auth: "editor"},
     {text: "Tickets", icon: <ConfirmationNumber />, path:"/tickets", auth: "editor"},
+
+    {text: "Pending ", icon: <RateReview />, path: "/reviews/pending", auth: "reviewer"},
+    {text: "My Reviews", icon: <CheckCircle />, path: "/reviews/my", auth: "reviewer"},
+
     {text: "User Profile", icon: <AccountCircle />, path:"/account", auth: "all"},
 ]
 
@@ -60,13 +66,15 @@ const NavBar = props => {
                 {navButtons.map(navButton => (
                     // Only render NavButtons which are allowed for the user type
                     (navButton.auth === props.role || navButton.auth === "all") &&
-                        <NavButton
-                            key={navButton.text}
-                            text={navButton.text}
-                            icon={navButton.icon}
-                            path={navButton.path}
-                            collapsed={props.collapsed}
-                        />
+
+                    <NavButton
+                        key={navButton.text}
+                        text={navButton.text}
+                        icon={navButton.icon}
+                        path={navButton.path}
+                        collapsed={props.collapsed}
+                    />
+
                 ))}
             </List>
         </div>

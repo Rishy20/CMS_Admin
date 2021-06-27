@@ -15,7 +15,7 @@ import {
     TableRow, TableSortLabel, Typography
 } from "@material-ui/core";
 import Button from "../components/Button";
-import {Delete, Edit} from "@material-ui/icons";
+import {Delete, Edit,CheckCircle,Cancel} from "@material-ui/icons";
 import {useFetch} from "./useFetch";
 import ScrollableDialog from "./pages/ScrollableDialog";
 
@@ -30,11 +30,11 @@ const useStyles = makeStyles({
 
     },
     cardHead:{
-      fontSize:26,
-      fontWeight:600,
-      fontFamily:"Poppins",
-      textTransform:"uppercase",
-      color:"var(--grey)"
+        fontSize:26,
+        fontWeight:600,
+        fontFamily:"Poppins",
+        textTransform:"uppercase",
+        color:"var(--grey)"
     },
     tableHead: {
 
@@ -102,6 +102,11 @@ const useStyles = makeStyles({
     },
     selector: {
         marginBlockStart: "-32px"
+
+    },
+    cancel:{
+        color:"red"
+
     }
 })
 
@@ -134,8 +139,20 @@ const Tables = props => {
         setDialogText("");
     }
 
+    let url;
+    if(props.type==="workshopReview"||props.type==="paperReview"){
+        if(props.status==="approved" || props.status==="rejected"){
+            url = props.url+"/"+props.status+"/"+props.reviewerId;
+        }else{
+            url = props.url+"/"+props.status;
+        }
+    }else{
+        url=props.url
+    }
+
+
     //Get the fetched Data
-    const  {loading,data} = useFetch(props.url);
+    const  {loading,data} = useFetch(url);
 
     const styles = useStyles();
 
@@ -219,12 +236,35 @@ const Tables = props => {
 
     // Set data for editing
     const setEditDataHandler = tableItem => {
+
         for (let item of items) {
             if (item._id === tableItem._id) {
                 props.setEditData(item);
-                console.log(item)
             }
         }
+    }
+
+    //Approve Paper
+    const updateStatus = (selectedItem,status) =>{
+        let newData = items.filter(item => (item._id !== selectedItem));
+        fetch(`${props.url}/${selectedItem}/status`, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'x-access-token':localStorage.getItem("token")
+            },
+            body:JSON.stringify({
+                status:status,
+                reviewerId:props.reviewerId
+            }),
+            method:"PATCH"
+
+        })
+            .then(res => res.json())
+            .then(data => {
+                setItems(newData);
+            })
+            .catch(err => console.log(err));
     }
 
     return (
@@ -232,12 +272,14 @@ const Tables = props => {
             <CardHeader
                 title={props.title}
                 action={!props.disableAdd &&
-                    <Link to= {`/${props.type}/add`}>
-                        <Button
-                            name={`Add ${props.type.slice(0, -1)}`}
-                            btnStyle="btn-next"
-                        />
-                    </Link>
+
+                <Link to= {`/${props.type}/add`}>
+                    <Button
+                        name={`Add ${props.type.slice(0, -1)}`}
+                        btnStyle="btn-next"
+                    />
+                </Link>
+
                 }
                 classes={{action: styles.action,title:styles.cardHead}}
             />
@@ -333,7 +375,9 @@ const Tables = props => {
                                                     <TableCell align="center" classes={{root: styles.noBorder}}>
                                                         {column.type === "img" &&
                                                         <img
-                                                            src={`http://localhost:3000/${props.type}/${item[column.id]}`}
+
+                                                            src={`http://icaf.site/${props.type}/${item[column.id]}`}
+
                                                             alt={item.name}
                                                             style={{
                                                                 minHeight: "160px",
@@ -349,8 +393,32 @@ const Tables = props => {
                                                                 column.id !== "status" &&
                                                                 handleOpenDialog(item[column.id])
                                                             }}
+
                                                         >
                                                             {item[column.id]}
+                                                        </Typography>
+                                                        }
+                                                        {column.type === "link" &&
+                                                        <a href={`${props.url}/${props.type==="paperReview"?"paper":"proposal"}/${item[column.id]}`} target={"_blank"}>
+                                                            <Typography
+                                                                variant="body1"
+                                                                classes={{body1: tableDataStyle}}
+                                                            >
+                                                                {item[column.id].split("-")[1]}
+                                                            </Typography>
+                                                        </a>
+                                                        }
+                                                        {column.type === "fullName" &&
+                                                        <Typography
+                                                            variant="body1"
+                                                            classes={{body1: tableDataStyle}}
+                                                            onClick={() => {
+                                                                column.id !== "status" &&
+                                                                handleOpenDialog(item.fname + " " + item.lname)
+                                                            }}
+                                                        >
+                                                            {item.fname + " " + item.lname}
+
                                                         </Typography>
                                                         }
                                                         {column.type === "actions" &&
@@ -372,6 +440,28 @@ const Tables = props => {
                                                             </IconButton>
                                                         </ButtonGroup>
                                                         }
+D
+                                                        {column.type === "approve" &&
+                                                        <ButtonGroup color="primary">
+                                                            <IconButton
+                                                                onClick={() => {
+                                                                    updateStatus(item._id,"approved");
+                                                                }}
+                                                                disabled={disableEdit}
+                                                            >
+                                                                <CheckCircle fontSize={"large"}/>
+                                                            </IconButton>
+                                                            <IconButton
+                                                                color="secondary"
+                                                                className={styles.cancel}
+                                                                onClick={() => updateStatus(item._id,"rejected")}
+                                                            >
+                                                                <Cancel fontSize={"large"}/>
+                                                            </IconButton>
+                                                        </ButtonGroup>
+                                                        }
+
+
                                                     </TableCell>
                                                 )
                                             })
