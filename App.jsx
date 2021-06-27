@@ -3,11 +3,6 @@ import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom
 import NavBar from './components/NavBar'
 import './App.css'
 
-import Dashboard from "./components/pages/dashboard";
-import Topbar from "./components/Topbar";
-import Test from "./components/pages/Test";
-import AddReviewer from "./components/pages/AddReviewer";
-import AllReviewer from "./components/pages/AllReviewer";
 
 
 
@@ -18,13 +13,15 @@ import checkLogin from "./components/CheckLogin";
 import jwt_decode from "jwt-decode";
 import Cookies from "js-cookie";
 
+const baseUrl = "https://icaf.site/api/v1";
+
 function App() {
     // User login states
     const [role, setRole] = useState(checkLogin());
     const [userId, setUserId] = useState();
 
     // Base API URL for the logged-in user
-    const [baseUrl, setBaseUrl] = useState("");
+    const [baseUserUrl, setBaseUserUrl] = useState("");
 
     // User account data states
     const [user, setUser] = useState({
@@ -50,27 +47,27 @@ function App() {
     // Search state
     const [search, setSearch] = useState("");
 
-    // Set userId and baseUrl if and when the user is logged in (when role is set)
+    // Set userId and baseUserUrl if and when the user is logged in (when role is set)
     useEffect(() => {
         if (role) {
             setUserId(jwt_decode(Cookies.get("token")).id);
-            setBaseUrl(`https://icaf.site/api/v1/${role}s/`);
+            setBaseUserUrl(`${baseUrl}/${role}s`);
         }
     }, [role]);
 
     // Fetch and set user data using the set API URL
     useEffect(() => {
-        if (baseUrl && userId) {
-            fetch(baseUrl + userId)
+        if (baseUserUrl && userId) {
+            fetch(`${baseUserUrl}/${userId}`)
                 .then(raw => raw.json())
                 .then(data => setUser({role, ...data}))
                 .catch(err => console.log(err));
         }
-    }, [baseUrl, userId]);
+    }, [baseUserUrl, userId]);
 
     // Set user avatar src and fallback text
     useEffect(() => {
-        setAvatarSrc(user.avatar && `${baseUrl}image/${user.avatar}`);
+        setAvatarSrc(user.avatar && `${baseUserUrl}/image/${user.avatar}`);
         setAvatarTxt(`${user.fname[0]}${user.lname[0]}`);
     }, [user]);
 
@@ -119,7 +116,7 @@ function App() {
                         {/* Redirect to dashboard if logged in */}
                         {role && <Redirect to="/" />}
 
-                        <Auth loginCallback={loginCallback} />
+                        <Auth baseUrl={baseUrl} loginCallback={loginCallback} />
                     </Route>
 
                     {/* Admin Panel interface | accessible only when logged in */}
@@ -127,7 +124,7 @@ function App() {
                         {/* Redirect to Login/Register interface if not logged in */}
                         {!role && <Redirect to="/auth" />}
 
-                        <NavBar collapsed={collapsed} />
+                        <NavBar role={role} collapsed={collapsed} />
                         <TopBar
                             collapsed={collapsed}
                             setCollapsed={onSetCollapsed}
@@ -146,6 +143,8 @@ function App() {
                         <MainContent
                             collapsed={collapsed}
                             baseUrl={baseUrl}
+                            baseUserUrl={baseUserUrl}
+                            role={role}
                             user={user}
                             setUser={setUser}
                             avatarSrc={avatarSrc}
@@ -156,6 +155,6 @@ function App() {
             </Router>
 
         </div>
-)
+    )
 }
 export default App;
