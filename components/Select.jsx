@@ -3,7 +3,7 @@ import './styles/Select.css'
 
 export default props => {
     return (
-        <div hidden={props.hidden}>
+        <div>
             <label className="form-label" htmlFor={props.name}>{props.label}</label>
             <select className={`form-select ${props.styles} ${props.disabled && "disabled"}`}
                     name={props.name}

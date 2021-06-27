@@ -217,6 +217,14 @@ export default function validateInfo(values){
             errors.time = "Please enter a time";
         }
     }
+    // Validate researcher
+    if (values.hasOwnProperty("researcher")) {
+        if (values.type === "Research Proposal") {
+            if (!values.researcher.trim()) {
+                errors.researcher = "Please select a researcher";
+            }
+        }
+    }
     // Validate workshop
     if (values.hasOwnProperty("workshop")) {
         if (values.type === "Workshop") {

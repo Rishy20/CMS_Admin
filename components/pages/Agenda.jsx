@@ -75,6 +75,7 @@ const names = {
     time: '',
     name: '',
     type: '',
+    researcher: '',
     workshop: '',
 }
 
@@ -84,6 +85,15 @@ const Agenda = props => {
 
     // State for the current product in edit
     const [editData, setEditData] = useState(null);
+
+    // State for 'workshop' input field
+    const [researcherInput, setResearcherInput] = useState({
+            label:"Researcher",
+            type:"select",
+            name:"researcher",
+            values:[],
+            hidden: true
+        });
 
     // State for 'workshop' input field
     const [workshopInput, setWorkshopInput] = useState({
@@ -101,8 +111,20 @@ const Agenda = props => {
         reset();
     }
 
-    // Get approved workshops, to assign for workshop input values
+    // Get option values for selector input fields
     useEffect(() => {
+        // Get approved researchers to assign as option values for researcher selector
+        fetch(`${props.baseUrl}/researchers/approved`)
+            .then(data => data.json())
+            .then(data => setResearcherInput({
+                ...researcherInput,
+                // For each workshop, set workshop id as input value and workshop name as display value
+                values: data.map(researcher => ({
+                    value: researcher._id, displayAs: `${researcher.fname} ${researcher.lname}`
+                }))
+            }));
+
+        // Get approved workshops to assign as option values for workshop selector
         fetch(`${props.baseUrl}/workshops/approved`)
             .then(data => data.json())
             .then(data => setWorkshopInput({
@@ -113,8 +135,15 @@ const Agenda = props => {
     }, []);
 
     // Handle displaying 'workshop' input field
-    const handleDisplayWorkshopInput = event => {
+    const handleDynamicInputField = event => {
         const {name, value} = event.target;
+
+        // Show 'researcher' input only if 'Research Proposal' is selected for 'Event Type'
+        if (name === "type" && value === "Research Proposal") {
+            setResearcherInput({...researcherInput, hidden: false});
+        } else if (name === "type" && value !== "Research Proposal") {
+            setResearcherInput({...researcherInput, hidden: true});
+        }
 
         // Show 'workshop' input only if 'Workshop' is selected for 'Event Type'
         if (name === "type" && value === "Workshop") {
@@ -124,15 +153,18 @@ const Agenda = props => {
         }
     }
 
-    // Handle displaying 'workshop' input field according to selected 'editData'
+    // Handle displaying 'researcher' and 'workshop' input field according to selected 'editData'
     useEffect(() => {
-        if (editData && editData.type === "Workshop") {
+        if (editData && editData.type === "Research Proposal") {
+            setResearcherInput({...researcherInput, hidden: false});
+        } else if (editData && editData.type === "Workshop") {
             setWorkshopInput({...workshopInput, hidden: false});
         }
     }, [editData]);
 
     // Reset values
     const reset = () => {
+        setResearcherInput({...researcherInput, hidden: true});
         setWorkshopInput({...workshopInput, hidden: true});
     }
 
@@ -156,11 +188,11 @@ const Agenda = props => {
                 <FormHolder
                     title={"Add Event"}
                     formTitle={"Event Information"}
-                    inputs={[...inputs, workshopInput]}
+                    inputs={[...inputs, researcherInput, workshopInput]}
                     buttons={buttons}
                     names={names}
                     callback={toLink}
-                    onChangeCallback={handleDisplayWorkshopInput}
+                    onChangeCallback={handleDynamicInputField}
                     url={url}
                     method={"POST"}
                 />
@@ -170,11 +202,11 @@ const Agenda = props => {
                 <FormHolder
                     title={"Edit Event"}
                     formTitle={"Event Information"}
-                    inputs={[...inputs, workshopInput]}
+                    inputs={[...inputs, researcherInput, workshopInput]}
                     buttons={buttons}
                     names={editData}
                     callback={toLink}
-                    onChangeCallback={handleDisplayWorkshopInput}
+                    onChangeCallback={handleDynamicInputField}
                     url={`${url}/${editData?editData._id:""}`}
                     method={"PUT"}
                 />

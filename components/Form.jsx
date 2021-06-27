@@ -60,7 +60,7 @@ function Form(props){
                         //Map input array to input components
                         inputs.map(input=>{
                             if(input.type==="select"){
-                                return <Grid item xs={12} md={singleColumn ? 12 : 6} key={input.name}>
+                                return <Grid item xs={12} md={singleColumn ? 12 : 6} key={input.name} hidden={input.hidden}>
                                     <Select name={input.name} label={input.label} values={input.values} value={values[input.name]}
                                             onChange={input.onChange ? input.onChange : handleChange}
                                             error={errors[input.name] ? errors[input.name] : ''}
@@ -68,7 +68,7 @@ function Form(props){
                                     />
                                 </Grid>
                             }else {
-                                return <Grid item xs={12} md={singleColumn ? 12 : 6} key={input.name}>
+                                return <Grid item xs={12} md={singleColumn ? 12 : 6} key={input.name} hidden={input.hidden}>
                                     <Input label={input.label} value={values[input.name]} id={input.name} type={input.type}
                                            name={input.name} onChange={handleChange} placeholder={input.placeholder}
                                            error={errors[input.name] ? errors[input.name] : ''} maxLength={input.maxLength}
