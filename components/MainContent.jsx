@@ -16,6 +16,7 @@ import ReviewerDashboard from "./pages/ReviewerDashboard";
 import PendingReviews from "./pages/PendingReviews";
 import MyReviews from "./pages/MyReviews";
 import KeynoteSpeakers from "./pages/KeynoteSpeakers";
+import Templates from "./pages/Templates";
 
 // Container for main application views
 const MainContent = ({role, ...props}) => (
@@ -119,6 +120,14 @@ const MainContent = ({role, ...props}) => (
                 <Route path="/edits">
                     <GeneralSettings baseUrl={props.baseUrl} userId={props.user._id} />
                 </Route>
+            }
+
+            {/* Templates */}
+            {role === "editor" &&
+                <Route path="/templates">
+                    <Templates baseUrl={props.baseUrl} />
+                </Route>
+            }
             }
 
             {/* Tickets */}

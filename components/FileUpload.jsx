@@ -29,7 +29,7 @@ function FileUpload({
             let updatedFiles = addNewFiles(newFiles);
             setFiles(updatedFiles);
             callUpdateFiles(updatedFiles);
-            setPreview(URL.createObjectURL(updatedFiles.file));
+            setPreview && setPreview(URL.createObjectURL(updatedFiles.file));
         }
     };
 
@@ -38,14 +38,14 @@ function FileUpload({
             if (file.size <= maxFileSize) {
                 fileType = file.type.split("/")[0];
                 //Validate files
-                if(fileType === "image"){
+                if(fileType !== "image" && props.imagesOnly){
+                    setError("Only image files can be uploaded");
+                }else{
                     setError("");
                     if (!props.multiple) {
                         return { file };
                     }
                     files[file.name] = file;
-                }else{
-                    setError("Only image files can be uploaded");
                 }
 
             }else{
@@ -63,7 +63,7 @@ function FileUpload({
         delete files[fileName];
         setFiles({ ...files });
         callUpdateFiles({ ...files });
-        setPreview("");
+        setPreview && setPreview("");
         setError("");
     };
 
@@ -74,7 +74,7 @@ function FileUpload({
                 <p className="drag-drop-text">Drag & Drop</p>
                 <p className="drag-drop-text small">or</p>
                 <button type="button" className="upload-file-btn" onClick={handleUploadBtnClick}>
-                    <span> Browse {props.multiple ? "Images" : "Image"}</span>
+                    <span> Browse {props.imagesOnly ? "Image" : "File"}</span>
                 </button>
                 <p className="error">{error}</p>
 
@@ -89,17 +89,18 @@ function FileUpload({
                 />
 
                 <div className="file-icon-container">
-                        {Object.keys(files).map((fileName) => (
-                            <div
-                                key={fileName}
-                                className="remove-file"
-                                onClick={() => removeFile(fileName)}
-                            >
-                                <RotateLeft />
-                                <span style={{float: "right", marginInlineStart: "4px"}}>Reset</span>
-                            </div>
-                        ))}
+                    {Object.keys(files).map((fileName) => (
+                        <div
+                            key={fileName}
+                            className="remove-file"
+                            onClick={() => removeFile(fileName)}
+                        >
+                            <RotateLeft />
+                            <span style={{float: "right", marginInlineStart: "4px"}}>Reset</span>
+                        </div>
+                    ))}
                 </div>
+                { (props.fileNamePreview && files.file) && files.file.name }
             </div>
         </div>
     )
