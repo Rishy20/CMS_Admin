@@ -3,13 +3,7 @@ import {Switch, Route, Redirect} from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import UserProfile from "./pages/UserProfile";
 import Agenda from "./pages/Agenda";
-
-import Test from "./pages/Test";
-
-
 import Reviewer from "./pages/Reviewer";
-
-
 import GeneralSettings from "./pages/GeneralSettings";
 import Tickets from "./pages/Tickets";
 import Editors from "./pages/Editors";
@@ -17,7 +11,6 @@ import Attendees from "./pages/Attendees";
 import Researchers from "./pages/Researchers";
 import Edits from "./pages/Edits";
 import Presenters from "./pages/Presenters";
-import PaperReviews from "./pages/PaperReviews";
 import PendingReviews from "./pages/PendingReviews";
 import MyReviews from "./pages/MyReviews";
 
@@ -55,34 +48,43 @@ const MainContent = ({role, ...props}) => (
 
             {/* Editors */}
             {role === "admin" &&
+
             <Route path="/editors">
                 <Editors baseUrl={props.baseUrl} />
             </Route>
+
             }
 
             {/* Attendees */}
             {role === "admin" &&
+
             <Route path="/attendees">
                 <Attendees baseUrl={props.baseUrl} />
             </Route>
+
             }
 
             {/* Researchers */}
             {role === "admin" &&
+
             <Route path="/researchers">
                 <Researchers baseUrl={props.baseUrl} />
             </Route>
+
             }
 
             {/* Presenters */}
             {role === "admin" &&
+
             <Route path="/presenters">
                 <Presenters baseUrl={props.baseUrl} />
             </Route>
+
             }
 
             {/* Edits */}
             {role === "admin" &&
+
             <Route path="/edits">
                 <Edits baseUrl={props.baseUrl} />
             </Route>
@@ -129,6 +131,42 @@ const MainContent = ({role, ...props}) => (
                 </Route>
             </>
             }
+=======
+                <Route path="/edits">
+                    <Edits baseUrl={props.baseUrl} />
+                </Route>
+            }
+
+
+            {/* EDITOR-SPECIFIC Routes */}
+
+            {/* Agenda */}
+            {role === "editor" &&
+                <Route path="/agenda">
+                    <Agenda />
+                </Route>
+            }
+
+            {/* General Settings */}
+            {role === "editor" &&
+                <Route path="/edits">
+                    <GeneralSettings baseUrl={props.baseUrl} />
+                </Route>
+            }
+
+            {/* Tickets */}
+            {role === "editor" &&
+                <Route path="/tickets">
+                    <Tickets />
+                </Route>
+            }
+
+
+            {/* REVIEWER-SPECIFIC Routes */}
+             <Route exact path="/reviewers">
+                <Reviewer/>
+            </Route>
+>>>>>>> 0b638593d29fcade951ae4ef99de31a1c9600970
 
             {/* DEFAULT Route */}
             <Redirect to={role ? "/" : "/auth"} />

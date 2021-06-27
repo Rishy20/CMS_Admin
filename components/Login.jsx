@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import Cookies from "js-cookie";
 import Form from "./Form";
 
@@ -33,11 +33,9 @@ const buttons = [
     }
 ]
 
-// Form URL
-const url = "https://icaf.site/api/v1/login/admin";
-
-const Login = ({loginCallback, setSubmitError}) => {
-    const [isSubmitting, setIsSubmitting] = useState(false);
+const Login = ({baseUrl, loginCallback, setSubmitError}) => {
+    // Login URL
+    const url = `${baseUrl}/login/admin`;
 
     // Callback method
     const callback = result => {
@@ -47,8 +45,6 @@ const Login = ({loginCallback, setSubmitError}) => {
         } else {
             setSubmitError(result.message);
         }
-
-        setIsSubmitting(false);
     }
 
     return (
@@ -60,8 +56,6 @@ const Login = ({loginCallback, setSubmitError}) => {
                 btns={buttons}
                 url={url}
                 callback={callback}
-                isSubmitting={isSubmitting}
-                callbackIsSubmitting={() => setIsSubmitting(true)}
             />
         </div>
     )

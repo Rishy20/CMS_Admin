@@ -11,6 +11,7 @@ function Formbox(props){
     const buttons = props.buttons;
     const url = props.url;
     const method = props.method;
+    const adminUserUpdate = props.adminUserUpdate;
 
     return(
 
@@ -24,10 +25,16 @@ function Formbox(props){
             </div>
 
             <div className="form-body">
-
-                <Form inputs={inputs} names={names} callback={callback} btns={buttons} url={url} method={method} btnstyle="top"/>
-
-
+                <Form
+                    inputs={inputs}
+                    names={names}
+                    callback={callback}
+                    btns={buttons}
+                    btnstyle="top"
+                    url={url}
+                    method={method}
+                    adminUserUpdate={adminUserUpdate}
+                />
             </div>
         </div>
     )

@@ -26,6 +26,11 @@
     font-size: 14px;
     display: inline-block;
 }
+.disabled {
+    border: 1px solid var(--lightGrey);
+    background-color: var(--lightGrey);
+    color: grey;
+}
 .error{
     color: red;
     font-size: 14px;

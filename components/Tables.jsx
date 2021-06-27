@@ -102,9 +102,11 @@ const useStyles = makeStyles({
     },
     selector: {
         marginBlockStart: "-32px"
+
     },
     cancel:{
         color:"red"
+
     }
 })
 
@@ -136,6 +138,7 @@ const Tables = props => {
         setOpenDialog(false);
         setDialogText("");
     }
+
     let url;
     if(props.type==="workshopReview"||props.type==="paperReview"){
         if(props.status==="approved" || props.status==="rejected"){
@@ -146,6 +149,7 @@ const Tables = props => {
     }else{
         url=props.url
     }
+
 
     //Get the fetched Data
     const  {loading,data} = useFetch(url);
@@ -268,12 +272,14 @@ const Tables = props => {
             <CardHeader
                 title={props.title}
                 action={!props.disableAdd &&
+
                 <Link to= {`/${props.type}/add`}>
                     <Button
                         name={`Add ${props.type.slice(0, -1)}`}
                         btnStyle="btn-next"
                     />
                 </Link>
+
                 }
                 classes={{action: styles.action,title:styles.cardHead}}
             />
@@ -369,7 +375,9 @@ const Tables = props => {
                                                     <TableCell align="center" classes={{root: styles.noBorder}}>
                                                         {column.type === "img" &&
                                                         <img
+
                                                             src={`http://icaf.site/${props.type}/${item[column.id]}`}
+
                                                             alt={item.name}
                                                             style={{
                                                                 minHeight: "160px",
@@ -385,6 +393,7 @@ const Tables = props => {
                                                                 column.id !== "status" &&
                                                                 handleOpenDialog(item[column.id])
                                                             }}
+
                                                         >
                                                             {item[column.id]}
                                                         </Typography>
@@ -409,6 +418,7 @@ const Tables = props => {
                                                             }}
                                                         >
                                                             {item.fname + " " + item.lname}
+
                                                         </Typography>
                                                         }
                                                         {column.type === "actions" &&
@@ -430,6 +440,7 @@ const Tables = props => {
                                                             </IconButton>
                                                         </ButtonGroup>
                                                         }
+D
                                                         {column.type === "approve" &&
                                                         <ButtonGroup color="primary">
                                                             <IconButton
@@ -449,6 +460,7 @@ const Tables = props => {
                                                             </IconButton>
                                                         </ButtonGroup>
                                                         }
+
 
                                                     </TableCell>
                                                 )

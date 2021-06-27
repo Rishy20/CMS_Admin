@@ -1,18 +1,38 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Title from '../Title';
-import {Grid} from "@material-ui/core";
+import {Backdrop, CircularProgress, Grid} from "@material-ui/core";
 import RegistrationInfoCard from "../RegistrationInfoCard"
 import EventInfoCard from "../EventInfoCard";
 import TotalValueCard from "../TotalValueCard";
 import OverviewCard from "../OverviewCard";
+import {DashboardDataRender} from "../DashboardDataRender";
 
 //Admin Dashboard Page
-const Dashboard = () => {
-    // States
+const Dashboard = ({baseUrl}) => {
+    // Loading state
+    const [loading, setLoading] = useState(true);
+
+    // Total value states
     const [pendingEdits, setPendingEdits] = useState(0);
     const [totalAttendees, setTotalAttendees] = useState(0);
     const [totalPresenters, setTotalPresenters] = useState(0);
     const [totalResearchers, setTotalResearchers] = useState(0);
+
+    // Registration info state
+    const [registrationInfo, setRegistrationInfo] = useState({
+        totalRevenue: 0,
+        totalRegistrations: 0,
+        chartData: []
+    })
+
+    // Event info state
+    const [eventInfo, setEventInfo] = useState({
+        title: "",
+        location: "",
+        date: "",
+        time: "",
+        remaining: 0
+    });
 
     // Overview card states
     const [submissionInfo, setSubmissionInfo] = useState({
@@ -22,7 +42,7 @@ const Dashboard = () => {
         rejected: 0,
         chartData: []
     });
-    const [reviewersInfo, setReviewerInfo] = useState({
+    const [reviewersInfo, setReviewersInfo] = useState({
         total: 0,
         pending: 0,
         accepted: 0,
@@ -44,6 +64,33 @@ const Dashboard = () => {
         chartData: []
     });
 
+    useEffect(() => {
+        DashboardDataRender(baseUrl).then(data => {
+            // Set registration info
+            setRegistrationInfo({...data.registrationInfo});
+
+            // Set event info
+            setEventInfo({...data.eventInfo});
+
+            // Set total values
+            setPendingEdits(data.pendingEdits);
+            setTotalAttendees(data.totalAttendees);
+            setTotalPresenters(data.totalPresenters);
+            setTotalResearchers(data.totalResearchers);
+
+            // Set submissions info
+            setSubmissionInfo(data.submissionsInfo);
+            // Set reviewer info
+            setReviewersInfo(data.reviewersInfo);
+            // Set research proposals info
+            setResearchPropInfo(data.researchPropInfo);
+            // Set workshop proposals info
+            setWorkshopPropInfo(data.workshopPropInfo);
+
+            setLoading(false);
+        });
+    }, [])
+
     return (
         <>
             <div>
@@ -58,12 +105,22 @@ const Dashboard = () => {
 
                 {/* Registration Info Card */}
                 <Grid item md={8}>
-                    <RegistrationInfoCard />
+                    <RegistrationInfoCard
+                        totalRevenue={registrationInfo.totalRevenue}
+                        totalRegistrations={registrationInfo.totalRegistrations}
+                        chartData={registrationInfo.chartData}
+                    />
                 </Grid>
 
                 {/* Event Info Card */}
                 <Grid item md={4}>
-                    <EventInfoCard />
+                    <EventInfoCard
+                        title={eventInfo.title}
+                        location={eventInfo.location}
+                        date={eventInfo.date}
+                        time={eventInfo.time}
+                        remaining={eventInfo.remaining}
+                    />
                 </Grid>
 
                 {/* Total Pending Edits/Attendees etc. Cards */}
@@ -80,7 +137,7 @@ const Dashboard = () => {
                         title="Total Attendees"
                         value={totalAttendees}
                         styles="totalAttendees"
-                        path="/registrations"
+                        path="/attendees"
                     />
                 </Grid>
                 <Grid item md={3}>
@@ -88,7 +145,7 @@ const Dashboard = () => {
                         title="Total Presenters"
                         value={totalPresenters}
                         styles="totalPresenters"
-                        path="/registrations"
+                        path="/presenters"
                     />
                 </Grid>
                 <Grid item md={3}>
@@ -96,7 +153,7 @@ const Dashboard = () => {
                         title="Total Researchers"
                         value={totalResearchers}
                         styles="totalResearchers"
-                        path="/registrations"
+                        path="/researchers"
                     />
                 </Grid>
 
@@ -104,28 +161,33 @@ const Dashboard = () => {
                 <Grid item xs={6}>
                     <OverviewCard
                         title="Submissions Overview"
-                        submissions={submissionInfo}
+                        data={submissionInfo}
                     />
                 </Grid>
                 <Grid item xs={6}>
                     <OverviewCard
                         title="Reviewers Overview"
-                        submissions={reviewersInfo}
+                        data={reviewersInfo}
                     />
                 </Grid>
                 <Grid item xs={6}>
                     <OverviewCard
                         title="Research Proposals Overview"
-                        submissions={researchPropInfo}
+                        data={researchPropInfo}
                     />
                 </Grid>
                 <Grid item xs={6}>
                     <OverviewCard
                         title="Workshop Proposals Overview"
-                        submissions={workshopPropInfo}
+                        data={workshopPropInfo}
                     />
                 </Grid>
             </Grid>
+
+            {/* Loading backdrop */}
+            <Backdrop open={loading} style={{zIndex: 99}}>
+                <CircularProgress style={{color: "#E2BC7F"}} />
+            </Backdrop>
         </>
     )
 }

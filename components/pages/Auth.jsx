@@ -58,12 +58,14 @@ const Auth = props => {
                     {/* Content */}
                     <TabPanel value={tab} index={0}>
                         <Login
+                            baseUrl={props.baseUrl}
                             loginCallback={props.loginCallback}
                             setSubmitError={setSubmitError}
                         />
                     </TabPanel>
                     <TabPanel value={tab} index={1}>
                         <Register
+                            baseUrl={props.baseUrl}
                             registerCallback={registerCallback}
                             setFeedback={{setSubmitSuccess, setSubmitError}}
                         />

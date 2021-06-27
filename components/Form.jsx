@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Grid from "@material-ui/core/Grid";
 import Select from "./Select";
 import Input from "./Input";
@@ -21,7 +21,6 @@ const btnTop={
 
 const progress = {
     color: "#E2BC7F",
-    display: "right",
     marginBlockStart: "8px",
     marginInlineEnd: "8px",
     float: "right"
@@ -34,13 +33,23 @@ function Form(props){
     const callback = props.callback;
     const buttons = props.btns;
     const method = props.method;
+    const adminUserUpdate = props.adminUserUpdate;
     const singleColumn = props.singleColumn;
-    const isSubmitting = props.isSubmitting;
-    const callbackIsSubmitting = props.callbackIsSubmitting;
-    console.log(method);
+
+    // Handle isSubmitting state for submitting feedback
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const callbackIsSubmitting = state => setIsSubmitting(state);
 
     //Import methods from useForm hook
-    const {handleChange, handleSubmit, values, errors } = useForm(callback,validate,names,url,method,callbackIsSubmitting);
+    const {handleChange, handleSubmit, values, errors } = useForm(
+        callback, validate, names, url, method, adminUserUpdate, callbackIsSubmitting
+    );
+
+    // Cancel button action
+    const handleCancel = event => {
+        event.preventDefault();
+        callback();
+    }
 
     return(
         <div>
@@ -53,7 +62,7 @@ function Form(props){
                                 return <Grid item xs={12} md={singleColumn ? 12 : 6} key={input.name}>
                                     <Select name={input.name} label={input.label} values={input.values} value={values[input.name]}
                                             onChange={input.onChange ? input.onChange : handleChange}
-                                            error={errors[input.name] ? errors[input.name] : ''}
+                                            error={errors[input.name] ? errors[input.name] : ''} disabled={input.disabled}
                                     />
                                 </Grid>
                             }else {
@@ -61,6 +70,7 @@ function Form(props){
                                     <Input label={input.label} value={values[input.name]} id={input.name} type={input.type}
                                            name={input.name} onChange={handleChange} placeholder={input.placeholder}
                                            error={errors[input.name] ? errors[input.name] : ''} maxLength={input.maxLength}
+                                           disabled={input.disabled}
                                     />
                                 </Grid>
                             }
@@ -71,8 +81,16 @@ function Form(props){
                 <div style={props.btnstyle==='top'? btnTop:btnStyle}>
                     {/* Buttons */}
                     {
-                        buttons.reverse().map(btn => {
-                            return <Button btnStyle={btn.style} name={btn.name} type={btn.type} key={btn.name} disabled={isSubmitting}/>
+                        // Render buttons in reverse order to counter the reversing applied due to 'float: right' style
+                        buttons.slice(0).reverse().map(btn => {
+                            return <Button
+                                btnStyle={btn.style}
+                                name={btn.name}
+                                type={btn.type}
+                                key={btn.name}
+                                disabled={isSubmitting}
+                                onclick={btn.type === "cancel" ? handleCancel : () => {}}
+                            />
                         })
                     }
 
