@@ -8,7 +8,7 @@ import OverviewCard from "../OverviewCard";
 import {DashboardDataRender} from "../DashboardDataRender";
 
 // Admin Dashboard Page
-const Dashboard = ({ baseUrl, role }) => {
+const AdminDashboard = ({ baseUrl, role }) => {
     // Loading state
     const [loading, setLoading] = useState(true);
 
@@ -65,7 +65,7 @@ const Dashboard = ({ baseUrl, role }) => {
     });
 
     useEffect(() => {
-        DashboardDataRender(baseUrl).then(data => {
+        DashboardDataRender(baseUrl, role).then(data => {
             // Set registration info
             setRegistrationInfo({...data.registrationInfo});
 
@@ -128,95 +128,80 @@ const Dashboard = ({ baseUrl, role }) => {
                 {/* TOTAL VALUE CARDS */}
 
                 {/* Total Pending Edits Card */}
-                { role === "admin" &&
-                    <Grid item md={3} xs={6}>
-                        <TotalValueCard
-                            title="Pending Edit Approvals"
-                            value={pendingEdits}
-                            styles="pendingEdits"
-                            path="/edits"
-                        />
-                    </Grid>
-                }
+                <Grid item md={3} xs={6}>
+                    <TotalValueCard
+                        title="Pending Edit Approvals"
+                        value={pendingEdits}
+                        styles="red"
+                        path="/edits"
+                    />
+                </Grid>
 
                 {/* Total Attendees Card */}
-                { role === "admin" &&
-                    <Grid item md={3}>
-                        <TotalValueCard
-                            title="Total Attendees"
-                            value={totalAttendees}
-                            styles="totalAttendees"
-                            path="/attendees"
-                        />
-                    </Grid>
-                }
+                <Grid item md={3}>
+                    <TotalValueCard
+                        title="Total Attendees"
+                        value={totalAttendees}
+                        styles="orange"
+                        path="/attendees"
+                    />
+                </Grid>
 
                 {/* Total Presenters Card */}
-                { (role === "admin" || role === "reviewer") &&
-                    <Grid item md={3}>
-                        <TotalValueCard
-                            title="Total Presenters"
-                            value={totalPresenters}
-                            styles="totalPresenters"
-                            path="/presenters"
-                        />
-                    </Grid>
-                }
+                <Grid item md={3}>
+                    <TotalValueCard
+                        title="Total Presenters"
+                        value={totalPresenters}
+                        styles="blue"
+                        path="/presenters"
+                    />
+                </Grid>
 
                 {/* Total Researchers Card */}
-                { (role === "admin" || role === "reviewer") &&
-                    <Grid item md={3}>
-                        <TotalValueCard
-                            title="Total Researchers"
-                            value={totalResearchers}
-                            styles="totalResearchers"
-                            path="/researchers"
-                        />
-                    </Grid>
-                }
+                <Grid item md={3}>
+                    <TotalValueCard
+                        title="Total Researchers"
+                        value={totalResearchers}
+                        styles="green"
+                        path="/researchers"
+                    />
+                </Grid>
 
 
                 {/* OVERVIEW CARDS */}
 
                 {/* Submissions Overview Card */}
-                { (role === "admin" || role === "reviewer") &&
-                    <Grid item xs={6}>
-                        <OverviewCard
-                            title="Submissions Overview"
-                            data={submissionInfo}
-                        />
-                    </Grid>
-                }
+                <Grid item xs={6}>
+                    <OverviewCard
+                        title="Submissions Overview"
+                        data={submissionInfo}
+                    />
+                </Grid>
 
                 {/* Reviewers Overview Card */}
-                { role === "admin" &&
-                    <Grid item xs={6}>
-                        <OverviewCard
-                            title="Reviewers Overview"
-                            data={reviewersInfo}
-                        />
-                    </Grid>
-                }
+                <Grid item xs={6}>
+                    <OverviewCard
+                        title="Reviewers Overview"
+                        data={reviewersInfo}
+                    />
+                </Grid>
 
                 {/* Research Proposals Overview Card */}
-                { (role === "admin" || role === "reviewer") &&
-                    <Grid item xs={6}>
-                        <OverviewCard
-                            title="Research Proposals Overview"
-                            data={researchPropInfo}
-                        />
-                    </Grid>
-                }
+                <Grid item xs={6}>
+                    <OverviewCard
+                        title="Research Proposals Overview"
+                        data={researchPropInfo}
+                    />
+                </Grid>
 
                 {/* Workshops Overview Card */}
-                { (role === "admin" || role === "reviewer") &&
-                    <Grid item xs={6}>
-                        <OverviewCard
-                            title="Workshop Proposals Overview"
-                            data={workshopPropInfo}
-                        />
-                    </Grid>
-                }
+                <Grid item xs={6}>
+                    <OverviewCard
+                        title="Workshop Proposals Overview"
+                        data={workshopPropInfo}
+                    />
+                </Grid>
+
             </Grid>
 
 
@@ -228,4 +213,4 @@ const Dashboard = ({ baseUrl, role }) => {
     )
 }
 
-export default Dashboard;
+export default AdminDashboard;

@@ -1,6 +1,6 @@
 import React from "react";
 import {Switch, Route, Redirect} from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
+import AdminDashboard from "./pages/AdminDashboard";
 import UserProfile from "./pages/UserProfile";
 import Agenda from "./pages/Agenda";
 import Reviewer from "./pages/Reviewer";
@@ -11,6 +11,8 @@ import Attendees from "./pages/Attendees";
 import Researchers from "./pages/Researchers";
 import Edits from "./pages/Edits";
 import Presenters from "./pages/Presenters";
+import EditorDashboard from "./pages/EditorDashboard";
+import ReviewerDashboard from "./pages/ReviewerDashboard";
 
 // Container for main application views
 const MainContent = ({role, ...props}) => (
@@ -22,11 +24,6 @@ const MainContent = ({role, ...props}) => (
     >
         <Switch>
             {/* COMMON Routes */}
-
-            {/* Dashboard */}
-            <Route exact path="/">
-                <Dashboard baseUrl={props.baseUrl} role={role} />
-            </Route>
 
             {/* User Profile */}
             <Route path="/account">
@@ -41,6 +38,13 @@ const MainContent = ({role, ...props}) => (
             </Route>
 
             {/* ADMIN-SPECIFIC Routes */}
+
+            {/* Dashboard */}
+            { role === "admin" &&
+                <Route exact path="/">
+                    <AdminDashboard baseUrl={props.baseUrl} role={role} />
+                </Route>
+            }
 
             {/* Editors */}
             {role === "admin" &&
@@ -86,6 +90,13 @@ const MainContent = ({role, ...props}) => (
 
             {/* EDITOR-SPECIFIC Routes */}
 
+            {/* Dashboard */}
+            { role === "editor" &&
+                <Route exact path="/">
+                    <EditorDashboard baseUrl={props.baseUrl} role={role} />
+                </Route>
+            }
+
             {/* Agenda */}
             { (role === "editor" || role === "admin") &&
                 <Route path="/events">
@@ -109,6 +120,13 @@ const MainContent = ({role, ...props}) => (
 
 
             {/* REVIEWER-SPECIFIC Routes */}
+
+            {/* Dashboard */}
+            { role === "reviewer" &&
+                <Route path="/">
+                    <ReviewerDashboard baseUrl={props.baseUrl} role={role} userId={props.user._id} />
+                </Route>
+            }
 
 
             {/* DEFAULT Route */}
