@@ -17,7 +17,7 @@ import {
 import Button from "../components/Button";
 import {Delete, Edit} from "@material-ui/icons";
 import {useFetch} from "./useFetch";
-import ScrollableDialog from "./pages/ScrollableDialog";
+import ScrollableDialog from "./ScrollableDialog";
 
 
 const useStyles = makeStyles({
@@ -213,7 +213,7 @@ const Tables = props => {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'x-access-token':localStorage.getItem("token")
+                'x-access-token':localStorage.getItem("adminToken")
             },
             method: "DELETE"
 

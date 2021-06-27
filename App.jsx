@@ -46,7 +46,7 @@ function App() {
     // Set userId and baseUserUrl if and when the user is logged in (when role is set)
     useEffect(() => {
         if (role) {
-            setUserId(jwt_decode(Cookies.get("token")).id);
+            setUserId(jwt_decode(Cookies.get("adminToken")).id);
             setBaseUserUrl(`${baseUrl}/${role}s`);
         }
     }, [role]);
@@ -95,7 +95,7 @@ function App() {
     // Logout function
     const logout = () => {
         // Remove the JWT token
-        Cookies.remove("token");
+        Cookies.remove("adminToken");
 
         //Reset user related states
         setRole(false);
