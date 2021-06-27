@@ -13,6 +13,8 @@ import Edits from "./pages/Edits";
 import Presenters from "./pages/Presenters";
 import EditorDashboard from "./pages/EditorDashboard";
 import ReviewerDashboard from "./pages/ReviewerDashboard";
+import PendingReviews from "./pages/PendingReviews";
+import MyReviews from "./pages/MyReviews";
 
 // Container for main application views
 const MainContent = ({role, ...props}) => (
@@ -126,6 +128,17 @@ const MainContent = ({role, ...props}) => (
                 <Route path="/">
                     <ReviewerDashboard baseUrl={props.baseUrl} role={role} userId={props.user._id} />
                 </Route>
+            }
+
+            {role === "reviewer" &&
+                <>
+                    <Route path="/reviews/pending">
+                        <PendingReviews baseUrl={props.baseUrl} userId={props.user._id}/>
+                    </Route>
+                    <Route path="/reviews/my">
+                        <MyReviews baseUrl={props.baseUrl} userId={props.user._id}/>
+                    </Route>
+                </>
             }
 
 
