@@ -44,13 +44,20 @@ const Templates = ({baseUrl}) => {
 
             {/*Add Path*/}
             <Route path="/templates/add">
-                <TemplateForm url={url} title="Add Template" callback={toLink} />
+                <TemplateForm
+                    url={url}
+                    title="Add Template"
+                    formTitle="Template Information"
+                    callback={toLink}
+                />
             </Route>
 
             {/*Edit Path*/}
             <Route path="/templates/edit">
                 <TemplateForm
-                    url={url} title="Edit Template"
+                    url={url}
+                    title="Edit Template"
+                    formTitle="Template Information"
                     update
                     originData={editData}
                     callback={toLink}

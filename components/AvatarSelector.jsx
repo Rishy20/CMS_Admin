@@ -75,7 +75,7 @@ const AvatarSelector = ({callback, avatarSrc, avatarTxt, edit}) => {
                 </Avatar>
             </Badge>
 
-            <div hidden={!avatarEdit}>
+            <div hidden={!avatarEdit} style={{marginBlockStart: "24px"}}>
                 {edit && <FileUpload callback={callback} setPreview={setPreview} imagesOnly />}
             </div>
         </>

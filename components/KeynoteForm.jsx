@@ -27,10 +27,15 @@ const progress = {
     float: "right"
 }
 
-const TemplateForm = props => {
+const KeynoteForm = props => {
     const [values,setValues] = useState({
-        name: "",
-        file: "",
+        fname: "",
+        lname: "",
+        jobTitle: "",
+        company: "",
+        country: "",
+        bio: "",
+        img: "",
     });
     const [file, setFile] = useState(null);
     const [errors,setErrors] = useState({});
@@ -45,13 +50,13 @@ const TemplateForm = props => {
         setValues({...values,[name]:value});
     };
 
-    const handleAddFile = template => {
-        if (template.file) {
-            const {file} = template;
+    const handleAddFile = image => {
+        if (image.file) {
+            const {file} = image;
             setFile(file);
-            setValues({...values, file: file.name});
+            setValues({...values, img: file.name});
         } else {
-            setValues({...values, file: props.originData ? props.originData.file : ""});
+            setValues({...values, img: props.originData ? props.originData.file : ""});
             setFile(null);
         }
     }
@@ -118,14 +123,44 @@ const TemplateForm = props => {
                     <form onSubmit={handleSubmit}>
                         <Grid container spacing={2}  justify="center">
                             <Grid item xs={12} md={6}>
-                                <Input label="Template Name" value={values.name} id="name" type="text"
-                                       name="name" onChange={handleChange} placeholder="Enter template name"
-                                       error={errors["name"] ? errors["name"] : ''}
+                                <Input label="First Name" value={values.fname} id="fname" type="text"
+                                       name="fname" onChange={handleChange}
+                                       error={errors["fname"] ? errors["fname"] : ''}
                                 />
                             </Grid>
                             <Grid item xs={12} md={6}>
-                                <label style={formLabel}>Template File</label>
-                                <FileUpload callback={handleAddFile} fileNamePreview />
+                                <Input label="Last Name" value={values.lname} id="lname" type="text"
+                                       name="lname" onChange={handleChange}
+                                       error={errors["lname"] ? errors["lname"] : ''}
+                                />
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <Input label="Job Title" value={values.jobTitle} id="jobTitle" type="text"
+                                       name="jobTitle" onChange={handleChange}
+                                       error={errors["jobTitle"] ? errors["jobTitle"] : ''}
+                                />
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <Input label="Company" value={values.company} id="company" type="text"
+                                       name="company" onChange={handleChange}
+                                       error={errors["company"] ? errors["company"] : ''}
+                                />
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <Input label="Country" value={values.country} id="country" type="text"
+                                       name="country" onChange={handleChange}
+                                       error={errors["country"] ? errors["country"] : ''}
+                                />
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <Input label="Bio" value={values.bio} id="bio" type="textarea"
+                                       name="bio" onChange={handleChange}
+                                       error={errors["bio"] ? errors["bio"] : ''}
+                                />
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <label style={formLabel}>Image</label>
+                                <FileUpload callback={handleAddFile} imagesOnly imagePreview />
                             </Grid>
                         </Grid>
 
@@ -152,4 +187,4 @@ const TemplateForm = props => {
     )
 }
 
-export default TemplateForm;
+export default KeynoteForm;

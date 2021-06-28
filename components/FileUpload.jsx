@@ -100,6 +100,16 @@ function FileUpload({
                         </div>
                     ))}
                 </div>
+                {/* Image preview */}
+                { (props.imagePreview && files.file) &&
+                    <img
+                        src={URL.createObjectURL(files.file)}
+                        alt={`file preview ${files.file.name}`}
+                        className="img-preview"
+                    />
+                }
+
+                {/* Filename preview */}
                 { (props.fileNamePreview && files.file) && files.file.name }
             </div>
         </div>
