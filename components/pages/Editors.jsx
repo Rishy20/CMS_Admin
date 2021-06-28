@@ -75,7 +75,7 @@ const columns = [
                 {value: "suspended", displayAs: "Suspended"}
             ]
         }
-]
+    ]
 
 // Buttons to be displayed in the form
     const buttons = [
@@ -113,6 +113,9 @@ const Editors = ({baseUrl}) => {
         history.push("/editors");
     }
 
+    // Edit form inputs
+    const editInputs = inputs.filter(input => input.name !== "password");
+
     return (
         <div>
             <Route exact path="/editors">
@@ -144,7 +147,7 @@ const Editors = ({baseUrl}) => {
                 <FormHolder
                     title={"Edit Editor"}
                     formTitle={"Editor Information"}
-                    inputs={inputs}
+                    inputs={editInputs}
                     buttons={buttons}
                     names={editData}
                     callback={toLink}

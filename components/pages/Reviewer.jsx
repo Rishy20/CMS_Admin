@@ -113,6 +113,9 @@ const Reviewers = ({baseUrl}) => {
         history.push("/reviewers");
     }
 
+    // Edit form inputs
+    const editInputs = inputs.filter(input => input.name !== "password");
+
     return (
         <div>
             <Route exact path="/reviewers">
@@ -144,7 +147,7 @@ const Reviewers = ({baseUrl}) => {
                 <FormHolder
                     title={"Edit Reviewer"}
                     formTitle={"Reviewer Information"}
-                    inputs={inputs}
+                    inputs={editInputs}
                     buttons={buttons}
                     names={editData}
                     callback={toLink}

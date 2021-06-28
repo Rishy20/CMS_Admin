@@ -55,11 +55,6 @@ const inputs = [
         name: "contact"
     },
     {
-        label: "Password",
-        type: "password",
-        name: "password"
-    },
-    {
         label: "City",
         type: "text",
         name: "city",
@@ -91,7 +86,6 @@ const names = {
     lname: "",
     email: "",
     contact: "",
-    password: "",
     city: "",
     country: "",
 }

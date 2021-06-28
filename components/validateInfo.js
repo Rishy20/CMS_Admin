@@ -211,12 +211,35 @@ export default function validateInfo(values){
             errors.date = "Please select a date";
         }
     }
-    // Validate time
-    if (values.hasOwnProperty("time")) {
-        if (!values.time.trim()) {
-            errors.time = "Please enter a time";
+    // Validate start time
+    if (values.hasOwnProperty("startTime")) {
+        if (!values.startTime.trim()) {
+            errors.startTime = "Please enter a start time";
         }
     }
+    // Validate end time
+    if (values.hasOwnProperty("endTime")) {
+        if (!values.endTime.trim()) {
+            errors.endTime = "Please enter an end time";
+        }
+    }
+    // Validate day number
+    if (values.hasOwnProperty("dayNumber")) {
+        if (!values.dayNumber.trim()) {
+            errors.dayNumber = "Please enter a day number";
+        } else if (parseInt(values.dayNumber) < 1) {
+            errors.dayNumber = "Please enter a valid day number";
+        }
+    }
+    // Validate start time and end time
+    if (values.hasOwnProperty("startTime") && values.hasOwnProperty("endTime")) {
+        if (values.startTime.trim() && values.endTime.trim()) {
+            if (values.endTime < values.startTime) {
+                errors.endTime = "End time should not be earlier than the start time";
+            }
+        }
+    }
+
     // Validate researcher
     if (values.hasOwnProperty("researcher")) {
         if (values.type === "Research Proposal") {
@@ -230,6 +253,14 @@ export default function validateInfo(values){
         if (values.type === "Workshop") {
             if (!values.workshop.trim()) {
                 errors.workshop = "Please select a workshop";
+            }
+        }
+    }
+    // Validate workshop
+    if (values.hasOwnProperty("keynote")) {
+        if (values.type === "Keynote") {
+            if (!values.keynote.trim()) {
+                errors.keynote = "Please select a keynote";
             }
         }
     }

@@ -119,6 +119,9 @@ const Researchers = ({baseUrl}) => {
         history.push("/researchers");
     }
 
+    // Edit form inputs
+    const editInputs = inputs.filter(input => input.name !== "password");
+
     return (
         <div>
             <Route exact path="/researchers">
@@ -150,7 +153,7 @@ const Researchers = ({baseUrl}) => {
                 <FormHolder
                     title={"Edit Researcher"}
                     formTitle={"Researcher Information"}
-                    inputs={inputs}
+                    inputs={editInputs}
                     buttons={buttons}
                     names={editData}
                     callback={toLink}

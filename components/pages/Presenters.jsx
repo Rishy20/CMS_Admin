@@ -119,6 +119,9 @@ const Presenters = ({baseUrl}) => {
         history.push("/presenters");
     }
 
+    // Edit form inputs
+    const editInputs = inputs.filter(input => input.name !== "password");
+
     return (
         <div>
             <Route exact path="/presenters">
@@ -150,7 +153,7 @@ const Presenters = ({baseUrl}) => {
                 <FormHolder
                     title={"Edit Presenter"}
                     formTitle={"Presenter Information"}
-                    inputs={inputs}
+                    inputs={editInputs}
                     buttons={buttons}
                     names={editData}
                     callback={toLink}
