@@ -56,33 +56,39 @@ const inputs = [
     {
         label:"Day Number",
         type:"number",
-        name:"dayNumber"
+        name:"dayNumber",
+        disabled: true
     },
     {
         label:"Date",
         type:"date",
-        name:"date"
+        name:"date",
+        disabled: true
     },
     {
         label:"Start Time",
         type:"time",
-        name:"startTime"
+        name:"startTime",
+        disabled: true
     },
     {
         label:"End Time",
         type:"time",
-        name:"endTime"
+        name:"endTime",
+        disabled: true
     },
     {
         label:"Event Name",
         type:"text",
         name:"name",
+        disabled: true
     },
     {
         label:"Event Type",
         type:"select",
         name:"type",
-        values:["Research Proposal", "Workshop", "Keynote"]
+        values:["Research Proposal", "Workshop", "Keynote"],
+        disabled: true
     },
 ]
 
@@ -99,18 +105,6 @@ const buttons = [
         type: "cancel",
     },
 ]
-//Input box names used in the form so that they can be sent to useForm hook to maintain the state
-const names = {
-    dayNumber: '',
-    date: '',
-    startTime: '',
-    endTime: '',
-    name: '',
-    type: '',
-    researcher: '',
-    workshop: '',
-    keynote: '',
-}
 
 const Agenda = props => {
     // API URL
@@ -121,30 +115,45 @@ const Agenda = props => {
 
     // State for 'workshop' input field
     const [researcherInput, setResearcherInput] = useState({
-            label:"Researcher",
-            type:"select",
-            name:"researcher",
-            values:[],
-            hidden: true
-        });
+        label:"Researcher",
+        type:"select",
+        name:"researcher",
+        values:[],
+        hidden: true,
+        disabled: true,
+    });
 
     // State for 'workshop' input field
     const [workshopInput, setWorkshopInput] = useState({
-            label:"Workshop",
-            type:"select",
-            name:"workshop",
-            values:[],
-            hidden: true
-        });
+        label:"Workshop",
+        type:"select",
+        name:"workshop",
+        values:[],
+        hidden: true,
+        disabled: true,
+    });
 
     // State for 'workshop' input field
     const [keynoteInput, setKeynoteInput] = useState({
-            label:"Keynote",
+        label:"Keynote",
+        type:"select",
+        name:"keynote",
+        values:[],
+        hidden: true,
+        disabled: true,
+    });
+
+    // Status input
+    const status = {
+        label:"Status",
             type:"select",
-            name:"keynote",
-            values:[],
-            hidden: true
-        });
+        name:"status",
+        values: [
+            {value: "pending", displayAs: "Pending"},
+            {value: "approved", displayAs: "Approved"},
+            {value: "rejected", displayAs: "Rejected"},
+        ]
+    }
 
     const history = useHistory();
 
@@ -242,20 +251,7 @@ const Agenda = props => {
                     type="events"
                     setEditData={setEditData}
                     sortBy="date"
-                />
-            </Route>
-            {/*Add Path*/}
-            <Route path="/events/add">
-                <FormHolder
-                    title={"Add Event"}
-                    formTitle={"Event Information"}
-                    inputs={[...inputs, researcherInput, workshopInput, keynoteInput]}
-                    buttons={buttons}
-                    names={names}
-                    callback={toLink}
-                    onChangeCallback={handleDynamicInputField}
-                    url={url}
-                    method={"POST"}
+                    disableAdd
                 />
             </Route>
             {/*Edit Path*/}
@@ -263,7 +259,7 @@ const Agenda = props => {
                 <FormHolder
                     title={"Edit Event"}
                     formTitle={"Event Information"}
-                    inputs={[...inputs, researcherInput, workshopInput, keynoteInput]}
+                    inputs={[...inputs, researcherInput, workshopInput, keynoteInput, status]}
                     buttons={buttons}
                     names={editData}
                     callback={toLink}

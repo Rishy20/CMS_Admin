@@ -17,6 +17,7 @@ import PendingReviews from "./pages/PendingReviews";
 import MyReviews from "./pages/MyReviews";
 import KeynoteSpeakers from "./pages/KeynoteSpeakers";
 import Templates from "./pages/Templates";
+import AgendaAdmin from "./pages/AgendaAdmin";
 
 // Container for main application views
 const MainContent = ({role, ...props}) => (
@@ -57,6 +58,7 @@ const MainContent = ({role, ...props}) => (
                 </Route>
             }
 
+            {/* Reviewers */}
             {role === "admin" &&
                 <Route path="/reviewers">
                     <Reviewer baseUrl={props.baseUrl} />
@@ -98,6 +100,13 @@ const MainContent = ({role, ...props}) => (
                 </Route>
             }
 
+            {/* Agenda */}
+            { role === "admin" &&
+                <Route path="/events">
+                    <AgendaAdmin baseUrl={props.baseUrl} />
+                </Route>
+            }
+
 
             {/* EDITOR-SPECIFIC Routes */}
 
@@ -109,9 +118,9 @@ const MainContent = ({role, ...props}) => (
             }
 
             {/* Agenda */}
-            { (role === "editor" || role === "admin") &&
+            { role === "editor" &&
                 <Route path="/events">
-                    <Agenda baseUrl={props.baseUrl} role={role} />
+                    <Agenda baseUrl={props.baseUrl} />
                 </Route>
             }
 
