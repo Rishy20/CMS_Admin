@@ -49,6 +49,11 @@ const columnsSettings = [
         id:"endTime",
         type:"text"
     },
+    {
+        name:"Paper Submission Amount",
+        id:"paperSubmissionAmount",
+        type:"text"
+    },
 ];
 
 const columnsEdits = [
@@ -106,6 +111,7 @@ const inputs = [
             {value: "startTime", displayAs: "Start Time"},
             {value: "endDate", displayAs: "End Date"},
             {value: "endTime", displayAs: "End Time"},
+            {value: "paperSubmissionAmount", displayAs: "Paper Submission Amount"},
         ],
         disabled: true
     },
