@@ -26,7 +26,7 @@ const ReviewerDashboard = ({ baseUrl, role, userId }) => {
     });
 
     useEffect(() => {
-        DashboardDataRender(baseUrl, role, userId).then(data => {
+        userId && DashboardDataRender(baseUrl, role, userId).then(data => {
             // Set event info
             setEventInfo({...data.eventInfo});
 
@@ -38,7 +38,7 @@ const ReviewerDashboard = ({ baseUrl, role, userId }) => {
 
             setLoading(false);
         });
-    }, [])
+    }, [userId])
 
     return (
         <>
