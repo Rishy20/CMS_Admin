@@ -126,6 +126,15 @@ const Agenda = props => {
             hidden: true
         });
 
+    // State for 'workshop' input field
+    const [keynoteInput, setKeynoteInput] = useState({
+            label:"Keynote",
+            type:"select",
+            name:"keynote",
+            values:[],
+            hidden: true
+        });
+
     const history = useHistory();
 
     const toLink = () => {
@@ -154,9 +163,20 @@ const Agenda = props => {
                 // For each workshop, set workshop id as input value and workshop name as display value
                 values: data.map(workshop => ({value: workshop._id, displayAs: workshop.workshopName}))
             }));
+
+        // Get keynote speakers to assign as option values for keynote selector
+        fetch(`${props.baseUrl}/keynotes`)
+            .then(data => data.json())
+            .then(data => setKeynoteInput({
+                ...keynoteInput,
+                // For each keynote, set keynote id as input value and keynote name as display value
+                values: data.map(keynote => ({
+                    value: keynote._id, displayAs: `${keynote.fname} ${keynote.lname}`
+                }))
+            }));
     }, []);
 
-    // Handle displaying 'workshop' input field
+    // Handle displaying dynamic input fields according to selected event type
     const handleDynamicInputField = event => {
         const {name, value} = event.target;
 
@@ -173,14 +193,23 @@ const Agenda = props => {
         } else if (name === "type" && value !== "Workshop") {
             setWorkshopInput({...workshopInput, hidden: true});
         }
+
+        // Show 'keynote' input only if 'Keynote' is selected for 'Event Type'
+        if (name === "type" && value === "Keynote") {
+            setKeynoteInput({...keynoteInput, hidden: false});
+        } else if (name === "type" && value !== "Keynote") {
+            setKeynoteInput({...keynoteInput, hidden: true});
+        }
     }
 
-    // Handle displaying 'researcher' and 'workshop' input field according to selected 'editData'
+    // Handle displaying 'researcher', 'workshop' and 'keynote' input field according to selected 'editData'
     useEffect(() => {
         if (editData && editData.type === "Research Proposal") {
             setResearcherInput({...researcherInput, hidden: false});
         } else if (editData && editData.type === "Workshop") {
             setWorkshopInput({...workshopInput, hidden: false});
+        } else if (editData && editData.type === "Keynote") {
+            setKeynoteInput({...keynoteInput, hidden: false});
         }
     }, [editData]);
 
@@ -188,6 +217,7 @@ const Agenda = props => {
     const reset = () => {
         setResearcherInput({...researcherInput, hidden: true});
         setWorkshopInput({...workshopInput, hidden: true});
+        setKeynoteInput({...keynoteInput, hidden: true});
     }
 
     return (
@@ -210,7 +240,7 @@ const Agenda = props => {
                 <FormHolder
                     title={"Add Event"}
                     formTitle={"Event Information"}
-                    inputs={[...inputs, researcherInput, workshopInput]}
+                    inputs={[...inputs, researcherInput, workshopInput, keynoteInput]}
                     buttons={buttons}
                     names={names}
                     callback={toLink}
@@ -224,7 +254,7 @@ const Agenda = props => {
                 <FormHolder
                     title={"Edit Event"}
                     formTitle={"Event Information"}
-                    inputs={[...inputs, researcherInput, workshopInput]}
+                    inputs={[...inputs, researcherInput, workshopInput, keynoteInput]}
                     buttons={buttons}
                     names={editData}
                     callback={toLink}
