@@ -1,11 +1,7 @@
 import React, {useState} from 'react';
-import Title from '../Title';
-import Formbox from "../Formbox";
 import {Route, useHistory} from "react-router-dom";
 import Tables from "../Tables";
 import FormHolder from "../FormHolder";
-
-const url = "http://localhost:3000/api/v1/tickets";
 
 const columns=[
     {
@@ -16,7 +12,7 @@ const columns=[
     {
         name:"Price",
         id:"price",
-        type:"number"
+        type:"text"
     },
     {
         name:"Description",
@@ -26,7 +22,12 @@ const columns=[
     {
         name:"Quantity",
         id:"qty",
-        type:"number"
+        type:"text"
+    },
+    {
+        name: "Actions",
+        id: "action",
+        type: "actions"
     }
 ]
 
@@ -34,7 +35,7 @@ const inputs=[
     {
         label:"Name",
         type:"text",
-        name:"type",
+        name:"name",
     },
     {
         label:"Price",
@@ -61,6 +62,7 @@ const buttons = [
     {
         name:"Cancel",
         style:"btn-cancel",
+        type: "cancel"
     },
 ]
 const names={
@@ -69,8 +71,9 @@ const names={
     price:'',
     qty:'',
 }
-const Tickets = () => {
-
+const Tickets = props => {
+    // API URL
+    const url = `${props.baseUrl}/tickets`;
 
     // State for the current product in edit
     const [editData, setEditData] = useState(null);

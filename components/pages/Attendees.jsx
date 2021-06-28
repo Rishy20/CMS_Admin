@@ -26,11 +26,6 @@ const columns = [
         type: "text"
     },
     {
-        name: "Ticket",
-        id: "ticket",
-        type: "text"
-    },
-    {
         name: "Actions",
         id: "action",
         type: "actions"
@@ -74,12 +69,6 @@ const inputs = [
         type: "text",
         name: "country",
     },
-    {
-        label: "Ticket",
-        type: "select",
-        name: "ticket",
-        values: ["Premium Pass", "Platinum Pass", "VIP Pass"]
-    }
 ]
 
 // Buttons to be displayed in the form
@@ -105,7 +94,6 @@ const names = {
     password: "",
     city: "",
     country: "",
-    ticket: "Premium Pass"
 }
 
 const Attendees = ({baseUrl}) => {

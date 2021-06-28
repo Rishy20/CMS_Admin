@@ -16,7 +16,7 @@ const Input = props => {
     const [showPassword, setShowPassword] = useState(false);
 
     return(
-        <div>
+        <div hidden={props.hidden}>
             <label className="form-label" htmlFor={props.name}>{props.label}</label>
 
             {props.type === "textarea" ?

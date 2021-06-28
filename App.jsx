@@ -1,17 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
 import NavBar from './components/NavBar'
-import './App.css'
-
-
-
-
 import TopBar from "./components/TopBar";
 import MainContent from "./components/MainContent";
 import Auth from "./components/pages/Auth";
 import checkLogin from "./components/CheckLogin";
 import jwt_decode from "jwt-decode";
 import Cookies from "js-cookie";
+import './App.css'
 
 const baseUrl = "https://icaf.site/api/v1";
 
@@ -50,7 +46,7 @@ function App() {
     // Set userId and baseUserUrl if and when the user is logged in (when role is set)
     useEffect(() => {
         if (role) {
-            setUserId(jwt_decode(Cookies.get("token")).id);
+            setUserId(jwt_decode(Cookies.get("adminToken")).id);
             setBaseUserUrl(`${baseUrl}/${role}s`);
         }
     }, [role]);
@@ -99,7 +95,7 @@ function App() {
     // Logout function
     const logout = () => {
         // Remove the JWT token
-        Cookies.remove("token");
+        Cookies.remove("adminToken");
 
         //Reset user related states
         setRole(false);

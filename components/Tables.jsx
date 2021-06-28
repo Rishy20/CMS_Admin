@@ -17,7 +17,7 @@ import {
 import Button from "../components/Button";
 import {Delete, Edit,CheckCircle,Cancel} from "@material-ui/icons";
 import {useFetch} from "./useFetch";
-import ScrollableDialog from "./pages/ScrollableDialog";
+import ScrollableDialog from "./ScrollableDialog";
 
 
 const useStyles = makeStyles({
@@ -152,7 +152,7 @@ const Tables = props => {
 
 
     //Get the fetched Data
-    const  {loading,data} = useFetch(url);
+    const  {loading,data} = useFetch(props.altUrl ? props.altUrl : url);
 
     const styles = useStyles();
 
@@ -163,9 +163,8 @@ const Tables = props => {
     }, [sortedCount, items]);
 
     useEffect(() => {
-
         setItems(data);
-
+        props.sortBy && sortItems(props.sortBy, "asc");
     }, [data]);
 
     // Data functions
@@ -178,15 +177,24 @@ const Tables = props => {
     }
 
     // Sorting functions
-    const sortItems = column => {
+    const sortItems = (column, order) => {
         let newData = data;
-        if (column !== sortBy) {
-            setSortOrder("asc");
-            newData.sort(dynamicSort(column, false));
-        } else {
+
+        // Check if sort order is given and sort according to that
+        if (order) {
+            setSortOrder(order);
+            newData.sort(dynamicSort(column, order === "desc"));
+        }
+        // If sort order is not given, check if the given column is the one currently sorted, and if so, toggle sort order
+        else if (column === sortBy) {
             const newOrder = sortOrder === "asc" ? "desc" : "asc";
             setSortOrder(newOrder);
             newData.sort(dynamicSort(column, newOrder === "desc"));
+        }
+        // Else, sort the given column in ascending order
+        else {
+            setSortOrder("asc");
+            newData.sort(dynamicSort(column, false));
         }
 
         setItems(newData)
@@ -222,7 +230,7 @@ const Tables = props => {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'x-access-token':localStorage.getItem("token")
+                'x-access-token':localStorage.getItem("adminToken")
             },
             method: "DELETE"
 
@@ -236,7 +244,6 @@ const Tables = props => {
 
     // Set data for editing
     const setEditDataHandler = tableItem => {
-
         for (let item of items) {
             if (item._id === tableItem._id) {
                 props.setEditData(item);
@@ -272,14 +279,12 @@ const Tables = props => {
             <CardHeader
                 title={props.title}
                 action={!props.disableAdd &&
-
-                <Link to= {`/${props.type}/add`}>
-                    <Button
-                        name={`Add ${props.type.slice(0, -1)}`}
-                        btnStyle="btn-next"
-                    />
-                </Link>
-
+                    <Link to= {`/${props.type}/add`}>
+                        <Button
+                            name={`Add ${props.type}`}
+                            btnStyle="btn-next"
+                        />
+                    </Link>
                 }
                 classes={{action: styles.action,title:styles.cardHead}}
             />
@@ -299,7 +304,12 @@ const Tables = props => {
                                     #
                                 </TableCell>
                                 {
-                                    props.columns.map(column=>{
+                                    props.columns.map(column => {
+                                        // Avoid rendering actions column if table is set to read-only
+                                        if (column.id === "action" && props.readOnly) {
+                                            return
+                                        }
+
                                         return <TableCell
                                             classes={{head: styles.darkCell}}
                                             align="center"
@@ -371,6 +381,11 @@ const Tables = props => {
                                                     })
                                                 }
 
+                                                // Avoid rendering actions column if table is set to read-only
+                                                if (column.id === "action" && props.readOnly) {
+                                                    return
+                                                }
+
                                                 return (
                                                     <TableCell align="center" classes={{root: styles.noBorder}}>
                                                         {column.type === "img" &&
@@ -393,7 +408,6 @@ const Tables = props => {
                                                                 column.id !== "status" &&
                                                                 handleOpenDialog(item[column.id])
                                                             }}
-
                                                         >
                                                             {item[column.id]}
                                                         </Typography>
@@ -440,7 +454,7 @@ const Tables = props => {
                                                             </IconButton>
                                                         </ButtonGroup>
                                                         }
-D
+
                                                         {column.type === "approve" &&
                                                         <ButtonGroup color="primary">
                                                             <IconButton

@@ -40,7 +40,7 @@ const Login = ({baseUrl, loginCallback, setSubmitError}) => {
     // Callback method
     const callback = result => {
         if (result.auth) {
-            Cookies.set("token", result.token, {expires: 1, secure: true});
+            Cookies.set("adminToken", result.token, {expires: 1, secure: true});
             loginCallback();
         } else {
             setSubmitError(result.message);

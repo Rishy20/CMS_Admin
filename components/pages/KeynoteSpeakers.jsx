@@ -16,20 +16,14 @@ const columns = [
         type: "text"
     },
     {
-        name: "Email",
-        id: "email",
+        name: "Job Title",
+        id: "jobTitle",
         type: "text"
     },
     {
-        name: "Phone",
-        id: "contact",
+        name: "Company",
+        id: "company",
         type: "text"
-    },
-    {
-        name: "Status",
-        id: "status",
-        type: "text",
-        statusStyle: true
     },
     {
         name: "Actions",
@@ -41,39 +35,39 @@ const columns = [
 // Inputs stored as an array so they can be mapped to Input component
 const inputs = [
     {
-        label:"First Name",
-        type:"text",
-        name:"fname"
+        label: "First Name",
+        type: "text",
+        name: "fname"
     },
     {
-        label:"Last Name",
-        type:"text",
-        name:"lname"
+        label: "Last Name",
+        type: "text",
+        name: "lname"
     },
     {
-        label:"Email",
-        type:"email",
-        name:"email"
+        label: "Job Title",
+        type: "text",
+        name: "jobTitle"
     },
     {
-        label:"Phone",
-        type:"tel",
-        name:"contact"
+        label: "Company",
+        type: "text",
+        name: "company"
     },
     {
-        label:"Password",
-        type:"password",
-        name:"password"
+        label: "Password",
+        type: "password",
+        name: "password"
     },
     {
-        label:"Status",
-        type:"select",
-        name:"status",
-        values: [
-            {value: "pending", displayAs: "Pending"},
-            {value: "active", displayAs: "Active"},
-            {value: "suspended", displayAs: "Suspended"}
-        ]
+        label: "Country",
+        type: "text",
+        name: "country",
+    },
+    {
+        label: "Bio",
+        type: "textarea",
+        name: "bio",
     }
 ]
 
@@ -93,43 +87,44 @@ const buttons = [
 
 // Input box names used in the form so that they can be sent to useForm hook to maintain the state
 const names = {
-    fname: '',
-    lname: '',
-    email: '',
-    contact: '',
-    password: '',
-    status: ''
+    fname: "",
+    lname: "",
+    jobTitle: "",
+    company: "",
+    password: "",
+    country: "",
+    bio: "",
 }
 
-const Reviewers = ({baseUrl}) => {
+const KeynoteSpeakers = ({baseUrl}) => {
     // API URL
-    const url = `${baseUrl}/reviewers`;
-    // State for the current reviewer to edit
+    const url = `${baseUrl}/keynotes`;
+    // State for the current keynote to edit
     const [editData, setEditData] = useState(null);
 
     const history = useHistory();
 
     const toLink = () => {
-        history.push("/reviewers");
+        history.push("/keynotes");
     }
 
     return (
         <div>
-            <Route exact path="/reviewers">
+            <Route exact path="/keynotes">
                 <Tables
                     url={url}
-                    title={"Reviewers"}
+                    title={"Keynote Speakers"}
                     columns={columns}
-                    type={"reviewers"}
+                    type={"keynotes"}
                     setEditData={setEditData}
                 />
             </Route>
 
             {/*Add Path*/}
-            <Route path="/reviewers/add">
+            <Route path="/keynotes/add">
                 <FormHolder
-                    title={"Add Reviewer"}
-                    formTitle={"Reviewer Information"}
+                    title={"Add Keynote Speaker"}
+                    formTitle={"Keynote Speaker Information"}
                     inputs={inputs}
                     buttons={buttons}
                     names={names}
@@ -140,21 +135,20 @@ const Reviewers = ({baseUrl}) => {
             </Route>
 
             {/*Edit Path*/}
-            <Route path="/reviewers/edit">
+            <Route path="/keynotes/edit">
                 <FormHolder
-                    title={"Edit Reviewer"}
-                    formTitle={"Reviewer Information"}
+                    title={"Edit Keynote Speaker"}
+                    formTitle={"Keynote Speaker Information"}
                     inputs={inputs}
                     buttons={buttons}
                     names={editData}
                     callback={toLink}
                     url={`${url}/${editData ? editData._id : ""}`}
                     method={"PUT"}
-                    adminUserUpdate
                 />
             </Route>
         </div>
     )
 }
 
-export default Reviewers;
+export default KeynoteSpeakers;

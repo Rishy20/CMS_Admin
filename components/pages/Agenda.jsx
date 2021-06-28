@@ -1,78 +1,59 @@
 import React, {useEffect, useState} from "react";
-import {Switch, Route, useHistory, Redirect} from "react-router-dom";
+import {Route, useHistory} from "react-router-dom";
 import Tables from "../Tables";
 import FormHolder from "../FormHolder";
 
-const url = "http://localhost:3000/api/v1/agenda";
-
 const columns=[
     {
-        name:"Start Date",
-        id:"sdate",
-        type:"date"
+        name:"Date",
+        id:"date",
+        type:"text"
     },
     {
-        name:"Start Time",
-        id:"stime",
-        type:"time"
-    },
-    {
-        name:"End Date",
-        id:"edate",
-        type:"date"
-    },
-    {
-        name:"End Time",
-        id:"etime",
-        type:"time"
+        name:"Time",
+        id:"time",
+        type:"text"
     },
     {
         name:"Event Type",
         id:"type",
-        type:"select"
+        type:"text"
     },
     {
-        name:"Event",
-        id:"event",
-        type:"select"
+        name:"Event Name",
+        id:"name",
+        type:"text"
     },
-
+    {
+        name:"Actions",
+        id:"action",
+        type:"actions"
+    }
 ]
 
 //Inputs stored as an array so they can be mapped to Input component
-const inputs=[
-
+const inputs = [
     {
-        label:"Start Date",
+        label:"Date",
         type:"date",
-        name:"sdate"
+        name:"date"
     },
     {
-        label:"Start Time",
+        label:"Time",
         type:"time",
-        name:"stime"
+        name:"time"
     },
     {
-        label:"End Date",
-        type:"date",
-        name:"edate"
-    },
-    {
-        label:"End Time",
-        type:"time",
-        name:"etime"
+        label:"Event Name",
+        type:"text",
+        name:"name",
     },
     {
         label:"Event Type",
         type:"select",
         name:"type",
-        values:["Research paper submission","Workshop"]
+        values:["Research Proposal", "Workshop", "Keynote"]
     },
-    {
-        label:"Event",
-        type:"select",
-        name:"event"
-    }
 ]
 
 //Buttons to be displayed in the form
@@ -85,58 +66,147 @@ const buttons = [
     {
         name:"Cancel",
         style:"btn-cancel",
+        type: "cancel",
     },
 ]
 //Input box names used in the form so that they can be sent to useForm hook to maintain the state
-const names={
-    sdate:'',
-    stime:'',
-    edate:'',
-    etime:'',
-    type:'',
-    event:'',
+const names = {
+    date: '',
+    time: '',
+    name: '',
+    type: '',
+    researcher: '',
+    workshop: '',
 }
 
-const Agenda = () => {
-
+const Agenda = props => {
+    // API URL
+    const url = `${props.baseUrl}/events`;
 
     // State for the current product in edit
     const [editData, setEditData] = useState(null);
 
+    // State for 'workshop' input field
+    const [researcherInput, setResearcherInput] = useState({
+            label:"Researcher",
+            type:"select",
+            name:"researcher",
+            values:[],
+            hidden: true
+        });
+
+    // State for 'workshop' input field
+    const [workshopInput, setWorkshopInput] = useState({
+            label:"Workshop",
+            type:"select",
+            name:"workshop",
+            values:[],
+            hidden: true
+        });
+
     const history = useHistory();
 
     const toLink = () => {
-        history.push("/Agenda");
+        history.push("/events");
+        reset();
+    }
+
+    // Get option values for selector input fields
+    useEffect(() => {
+        // Get approved researchers to assign as option values for researcher selector
+        fetch(`${props.baseUrl}/researchers/approved`)
+            .then(data => data.json())
+            .then(data => setResearcherInput({
+                ...researcherInput,
+                // For each workshop, set workshop id as input value and workshop name as display value
+                values: data.map(researcher => ({
+                    value: researcher._id, displayAs: `${researcher.fname} ${researcher.lname}`
+                }))
+            }));
+
+        // Get approved workshops to assign as option values for workshop selector
+        fetch(`${props.baseUrl}/workshops/approved`)
+            .then(data => data.json())
+            .then(data => setWorkshopInput({
+                ...workshopInput,
+                // For each workshop, set workshop id as input value and workshop name as display value
+                values: data.map(workshop => ({value: workshop._id, displayAs: workshop.workshopName}))
+            }));
+    }, []);
+
+    // Handle displaying 'workshop' input field
+    const handleDynamicInputField = event => {
+        const {name, value} = event.target;
+
+        // Show 'researcher' input only if 'Research Proposal' is selected for 'Event Type'
+        if (name === "type" && value === "Research Proposal") {
+            setResearcherInput({...researcherInput, hidden: false});
+        } else if (name === "type" && value !== "Research Proposal") {
+            setResearcherInput({...researcherInput, hidden: true});
+        }
+
+        // Show 'workshop' input only if 'Workshop' is selected for 'Event Type'
+        if (name === "type" && value === "Workshop") {
+            setWorkshopInput({...workshopInput, hidden: false});
+        } else if (name === "type" && value !== "Workshop") {
+            setWorkshopInput({...workshopInput, hidden: true});
+        }
+    }
+
+    // Handle displaying 'researcher' and 'workshop' input field according to selected 'editData'
+    useEffect(() => {
+        if (editData && editData.type === "Research Proposal") {
+            setResearcherInput({...researcherInput, hidden: false});
+        } else if (editData && editData.type === "Workshop") {
+            setWorkshopInput({...workshopInput, hidden: false});
+        }
+    }, [editData]);
+
+    // Reset values
+    const reset = () => {
+        setResearcherInput({...researcherInput, hidden: true});
+        setWorkshopInput({...workshopInput, hidden: true});
     }
 
     return (
         <div>
 
-            <Route exact path="/agenda">
-                <Tables url={url} title={"Agenda"} columns={columns} type={"agenda"} setEditData={setEditData}/>
+            <Route exact path="/events">
+                <Tables
+                    url={url}
+                    title="Agenda"
+                    columns={columns}
+                    type="events"
+                    setEditData={setEditData}
+                    sortBy="date"
+                    readOnly={props.role === "admin"}
+                    disableAdd={props.role === "admin"}
+                />
             </Route>
             {/*Add Path*/}
-            <Route path="/agenda/add">
+            <Route path="/events/add">
                 <FormHolder
-                    title={"Add Agenda"}
-                    formTitle={"Agenda Information"}
-                    inputs={inputs}
+                    title={"Add Event"}
+                    formTitle={"Event Information"}
+                    inputs={[...inputs, researcherInput, workshopInput]}
                     buttons={buttons}
                     names={names}
                     callback={toLink}
+                    onChangeCallback={handleDynamicInputField}
                     url={url}
                     method={"POST"}
                 />
             </Route>
             {/*Edit Path*/}
-            <Route path="/agenda/edit">
+            <Route path="/events/edit">
                 <FormHolder
-                    title={"Edit Agenda"}
-                    formTitle={"Agenda Information"}
-                    inputs={inputs}
+                    title={"Edit Event"}
+                    formTitle={"Event Information"}
+                    inputs={[...inputs, researcherInput, workshopInput]}
                     buttons={buttons}
                     names={editData}
                     callback={toLink}
+                    onChangeCallback={handleDynamicInputField}
                     url={`${url}/${editData?editData._id:""}`}
                     method={"PUT"}
                 />

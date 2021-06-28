@@ -38,7 +38,17 @@ const columnsSettings = [
         name:"Start Time",
         id:"startTime",
         type:"text"
-    }
+    },
+    {
+        name:"End Date",
+        id:"endDate",
+        type:"text"
+    },
+    {
+        name:"End Time",
+        id:"endTime",
+        type:"text"
+    },
 ];
 
 const columnsEdits = [
@@ -89,6 +99,8 @@ const inputs = [
             {value: "location", displayAs: "Location"},
             {value: "startDate", displayAs: "Start Date"},
             {value: "startTime", displayAs: "Start Time"},
+            {value: "endDate", displayAs: "End Date"},
+            {value: "endTime", displayAs: "End Time"},
         ]
     },
     {
@@ -119,12 +131,12 @@ const buttons = [
 
 //Input box names used in the form so that they can be sent to useForm hook to maintain the state
 const names = {
-    editItem:'conferenceName',
+    editItem:'',
     newValue:'',
     description:'',
 }
 
-const GeneralSettings = ({baseUrl}) => {
+const GeneralSettings = ({baseUrl, userId}) => {
     // API URLs
     const url = `${baseUrl}/edits`;
     const infoUrl = `${baseUrl}/info`;
@@ -151,6 +163,7 @@ const GeneralSettings = ({baseUrl}) => {
                     columns={columnsEdits}
                     type={"edits"}
                     setEditData={setEditData}
+                    altUrl={`${url}/editor/${userId}`}
                 />
             </Route>
 
@@ -161,7 +174,7 @@ const GeneralSettings = ({baseUrl}) => {
                     formTitle={"General Settings Information"}
                     inputs={inputs}
                     buttons={buttons}
-                    names={names}
+                    names={{...names, userId: userId}}
                     callback={toLink}
                     url={url}
                     method={"POST"}

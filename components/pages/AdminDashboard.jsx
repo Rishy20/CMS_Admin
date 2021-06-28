@@ -7,8 +7,8 @@ import TotalValueCard from "../TotalValueCard";
 import OverviewCard from "../OverviewCard";
 import {DashboardDataRender} from "../DashboardDataRender";
 
-//Admin Dashboard Page
-const Dashboard = ({baseUrl}) => {
+// Admin Dashboard Page
+const AdminDashboard = ({ baseUrl, role }) => {
     // Loading state
     const [loading, setLoading] = useState(true);
 
@@ -65,7 +65,7 @@ const Dashboard = ({baseUrl}) => {
     });
 
     useEffect(() => {
-        DashboardDataRender(baseUrl).then(data => {
+        DashboardDataRender(baseUrl, role).then(data => {
             // Set registration info
             setRegistrationInfo({...data.registrationInfo});
 
@@ -102,9 +102,10 @@ const Dashboard = ({baseUrl}) => {
                 spacing={3}
                 xs={12}
             >
+                {/* GENERAL INFO CARDS */}
 
                 {/* Registration Info Card */}
-                <Grid item md={8}>
+                <Grid item md={8} xs={12}>
                     <RegistrationInfoCard
                         totalRevenue={registrationInfo.totalRevenue}
                         totalRegistrations={registrationInfo.totalRegistrations}
@@ -113,7 +114,7 @@ const Dashboard = ({baseUrl}) => {
                 </Grid>
 
                 {/* Event Info Card */}
-                <Grid item md={4}>
+                <Grid item md={4} xs={12}>
                     <EventInfoCard
                         title={eventInfo.title}
                         location={eventInfo.location}
@@ -123,66 +124,86 @@ const Dashboard = ({baseUrl}) => {
                     />
                 </Grid>
 
-                {/* Total Pending Edits/Attendees etc. Cards */}
-                <Grid item md={3}>
+
+                {/* TOTAL VALUE CARDS */}
+
+                {/* Total Pending Edits Card */}
+                <Grid item md={3} xs={6}>
                     <TotalValueCard
                         title="Pending Edit Approvals"
                         value={pendingEdits}
-                        styles="pendingEdits"
+                        styles="red"
                         path="/edits"
                     />
                 </Grid>
+
+                {/* Total Attendees Card */}
                 <Grid item md={3}>
                     <TotalValueCard
                         title="Total Attendees"
                         value={totalAttendees}
-                        styles="totalAttendees"
+                        styles="orange"
                         path="/attendees"
                     />
                 </Grid>
+
+                {/* Total Presenters Card */}
                 <Grid item md={3}>
                     <TotalValueCard
                         title="Total Presenters"
                         value={totalPresenters}
-                        styles="totalPresenters"
+                        styles="blue"
                         path="/presenters"
                     />
                 </Grid>
+
+                {/* Total Researchers Card */}
                 <Grid item md={3}>
                     <TotalValueCard
                         title="Total Researchers"
                         value={totalResearchers}
-                        styles="totalResearchers"
+                        styles="green"
                         path="/researchers"
                     />
                 </Grid>
 
-                {/* Overview Cards */}
+
+                {/* OVERVIEW CARDS */}
+
+                {/* Submissions Overview Card */}
                 <Grid item xs={6}>
                     <OverviewCard
                         title="Submissions Overview"
                         data={submissionInfo}
                     />
                 </Grid>
+
+                {/* Reviewers Overview Card */}
                 <Grid item xs={6}>
                     <OverviewCard
                         title="Reviewers Overview"
                         data={reviewersInfo}
                     />
                 </Grid>
+
+                {/* Research Proposals Overview Card */}
                 <Grid item xs={6}>
                     <OverviewCard
                         title="Research Proposals Overview"
                         data={researchPropInfo}
                     />
                 </Grid>
+
+                {/* Workshops Overview Card */}
                 <Grid item xs={6}>
                     <OverviewCard
                         title="Workshop Proposals Overview"
                         data={workshopPropInfo}
                     />
                 </Grid>
+
             </Grid>
+
 
             {/* Loading backdrop */}
             <Backdrop open={loading} style={{zIndex: 99}}>
@@ -192,4 +213,4 @@ const Dashboard = ({baseUrl}) => {
     )
 }
 
-export default Dashboard;
+export default AdminDashboard;

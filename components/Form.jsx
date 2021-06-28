@@ -31,6 +31,7 @@ function Form(props){
     const inputs = props.inputs;
     const names = props.names;
     const callback = props.callback;
+    const onChangeCallback = props.onChangeCallback;
     const buttons = props.btns;
     const method = props.method;
     const adminUserUpdate = props.adminUserUpdate;
@@ -53,24 +54,25 @@ function Form(props){
 
     return(
         <div>
-            <form onSubmit={handleSubmit} >
+            <form onSubmit={handleSubmit} onChange={onChangeCallback && onChangeCallback}>
                 <Grid container spacing={2}  justify="center">
                     {
                         //Map input array to input components
                         inputs.map(input=>{
                             if(input.type==="select"){
-                                return <Grid item xs={12} md={singleColumn ? 12 : 6} key={input.name}>
+                                return <Grid item xs={12} md={singleColumn ? 12 : 6} key={input.name} hidden={input.hidden}>
                                     <Select name={input.name} label={input.label} values={input.values} value={values[input.name]}
                                             onChange={input.onChange ? input.onChange : handleChange}
-                                            error={errors[input.name] ? errors[input.name] : ''} disabled={input.disabled}
+                                            error={errors[input.name] ? errors[input.name] : ''}
+                                            disabled={input.disabled} hidden={input.hidden} preselected={input.preselected}
                                     />
                                 </Grid>
                             }else {
-                                return <Grid item xs={12} md={singleColumn ? 12 : 6} key={input.name}>
+                                return <Grid item xs={12} md={singleColumn ? 12 : 6} key={input.name} hidden={input.hidden}>
                                     <Input label={input.label} value={values[input.name]} id={input.name} type={input.type}
                                            name={input.name} onChange={handleChange} placeholder={input.placeholder}
                                            error={errors[input.name] ? errors[input.name] : ''} maxLength={input.maxLength}
-                                           disabled={input.disabled}
+                                           disabled={input.disabled} hidden={input.hidden}
                                     />
                                 </Grid>
                             }

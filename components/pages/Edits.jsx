@@ -38,10 +38,25 @@ const columnsSettings = [
         name:"Start Time",
         id:"startTime",
         type:"text"
-    }
+    },
+    {
+        name:"End Date",
+        id:"endDate",
+        type:"text"
+    },
+    {
+        name:"End Time",
+        id:"endTime",
+        type:"text"
+    },
 ];
 
 const columnsEdits = [
+    {
+        name: "Editor",
+        id: "userName",
+        type: "text",
+    },
     {
         name: "Edit Item",
         id: "editItem",
@@ -89,6 +104,8 @@ const inputs = [
             {value: "location", displayAs: "Location"},
             {value: "startDate", displayAs: "Start Date"},
             {value: "startTime", displayAs: "Start Time"},
+            {value: "endDate", displayAs: "End Date"},
+            {value: "endTime", displayAs: "End Time"},
         ],
         disabled: true
     },

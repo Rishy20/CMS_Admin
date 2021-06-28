@@ -4,17 +4,16 @@ import Cookies from "js-cookie";
 
 //Component to check if the user has logged in
 const checkLogin = () => {
-    const check = () => {
-        const isAuth = !!Cookies.get("token");
+    return () => {
+        const isAuth = !!Cookies.get("adminToken");
 
         if (isAuth) {
-            let decoded = jwt_decode(Cookies.get("token"));
+            let decoded = jwt_decode(Cookies.get("adminToken"));
             return decoded.userType;
         } else {
             return false;
         }
     };
-    return check;
 };
 
 export default checkLogin;

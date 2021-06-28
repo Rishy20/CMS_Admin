@@ -65,7 +65,7 @@ export default function validateInfo(values){
     //validate price
     if(values.hasOwnProperty("price")) {
         if (!values.price.trim()) {
-            errors.price = "Please select the price";
+            errors.price = "Please enter a price";
         }else if (/^[0-9\b]+$/.test(values.price)) {
             errors.price = 'Please enter a valid price';
         }
@@ -185,11 +185,52 @@ export default function validateInfo(values){
         }
     }
 
-    //Validate new event info value
+    // Validate edit item
+    if(values.hasOwnProperty("editItem")) {
+        if (!values.editItem.trim()) {
+            errors.editItem = "Please select an item to edit";
+        }
+    }
+
+    // Validate new event info value
     if(values.hasOwnProperty("newValue")) {
         if (!values.newValue.trim()) {
-            console.log("newValueEmpty")
             errors.newValue = "Please enter a value";
+        }
+    }
+
+    // Validate name
+    if (values.hasOwnProperty("name")) {
+        if (!values.name.trim()) {
+            errors.name = "Please enter a name";
+        }
+    }
+    // Validate date
+    if (values.hasOwnProperty("date")) {
+        if (!values.date.trim()) {
+            errors.date = "Please select a date";
+        }
+    }
+    // Validate time
+    if (values.hasOwnProperty("time")) {
+        if (!values.time.trim()) {
+            errors.time = "Please enter a time";
+        }
+    }
+    // Validate researcher
+    if (values.hasOwnProperty("researcher")) {
+        if (values.type === "Research Proposal") {
+            if (!values.researcher.trim()) {
+                errors.researcher = "Please select a researcher";
+            }
+        }
+    }
+    // Validate workshop
+    if (values.hasOwnProperty("workshop")) {
+        if (values.type === "Workshop") {
+            if (!values.workshop.trim()) {
+                errors.workshop = "Please select a workshop";
+            }
         }
     }
 

@@ -13,6 +13,7 @@ function FormHolder(props){
                 buttons={props.buttons}
                 names={props.names}
                 callback={props.callback}
+                onChangeCallback={props.onChangeCallback}
                 url={props.url}
                 method={props.method}
                 adminUserUpdate={props.adminUserUpdate}
