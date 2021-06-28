@@ -10,8 +10,13 @@ const columns=[
         type:"text"
     },
     {
-        name:"Time",
-        id:"time",
+        name:"Start Time",
+        id:"startTime",
+        type:"text"
+    },
+    {
+        name:"End Time",
+        id:"endTime",
         type:"text"
     },
     {
@@ -49,9 +54,14 @@ const inputs = [
         name:"date"
     },
     {
-        label:"Time",
+        label:"Start Time",
         type:"time",
-        name:"time"
+        name:"startTime"
+    },
+    {
+        label:"End Time",
+        type:"time",
+        name:"endTime"
     },
     {
         label:"Event Name",
@@ -83,7 +93,8 @@ const buttons = [
 const names = {
     dayNumber: '',
     date: '',
-    time: '',
+    startTime: '',
+    endTime: '',
     name: '',
     type: '',
     researcher: '',
