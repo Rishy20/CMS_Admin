@@ -7,7 +7,7 @@
     flex-direction: column;
     align-items: center;
     background-color: white;
-    margin: 25px auto 15px;
+    margin: 0 auto;
 }
 .form-field{
     font-size: 18px;
@@ -95,4 +95,5 @@
 .img-preview {
     max-height: 240px;
     max-width: 360px;
+    margin-block-end: 12px;
 }

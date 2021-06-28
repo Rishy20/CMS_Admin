@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-
 import {
     ButtonGroup,
     Card,
     CardContent,
-    CardHeader,
+    CardHeader, CircularProgress,
     IconButton, makeStyles,
     Paper,
     Table, TableBody,
@@ -18,7 +17,6 @@ import Button from "../components/Button";
 import {Delete, Edit,CheckCircle,Cancel} from "@material-ui/icons";
 import {useFetch} from "./useFetch";
 import ScrollableDialog from "./ScrollableDialog";
-
 
 const useStyles = makeStyles({
     cardContainer: {
@@ -107,6 +105,10 @@ const useStyles = makeStyles({
     cancel:{
         color:"red"
 
+    },
+    loading: {
+        color: "#06163A",
+        marginBlockStart: "4px",
     }
 })
 
@@ -152,18 +154,18 @@ const Tables = props => {
 
 
     //Get the fetched Data
-    const  {loading,data} = useFetch(props.altUrl ? props.altUrl : url);
+    const {loading, data} = useFetch(props.altUrl ? props.altUrl : url);
 
     const styles = useStyles();
 
     useEffect(() => {
-
         convertToTableData();
-
     }, [sortedCount, items]);
 
+    // Set data
     useEffect(() => {
         setItems(data);
+        // Sort items if sortBy prop is passed
         props.sortBy && sortItems(props.sortBy, "asc");
     }, [data]);
 
@@ -483,6 +485,20 @@ const Tables = props => {
 
                                     </TableRow>
                                 ))}
+
+                            {/* Loading indicator */}
+                            { loading &&
+                                <TableRow classes={{root:styles.row}}>
+                                    <TableCell
+                                        align="center"
+                                        classes={{root:styles.noBorder}}
+                                        colSpan={props.columns.length + 1}
+                                    >
+                                        <CircularProgress className={styles.loading} />
+                                    </TableCell>
+                                </TableRow>
+                            }
+
                         </TableBody>
                         <TableFooter>
                             <TableRow>

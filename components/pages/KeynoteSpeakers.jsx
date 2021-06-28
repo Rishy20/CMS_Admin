@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {Route, useHistory} from "react-router-dom";
 import Tables from "../Tables";
 import FormHolder from "../FormHolder";
+import KeynoteForm from "../KeynoteForm";
 
 // Columns for the table
 const columns = [
@@ -26,75 +27,16 @@ const columns = [
         type: "text"
     },
     {
+        name: "Country",
+        id: "country",
+        type: "text"
+    },
+    {
         name: "Actions",
         id: "action",
         type: "actions"
     }
 ]
-
-// Inputs stored as an array so they can be mapped to Input component
-const inputs = [
-    {
-        label: "First Name",
-        type: "text",
-        name: "fname"
-    },
-    {
-        label: "Last Name",
-        type: "text",
-        name: "lname"
-    },
-    {
-        label: "Job Title",
-        type: "text",
-        name: "jobTitle"
-    },
-    {
-        label: "Company",
-        type: "text",
-        name: "company"
-    },
-    {
-        label: "Password",
-        type: "password",
-        name: "password"
-    },
-    {
-        label: "Country",
-        type: "text",
-        name: "country",
-    },
-    {
-        label: "Bio",
-        type: "textarea",
-        name: "bio",
-    }
-]
-
-// Buttons to be displayed in the form
-const buttons = [
-    {
-        name:"Save ",
-        style:"btn-save",
-        type:"submit"
-    },
-    {
-        name:"Cancel",
-        style:"btn-cancel",
-        type:"cancel"
-    }
-]
-
-// Input box names used in the form so that they can be sent to useForm hook to maintain the state
-const names = {
-    fname: "",
-    lname: "",
-    jobTitle: "",
-    company: "",
-    password: "",
-    country: "",
-    bio: "",
-}
 
 const KeynoteSpeakers = ({baseUrl}) => {
     // API URL
@@ -113,7 +55,7 @@ const KeynoteSpeakers = ({baseUrl}) => {
             <Route exact path="/keynotes">
                 <Tables
                     url={url}
-                    title={"Keynote Speakers"}
+                    title={"Keynotes"}
                     columns={columns}
                     type={"keynotes"}
                     setEditData={setEditData}
@@ -122,29 +64,23 @@ const KeynoteSpeakers = ({baseUrl}) => {
 
             {/*Add Path*/}
             <Route path="/keynotes/add">
-                <FormHolder
-                    title={"Add Keynote Speaker"}
-                    formTitle={"Keynote Speaker Information"}
-                    inputs={inputs}
-                    buttons={buttons}
-                    names={names}
-                    callback={toLink}
+                <KeynoteForm
                     url={url}
-                    method={"POST"}
+                    title="Add Keynote Speaker"
+                    formTitle="Keynote Speaker Information"
+                    callback={toLink}
                 />
             </Route>
 
             {/*Edit Path*/}
             <Route path="/keynotes/edit">
-                <FormHolder
-                    title={"Edit Keynote Speaker"}
-                    formTitle={"Keynote Speaker Information"}
-                    inputs={inputs}
-                    buttons={buttons}
-                    names={editData}
+                <KeynoteForm
+                    url={url}
+                    title="Edit Keynote Speaker"
+                    formTitle="Keynote Speaker Information"
+                    update
+                    originData={editData}
                     callback={toLink}
-                    url={`${url}/${editData ? editData._id : ""}`}
-                    method={"PUT"}
                 />
             </Route>
         </div>
