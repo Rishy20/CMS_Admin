@@ -33,15 +33,10 @@ function App() {
     const [collapsed, setCollapsed] = useState(false);
     const [fullscreen, setFullscreen] = useState(false);
 
-
-
-    const [notifications, setNotifications] = useState(0);
     // User data related app-wide UI states
+    const [notifications, setNotifications] = useState(0);
     const [avatarSrc, setAvatarSrc] = useState("");
     const [avatarTxt, setAvatarTxt] = useState(" ");
-
-    // Search state
-    const [search, setSearch] = useState("");
 
     // Set userId and baseUserUrl if and when the user is logged in (when role is set)
     useEffect(() => {
@@ -51,12 +46,21 @@ function App() {
         }
     }, [role]);
 
-    // Fetch and set user data using the set API URL
+    // Set user data
     useEffect(() => {
+        // Fetch and set user data using the set API URL
         if (baseUserUrl && userId) {
             fetch(`${baseUserUrl}/${userId}`)
                 .then(raw => raw.json())
                 .then(data => setUser({role, ...data}))
+                .catch(err => console.log(err));
+        }
+
+        // Fetch notifications
+        if (userId) {
+            fetch(`${baseUrl}/notification/count/${userId}`)
+                .then(raw => raw.json())
+                .then(data => setNotifications(data))
                 .catch(err => console.log(err));
         }
     }, [baseUserUrl, userId]);
@@ -69,7 +73,6 @@ function App() {
 
     // setState method wrappers to be passed to child components
     const onSetCollapsed = () => setCollapsed(!collapsed);
-    const onSetSearch = event => setSearch(event.target.value);
 
     // Toggle fullscreen
     const onSetFullscreen = () => {
@@ -124,8 +127,6 @@ function App() {
                         <TopBar
                             collapsed={collapsed}
                             setCollapsed={onSetCollapsed}
-                            search={search}
-                            setSearch={onSetSearch}
                             fullscreen={fullscreen}
                             setFullscreen={onSetFullscreen}
                             logout={logout}
@@ -133,6 +134,7 @@ function App() {
                             avatarSrc={avatarSrc}
                             avatarTxt={avatarTxt}
                             firstName={user.fname}
+                            role={role}
                         />
 
                         {/* Main Content Area */}

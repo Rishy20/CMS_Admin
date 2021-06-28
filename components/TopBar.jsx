@@ -1,14 +1,15 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import './styles/TopBar.css'
 import {
     Avatar,
-    Badge, Grid, IconButton, InputBase, makeStyles, Paper
+    Badge, Grid, IconButton, makeStyles
 } from "@material-ui/core";
 import {
     ArrowDropDown, Fullscreen, FullscreenExit,
-    KeyboardArrowLeft, Menu, Notifications, Search
+    KeyboardArrowLeft, Menu, Notifications
 } from "@material-ui/icons";
 import PopUpMenu from "./PopUpMenu";
+import {Link} from "react-router-dom";
 
 // Styles for Material UI components
 const useStyles = makeStyles({
@@ -42,6 +43,7 @@ const TopBar = props => {
     // States
     const [accMenuOpen, setAccMenuOpen] = useState(false);
     const [accBtnAnchor, setAccBtnAnchor] = useState(null);
+    const [notifyBtnLink, setNotifyBtnLink] = useState('');
 
     // Set state method wrappers
     const accMenuClose = () => setAccMenuOpen(false);
@@ -49,6 +51,20 @@ const TopBar = props => {
         setAccBtnAnchor(event.currentTarget);
         setAccMenuOpen(!accMenuOpen);
     };
+
+    // Set notification button link path
+    useEffect(() => {
+        if (props.role) {
+            switch (props.role) {
+                case "admin":
+                case "editor":
+                    setNotifyBtnLink('edits');
+                    break;
+                case "reviewer":
+                    setNotifyBtnLink('reviews/pending');
+            }
+        }
+    }, [props.role]);
 
     return (
         <div
@@ -73,25 +89,6 @@ const TopBar = props => {
                         {props.collapsed ? <Menu/> : <KeyboardArrowLeft />}
                     </IconButton>
                 </Grid>
-
-                {/* Search bar */}
-                <Grid item>
-                    <Paper component="form" className={styles.searchForm}>
-                        <IconButton
-                            type="submit"
-                            className={styles.searchIcon}
-                        >
-                            <Search />
-                        </IconButton>
-                        <InputBase
-                            name="searchInput"
-                            placeholder="Search..."
-                            value={props.search}
-                            onChange={props.setSearch}
-                        >
-                        </InputBase>
-                    </Paper>
-                </Grid>
             </Grid>
 
             {/* TopBar content (right) */}
@@ -113,7 +110,11 @@ const TopBar = props => {
 
                 {/* Notifications button */}
                 <Grid item>
-                    <IconButton className={styles.iconButton}>
+                    <IconButton
+                        component={Link}
+                        to={notifyBtnLink}
+                        className={styles.iconButton}
+                    >
                         <Badge
                             badgeContent={props.notifications}
                             color="secondary"
