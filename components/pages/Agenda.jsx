@@ -15,6 +15,11 @@ const columns=[
         type:"text"
     },
     {
+        name:"Day",
+        id:"dayNumber",
+        type:"text"
+    },
+    {
         name:"Event Type",
         id:"type",
         type:"text"
@@ -33,6 +38,11 @@ const columns=[
 
 //Inputs stored as an array so they can be mapped to Input component
 const inputs = [
+    {
+        label:"Day Number",
+        type:"number",
+        name:"dayNumber"
+    },
     {
         label:"Date",
         type:"date",
@@ -71,6 +81,7 @@ const buttons = [
 ]
 //Input box names used in the form so that they can be sent to useForm hook to maintain the state
 const names = {
+    dayNumber: '',
     date: '',
     time: '',
     name: '',
