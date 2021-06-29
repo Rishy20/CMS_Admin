@@ -34,7 +34,6 @@ function App() {
     const [fullscreen, setFullscreen] = useState(false);
 
     // User data related app-wide UI states
-    const [notifications, setNotifications] = useState(0);
     const [avatarSrc, setAvatarSrc] = useState("");
     const [avatarTxt, setAvatarTxt] = useState(" ");
 
@@ -56,13 +55,7 @@ function App() {
                 .catch(err => console.log(err));
         }
 
-        // Fetch notifications
-        if (userId) {
-            fetch(`${baseUrl}/notification/count/${userId}`)
-                .then(raw => raw.json())
-                .then(data => setNotifications(data))
-                .catch(err => console.log(err));
-        }
+
     }, [baseUserUrl, userId]);
 
     // Set user avatar src and fallback text
@@ -130,11 +123,11 @@ function App() {
                             fullscreen={fullscreen}
                             setFullscreen={onSetFullscreen}
                             logout={logout}
-                            notifications={notifications}
                             avatarSrc={avatarSrc}
                             avatarTxt={avatarTxt}
                             firstName={user.fname}
                             role={role}
+                            id={userId}
                         />
 
                         {/* Main Content Area */}
