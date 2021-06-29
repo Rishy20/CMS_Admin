@@ -9,7 +9,7 @@ import {
     Event,
     LocalLibrary,
     PersonAdd, PresentToAll,
-    RateReview, Settings, CheckCircle, RecordVoiceOver, InsertDriveFile
+    RateReview, Settings, CheckCircle, RecordVoiceOver, InsertDriveFile, TrendingFlat, Group
 } from "@material-ui/icons";
 import "./styles/NavBar.css"
 import NavButton from "./NavButton";
@@ -24,6 +24,8 @@ const navButtons = [
     {text: "Presenters", icon: <PresentToAll />, path: "/presenters", auth: ["admin"]},
     {text: "Speakers", icon: <RecordVoiceOver />, path: "/keynotes", auth: ["admin"]},
     {text: "Edits", icon: <Settings />, path: "/edits", auth: ["admin"]},
+    {text: "Tracks", icon: <TrendingFlat />, path:"/tracks", auth: ["admin"]},
+    {text: "Sponsors", icon: <Group />, path:"/sponsors", auth: ["admin"]},
     {text: "Agenda", icon: <Event />, path:"/events", auth: ["admin", "editor"]},
     {text: "General Info", icon: <Settings />, path:"/edits", auth: ["editor"]},
     {text: "Templates", icon: <InsertDriveFile />, path:"/templates", auth: ["editor"]},

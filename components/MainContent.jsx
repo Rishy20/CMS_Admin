@@ -18,6 +18,9 @@ import MyReviews from "./pages/MyReviews";
 import KeynoteSpeakers from "./pages/KeynoteSpeakers";
 import Templates from "./pages/Templates";
 import AgendaAdmin from "./pages/AgendaAdmin";
+import Tracks from "./pages/Tracks";
+import Sponsors from "./pages/Sponsors";
+// import Sponsors from "./pages/Sponsors";
 
 // Container for main application views
 const MainContent = ({role, ...props}) => (
@@ -104,6 +107,20 @@ const MainContent = ({role, ...props}) => (
             { role === "admin" &&
                 <Route path="/events">
                     <AgendaAdmin baseUrl={props.baseUrl} />
+                </Route>
+            }
+
+            {/* Tracks */}
+            { role === "admin" &&
+                <Route path="/tracks">
+                    <Tracks baseUrl={props.baseUrl} />
+                </Route>
+            }
+
+            {/* Sponsors */}
+            { role === "admin" &&
+                <Route path="/sponsors">
+                    <Sponsors baseUrl={props.baseUrl} />
                 </Route>
             }
 

@@ -9,7 +9,7 @@ import jwt_decode from "jwt-decode";
 import Cookies from "js-cookie";
 import './App.css'
 
-const baseUrl = "https://icaf.site/api/v1";
+const baseUrl = "https://api.icaf.site/api/v1";
 
 function App() {
     // User login states
