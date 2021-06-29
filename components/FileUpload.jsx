@@ -68,7 +68,7 @@ function FileUpload({
     };
 
     return (
-        <div>
+        <div data-testid="fileUpload">
             <div className="file-upload-container">
                 <CloudUpload fontSize="large" opacity={0.25} />
                 <p className="drag-drop-text">Drag & Drop</p>

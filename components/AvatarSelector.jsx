@@ -70,6 +70,7 @@ const AvatarSelector = ({callback, avatarSrc, avatarTxt, edit}) => {
                     src={src}
                     className={styles.avatarPreview}
                     onClick={event => event.stopPropagation()}
+                    data-testid="preview"
                 >
                     {avatarTxt}
                 </Avatar>

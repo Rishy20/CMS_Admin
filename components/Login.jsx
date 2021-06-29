@@ -48,7 +48,7 @@ const Login = ({baseUrl, loginCallback, setSubmitError}) => {
     }
 
     return (
-        <div style={{marginBlockStart: "16px"}}>
+        <div style={{marginBlockStart: "16px"}} data-testid="login">
             <Form
                 singleColumn
                 inputs={inputs}

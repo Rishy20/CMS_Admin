@@ -97,7 +97,7 @@ function Form(props){
                     }
 
                     {/* Submitting progress indicator */}
-                    {isSubmitting && <CircularProgress size={"2.2em"} style={progress}/>}
+                    {isSubmitting && <CircularProgress size={"2.2em"} style={progress} data-testid="progress" />}
                 </div>
             </form>
         </div>
