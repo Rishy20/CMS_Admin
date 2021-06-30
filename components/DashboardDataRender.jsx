@@ -55,11 +55,11 @@ export const DashboardDataRender = async (url, role, userId) => {
         totalAttendees = fetched.length;
 
         // Fetch and set total presenters
-        fetched = await fetch(`${url}/workshops`).then(data => data.json());
+        fetched = await fetch(`${url}/workshops/approved`).then(data => data.json());
         totalPresenters = fetched.length;
 
         // Fetch and set total researchers
-        fetched = await fetch(`${url}/researchers`).then(data => data.json());
+        fetched = await fetch(`${url}/researchers/approved`).then(data => data.json());
         totalResearchers = fetched.length;
 
         // Append total values to return
@@ -233,13 +233,11 @@ export const DashboardDataRender = async (url, role, userId) => {
             chartData: []
         }
 
-        // Fetch attendees info
-        fetched = await fetch(`${url}/attendees`).then(data => data.json());
         // Fetch payment info
         let payments = await fetch(`${url}/payments`).then(data => data.json());
 
         // Set registrations info
-        registrationInfo.totalRegistrations = fetched.length + researchPropInfo.total + workshopPropInfo.total;
+        registrationInfo.totalRegistrations = totalAttendees + totalResearchers + totalPresenters;
         payments.map(payment => registrationInfo.totalRevenue += payment.amount);
 
         // Set chart data
