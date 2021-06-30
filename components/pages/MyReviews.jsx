@@ -29,8 +29,7 @@ const classes={
 export default function MyReviews({baseUrl,userId}){
 
     const styles = useStyles();
-    // API URL
-    const url = `${baseUrl}/researchers`;
+
     // Tab state
     const [tab, setTab] = useState(0);
 
