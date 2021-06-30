@@ -20,7 +20,6 @@ import Templates from "./pages/Templates";
 import AgendaAdmin from "./pages/AgendaAdmin";
 import Tracks from "./pages/Tracks";
 import Sponsors from "./pages/Sponsors";
-// import Sponsors from "./pages/Sponsors";
 
 // Container for main application views
 const MainContent = ({role, ...props}) => (
