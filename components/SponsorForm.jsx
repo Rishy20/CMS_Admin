@@ -30,7 +30,7 @@ const progress = {
 const SponsorForm = props => {
     const [values,setValues] = useState({
         name: "",
-        file: "",
+        image: "",
     });
     const [file, setFile] = useState(null);
     const [errors,setErrors] = useState({});
@@ -49,9 +49,9 @@ const SponsorForm = props => {
         if (sponsor.file) {
             const {file} = sponsor;
             setFile(file);
-            setValues({...values, file: file.name});
+            setValues({...values, image: file.name});
         } else {
-            setValues({...values, file: props.originData ? props.originData.file : ""});
+            setValues({...values, image: props.originData ? props.originData.image : ""});
             setFile(null);
         }
     }

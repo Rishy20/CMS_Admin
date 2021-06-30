@@ -393,7 +393,7 @@ const Tables = props => {
                                                         {column.type === "img" &&
                                                         <img
 
-                                                            src={`http://icaf.site/${props.type}/${item[column.id]}`}
+                                                            src={`https://api.icaf.site/${props.type}/${item[column.id]}`}
 
                                                             alt={item.name}
                                                             style={{

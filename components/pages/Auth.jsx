@@ -42,7 +42,7 @@ const Auth = props => {
             justify="flex-end"
             className="authGrid"
         >
-            <Grid item xs={5}>
+            <Grid item md={5} xs={12}>
                 <Card className={styles.cardContainer}>
                     {/* Tabs */}
                     <Tabs

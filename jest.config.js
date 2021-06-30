@@ -12,7 +12,7 @@ module.exports = {
     moduleFileExtensions: ['js', 'json', 'jsx'],
 
     // The paths to modules that run some code to configure or set up the testing environment before each test
-    setupFiles: ['<rootDir>/babel.config.js'],
+    setupFiles: ['<rootDir>/babel.config.json'],
     setupFilesAfterEnv: ['<rootDir>/setupTests.js'],
     // The test environment that will be used for testing
     testEnvironment: 'jsdom',
