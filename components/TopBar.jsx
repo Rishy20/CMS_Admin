@@ -10,6 +10,7 @@ import {
 } from "@material-ui/icons";
 import PopUpMenu from "./PopUpMenu";
 import {Link} from "react-router-dom";
+import Notification from "./Notifications";
 
 // Styles for Material UI components
 const useStyles = makeStyles({
@@ -110,18 +111,20 @@ const TopBar = props => {
 
                 {/* Notifications button */}
                 <Grid item>
-                    <IconButton
-                        component={Link}
-                        to={notifyBtnLink}
-                        className={styles.iconButton}
-                    >
-                        <Badge
-                            badgeContent={props.notifications}
-                            color="secondary"
-                        >
-                            <Notifications />
-                        </Badge>
-                    </IconButton>
+                    <Notification userId={props.userId}/>
+
+                    {/*<IconButton*/}
+                    {/*    component={Link}*/}
+                    {/*    to={notifyBtnLink}*/}
+                    {/*    className={styles.iconButton}*/}
+                    {/*>*/}
+                    {/*    <Badge*/}
+                    {/*        badgeContent={props.notifications}*/}
+                    {/*        color="secondary"*/}
+                    {/*    >*/}
+                    {/*        <Notifications />*/}
+                    {/*    </Badge>*/}
+                    {/*</IconButton>*/}
                 </Grid>
 
                 {/* Account button */}

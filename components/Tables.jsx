@@ -260,13 +260,12 @@ const Tables = props => {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'x-access-token':localStorage.getItem("token")
             },
             body:JSON.stringify({
                 status:status,
                 reviewerId:props.reviewerId
             }),
-            method:"PATCH"
+            method:"PUT"
 
         })
             .then(res => res.json())
