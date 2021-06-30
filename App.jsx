@@ -127,7 +127,7 @@ function App() {
                             avatarTxt={avatarTxt}
                             firstName={user.fname}
                             role={role}
-                            id={userId}
+                            userId={userId}
                         />
 
                         {/* Main Content Area */}

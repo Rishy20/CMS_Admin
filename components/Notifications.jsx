@@ -4,7 +4,7 @@ import "./styles/Notification.css"
 import {Badge, IconButton, makeStyles} from "@material-ui/core";
 import {Notifications} from "@material-ui/icons";
 import useVisible from "./useVisible";
-import {Link} from "react-router-dom";
+
 // Styles for Material UI components
 const useStyles = makeStyles({
     iconButton: {
@@ -12,7 +12,8 @@ const useStyles = makeStyles({
         marginInline: "4px",
     },
     badge:{
-        backgroundColor:"var(--blue)"
+        backgroundColor:"var(--blue)",
+        color: "white"
     }
 })
 export default function Notification({userId}){
@@ -52,7 +53,7 @@ export default function Notification({userId}){
     const handleClick=()=>{
         setIsVisible(!isVisible)
 
-        if(count!=0 && !isVisible){
+        if(count!==0 && !isVisible) {
 
             fetch("https://api.icaf.site/api/v1/notification",{
                 headers: {
@@ -99,7 +100,6 @@ export default function Notification({userId}){
                             <div className={"notification-body"}>
                                 {
                                   notifications && notifications.map(notification=>{
-
                                           return <NotificationItem title={notification.title} message={notification.message} time={notification.createdAt} key={notification.title} />
 
                                   })

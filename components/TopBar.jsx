@@ -6,11 +6,10 @@ import {
 } from "@material-ui/core";
 import {
     ArrowDropDown, Fullscreen, FullscreenExit,
-    KeyboardArrowLeft, Menu, Notifications
+    KeyboardArrowLeft, Menu
 } from "@material-ui/icons";
 import PopUpMenu from "./PopUpMenu";
-import {Link} from "react-router-dom";
-import Notification from "./Notifications";
+import Notifications from "./Notifications";
 
 // Styles for Material UI components
 const useStyles = makeStyles({
@@ -44,7 +43,6 @@ const TopBar = props => {
     // States
     const [accMenuOpen, setAccMenuOpen] = useState(false);
     const [accBtnAnchor, setAccBtnAnchor] = useState(null);
-    const [notifyBtnLink, setNotifyBtnLink] = useState('');
 
     // Set state method wrappers
     const accMenuClose = () => setAccMenuOpen(false);
@@ -52,20 +50,6 @@ const TopBar = props => {
         setAccBtnAnchor(event.currentTarget);
         setAccMenuOpen(!accMenuOpen);
     };
-
-    // Set notification button link path
-    useEffect(() => {
-        if (props.role) {
-            switch (props.role) {
-                case "admin":
-                case "editor":
-                    setNotifyBtnLink('edits');
-                    break;
-                case "reviewer":
-                    setNotifyBtnLink('reviews/pending');
-            }
-        }
-    }, [props.role]);
 
     return (
         <div
@@ -111,20 +95,7 @@ const TopBar = props => {
 
                 {/* Notifications button */}
                 <Grid item>
-                    <Notification userId={props.userId}/>
-
-                    {/*<IconButton*/}
-                    {/*    component={Link}*/}
-                    {/*    to={notifyBtnLink}*/}
-                    {/*    className={styles.iconButton}*/}
-                    {/*>*/}
-                    {/*    <Badge*/}
-                    {/*        badgeContent={props.notifications}*/}
-                    {/*        color="secondary"*/}
-                    {/*    >*/}
-                    {/*        <Notifications />*/}
-                    {/*    </Badge>*/}
-                    {/*</IconButton>*/}
+                    <Notifications userId={props.userId}/>
                 </Grid>
 
                 {/* Account button */}
